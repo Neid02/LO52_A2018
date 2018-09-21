@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Hello_Word</string>
+    <string name="title_activity_second_activity">second_activity</string>
+</resources>
