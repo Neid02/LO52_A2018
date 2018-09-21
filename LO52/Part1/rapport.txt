@@ -1,0 +1,3 @@
+﻿Après avoir installé Android Studio, nous avons créé une activité empty model dans notre application Hello World.
+Nous avons ensuite rajouté un bouton grâce à l'interface et changé ses attibuts, comme "visible", "size", "name", etc...
+Puis nous avons ajouté un événement lorsque l'utilisateur appuie sur le bouton avec l'attribut "onClick", cela va alors ouvrir une deuxième activité.
