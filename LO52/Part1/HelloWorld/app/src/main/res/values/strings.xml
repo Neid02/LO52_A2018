@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">HelloWorld</string>
-    <string name="my_string">Your Text!</string>
-    <string name="please_type_your_name">Please type your name</string>
-    <string name="title_activity_hello_world">HelloWorldActivity</string>
-</resources>
-
