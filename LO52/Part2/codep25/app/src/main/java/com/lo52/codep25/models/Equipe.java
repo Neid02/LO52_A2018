@@ -7,10 +7,10 @@ import io.realm.annotations.PrimaryKey;
 
 public class Equipe extends RealmObject {
     @PrimaryKey
-    private long id;
+    private String id;
     private String name;
-    @LinkingObjects("equipe")
-    private RealmList<Participant> participants = new RealmList<>();
+ /*   @LinkingObjects("equipe")
+    private RealmResults<Participant> participants = new RealmList<>();
 
     public RealmList<Participant> getParticipants() {
         return participants;
@@ -18,13 +18,13 @@ public class Equipe extends RealmObject {
 
     public void setParticipants(RealmList<Participant> participants) {
         this.participants = participants;
-    }
+    }*/
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

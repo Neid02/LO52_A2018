@@ -7,24 +7,24 @@ import io.realm.annotations.PrimaryKey;
 
 public class Groupe extends RealmObject {
     @PrimaryKey
-    private long id;
+    private String id;
     private String title;
-    @LinkingObjects("groupe")
-    private RealmList<Participant> participants = new RealmList<>();
+//    @LinkingObjects("groupe")
+//    private RealmList<Participant> participants = new RealmList<>();
+//
+//    public RealmList<Participant> getParticipants() {
+//        return participants;
+//    }
+//
+//    public void setParticipants(RealmList<Participant> participants) {
+//        this.participants = participants;
+//    }
 
-    public RealmList<Participant> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(RealmList<Participant> participants) {
-        this.participants = participants;
-    }
-
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

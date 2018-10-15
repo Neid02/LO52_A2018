@@ -6,18 +6,18 @@ import io.realm.annotations.PrimaryKey;
 public class Participant extends RealmObject {
 
     @PrimaryKey
-    private long id;
+    private String id;
     private String nom;
     private String prenom;
     private int echelon;
     private Groupe groupe;
     private Equipe equipe;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
