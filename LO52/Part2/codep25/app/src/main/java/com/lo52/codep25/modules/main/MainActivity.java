@@ -13,6 +13,7 @@ import com.lo52.codep25.R;
 import com.lo52.codep25.dao.EquipeDao;
 import com.lo52.codep25.dao.GroupeDao;
 import com.lo52.codep25.dao.ParticipantDao;
+import com.lo52.codep25.fragments.CourseFragment;
 import com.lo52.codep25.fragments.MainFragment;
 import com.lo52.codep25.fragments.ParticipantFragment;
 import com.lo52.codep25.models.Equipe;
@@ -74,7 +75,7 @@ import com.roughike.bottombar.OnTabSelectListener;
                          replace_fragment(new ParticipantFragment());
                          break;
                      case R.id.more:
-                         replace_fragment(new MainFragment());
+                         replace_fragment(new CourseFragment());
                          break;
 
 
