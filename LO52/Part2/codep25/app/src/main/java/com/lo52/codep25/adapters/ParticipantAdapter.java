@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -38,9 +39,10 @@ public class ParticipantAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-       // ((ViewHolderParticipant) holder).participantGroupe.setText(participants.get(position).getEquipe().getName());
+       ((ViewHolderParticipant) holder).participantGroupe.setText(String.valueOf(participants.get(position).getEchelon()));
         ((ViewHolderParticipant) holder).partticipantName.setText(participants.get(position).getNom() + " " + participants.get(position).getPrenom());
         ((ViewHolderParticipant) holder).participantID.setText(participants.get(position).getId());
+        ((ViewHolderParticipant) holder).ratingBar.setRating(getRating(participants.get(position).getEchelon()));
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color_randon = generator.getRandomColor();
 
@@ -61,17 +63,23 @@ public class ParticipantAdapter extends RecyclerView.Adapter {
 
         TextView partticipantName, participantID, participantGroupe;
         ImageView user_tof;
+        RatingBar ratingBar;
 
         ViewHolderParticipant(View itemLayoutView) {
             super(itemLayoutView);
 
             this.partticipantName = itemLayoutView.findViewById(R.id.username);
+            this.ratingBar =  itemLayoutView.findViewById(R.id.echelon);
             this.participantID = itemLayoutView.findViewById(R.id.participantID);
             this.participantGroupe = itemLayoutView.findViewById(R.id.userequipe);
             this.user_tof = itemLayoutView.findViewById(R.id.user_tof);
 
 
         }
+    }
+    public static float getRating(int echelon){
+
+        return Float.parseFloat(String.valueOf(echelon*0.05));
     }
 
 }

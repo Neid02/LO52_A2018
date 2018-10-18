@@ -44,6 +44,11 @@ public class EquipeDao {
         equipe.deleteFromRealm();
         realmc.commitTransaction();
     }
+    public void deleteAllEquipe() {
+        realmc.beginTransaction();
+        realmc.where(Equipe.class).findAll().deleteAllFromRealm();
+        realmc.commitTransaction();
+    }
 
 
     public void updateEquipe(String id) {

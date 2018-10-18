@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+
+        <com.lo52.codep25.utils.customsviews.IntegraleCoustumViewEdit
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="text"
+            android:padding="5dp"
+            android:hint="Prenom du participant"
+            android:id="@+id/prenom"/>
+        <com.lo52.codep25.utils.customsviews.IntegraleCoustumViewEdit
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:inputType="text"
+            android:padding="5dp"
+            android:hint="Nom du participant"
+            android:id="@+id/nom"/>
+    </LinearLayout>
+<LinearLayout
+    android:layout_below="@+id/info"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_margin="10dp"
+    android:layout_alignParentBottom="true"
+    android:orientation="horizontal">
+    <Button
+        android:id="@+id/annuler"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:textColor="@color/white"
+        android:layout_weight="1"
+        android:background="@color/colorAccent"
+        android:layout_margin="5dp"
+        android:text="Annuler"/>
+
+    <Button
+        android:id="@+id/valider"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:layout_margin="5dp"
+        android:textColor="@color/white"
+        android:background="@color/selected_txt"
+        android:text="Valider"/>
+</LinearLayout>
+</RelativeLayout>
+</ScrollView>

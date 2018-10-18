@@ -10,8 +10,8 @@ public class Participant extends RealmObject {
     private String nom;
     private String prenom;
     private int echelon;
-    private Groupe groupe;
-    private Equipe equipe;
+    //private Groupe groupe;
+   // private Equipe equipe;
 
     public String getId() {
         return id;
@@ -45,19 +45,4 @@ public class Participant extends RealmObject {
         this.echelon = echelon;
     }
 
-    public Groupe getGroupe() {
-        return groupe;
-    }
-
-    public void setGroupe(Groupe groupe) {
-        this.groupe = groupe;
-    }
-
-    public Equipe getEquipe() {
-        return equipe;
-    }
-
-    public void setEquipe(Equipe equipe) {
-        this.equipe = equipe;
-    }
 }

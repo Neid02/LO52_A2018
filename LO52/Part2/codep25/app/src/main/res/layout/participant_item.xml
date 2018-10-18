@@ -34,10 +34,11 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="1dp"
                 android:visibility="visible"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="1dp"
                 android:layout_marginRight="2dp"
+                android:layout_marginLeft="5dp"
                 android:background="@color/gray"/>
             <LinearLayout
                 android:layout_width="0dp"
@@ -57,19 +58,41 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="18dp"
+                            android:maxLines="1"
+                            android:ellipsize="end"
                             android:layout_gravity="left"
                             android:textColor="@color/black"
                             android:layout_marginTop="5dp"
                             android:text="Integrale LOHO"/>
-                        <com.lo52.codep25.utils.customsviews.IntegraleCostumView
-                            android:id="@+id/userequipe"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="13dp"
-                            android:layout_gravity="left"
-                            android:textColor="@color/gray"
-                            android:layout_marginTop="5dp"
-                            android:text="les embattables"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <RatingBar
+                                android:id="@+id/echelon"
+                                style="@style/WhiteRatingStar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_margin="1dp"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false"
+                                android:isIndicator="true"
+                                android:rating="0" />
+                            <com.lo52.codep25.utils.customsviews.IntegraleCostumView
+                                android:id="@+id/userequipe"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="15dp"
+                                android:layout_marginLeft="5dp"
+                                android:layout_gravity="left"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:layout_marginTop="3dp"
+                                android:padding="0dp"
+                                android:text="60"/>
+                        </LinearLayout>
+
                     </LinearLayout>
                     <ImageView
                         android:layout_width="wrap_content"

@@ -10,7 +10,7 @@
 
     <color name="selected_txt">#dd5048</color>
     <color name="unselected_txt">#b9bfc8</color>
-
+    <color name="yellow">#F5FA55</color>
 
 
     <!--Category Type Tab Color-->
