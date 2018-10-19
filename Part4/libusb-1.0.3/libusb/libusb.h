@@ -21,11 +21,19 @@
 #ifndef __LIBUSB_H__
 #define __LIBUSB_H__
 
+
 #include <stdint.h>
 #include <sys/time.h>
 #include <sys/types.h>
 #include <time.h>
 #include <limits.h>
+
+#ifndef TIMESPEC_TO_TIMEVAL
+#define TIMESPEC_TO_TIMEVAL(tv, ts) {   \
+	(tv)->tv_sec = (ts)->tv_sec;          \
+	(tv)->tv_usec = (ts)->tv_nsec / 1000; \
+}
+#endif
 
 #ifdef __cplusplus
 extern "C" {
