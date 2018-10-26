@@ -1,0 +1,3 @@
+add_lunch_combo lo52_silentpangolin-eng
+add_lunch_combo lo52_silentpangolin-user
+add_lunch_combo lo52_silentpangolin-userdebug

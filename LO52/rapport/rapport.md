@@ -66,3 +66,14 @@ Les images font le même poids à 4ko près
 
 make savedefconfig
 
+
+PART 4
+
+Les fichiers à inclure lors de la compilation sont : les fichiers source (core.c ...), le header libusbi.h ainsi que les fichiers os/linux_usbfs.c et os/linux_usbfs.h. En effet android est basé sur linux et les fichiers dont le nom commence par darwin correspondent à MacOS.
+Ensuite on écrit le fichier Android.mk comme on a appris en TD.
+Il faut changer LOCAL_MODULE avec le nom que l'on veut donner à notre lib, ici *libusb*.
+On complète les C flags et LD flags avec le contenu du makefile original (-pthread, -lstdc++ et -lc)
+
+Pour corriger l'erreur 1 il faut ajouter aux C flags *-DTIMESPEC_TO_TIMEVAL* cela crée la macro dans le code C.
+Pour corriger l'erreur 2 il faut ajouter la ligne *LOCAL_PRELINK_MODULE:= false*
+
