@@ -1,0 +1,6 @@
+add_lunch_combo lo52_mamassi_maillard-eng
+add_lunch_combo lo52_mamassi_maillard-user
+add_lunch_combo lo52_mamassi_maillard-userdebug
+
+
+
