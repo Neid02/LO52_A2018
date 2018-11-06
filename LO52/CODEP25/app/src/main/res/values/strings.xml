@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">CODEP25</string>
+    <string name="stop">Stop and Reset</string>
+    <string name="start">Start</string>
+    <string name="tour">Tour</string>
+    <string name="zero">00 : 00 : 000</string>
+    <string name="equipe">Equipe : </string>
+    <string name="coureur">Coureur : </string>
+    <string name="listcrr">Liste des coureurs</string>
+    <string name="listequ">Liste des équipes</string>
+
+    <string name="settings">Settings</string>
+    <string name="home">Accueil</string>
+    <string name="team">Équipes</string>
+    <string name="player">Coureurs</string>
+    <string name="rankingTeam">Classement Équipe</string>
+    <string name="rankingPlayer">Classement Individuel</string>
+
+    <string name="num">N°</string>
+    <string name="nom">Nom</string>
+    <string name="prenomCoureur">Prénom</string>
+    <string name="echelonCoureur">Éch.</string>
+    <string name="ordreCoureur">Ord. pass.</string>
+    <string name="nomEquipe">Nom Équipe</string>
+    <string name="sumEchelon">Total</string>
+</resources>

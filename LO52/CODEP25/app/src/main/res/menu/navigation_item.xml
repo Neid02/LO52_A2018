@@ -1,0 +1,39 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu">
+
+    <group android:id="@+id/group_1">
+
+        <item
+            android:id="@+id/home"
+            android:title="@string/home"
+            android:icon="@drawable/ic_home"/>
+
+    </group>
+
+    <group android:id="@+id/group_2">
+
+        <item
+            android:id="@+id/player"
+            android:title="@string/player"
+            android:icon="@drawable/ic_player"/>
+
+        <item
+            android:id="@+id/team"
+            android:title="@string/team"
+            android:icon="@drawable/ic_team"/>
+
+    </group>
+
+    <group android:id="@+id/group_3">
+
+        <item
+            android:id="@+id/rankingPlayer"
+            android:title="@string/rankingPlayer"
+            android:icon="@drawable/ic_ranking_player"/>
+
+        <item
+            android:id="@+id/rankingTeam"
+            android:title="@string/rankingTeam"
+            android:icon="@drawable/ic_ranking_team"/>
+    </group>
+</menu>
