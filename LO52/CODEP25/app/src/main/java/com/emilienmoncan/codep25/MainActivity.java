@@ -1,7 +1,11 @@
 package com.emilienmoncan.codep25;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +25,8 @@ import com.emilienmoncan.codep25.DataBase.ORM.DBCoureur;
 import com.emilienmoncan.codep25.DataBase.ORM.DBEquipe;
 import com.emilienmoncan.codep25.Objects.Coureur;
 import com.emilienmoncan.codep25.Objects.Equipe;
+import com.emilienmoncan.codep25.Objects.ShakeDetector;
+import com.jetradarmobile.snowfall.SnowfallView;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -43,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Equipe> equipes;
     private int idCoureur;
 
+
+    // The following are used for the shake detection
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeDetector mShakeDetector;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +67,56 @@ public class MainActivity extends AppCompatActivity {
         setSpinners();
 
         setButton();
+
+        initShaker();
+    }
+
+    private void easterEgg(int count) {
+        final SnowfallView snowfall = (SnowfallView) findViewById(R.id.snowfall);
+        snowfall.restartFalling();
+        Runnable myrunnable = new Runnable() {
+            public void run() {
+                snowfall.stopFalling();
+            }
+        };
+        Handler h = new Handler();
+        h.postDelayed(myrunnable, 3000);
+    }
+
+
+
+    private void initShaker(){
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeDetector();
+        mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
+
+            @Override
+            public void onShake(int count) {
+                /*
+                 * The following method, "handleShakeEvent(count):" is a stub //
+                 * method you would use to setup whatever you want done once the
+                 * device has been shook.
+                 */
+                easterEgg(count);
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 
     private void getDataFromDataBase(){

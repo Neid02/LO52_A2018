@@ -5,87 +5,113 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        android:background="@color/white_grey">
 
-        <GridLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:rowCount="2"
-            android:columnCount="2"
-            android:gravity="top"
-            android:padding="@dimen/margin16">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical">
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:layout_column="0" android:layout_row="0"
-                    android:layout_columnWeight="1" android:layout_rowWeight="1"
-                    android:text="@string/equipe"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/size16"
-                    android:gravity="end"
-                    android:padding="@dimen/margin6"/>
 
-                <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:layout_columnWeight="4" android:layout_rowWeight="1"
-                    android:layout_column="1" android:layout_row="0"
-                    android:id="@+id/equipes"
-                    android:layout_margin="@dimen/margin6"/>
+            <GridLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:rowCount="2"
+                android:columnCount="2"
+                android:gravity="top"
+                android:padding="@dimen/margin16">
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:layout_columnWeight="1" android:layout_rowWeight="1"
-                    android:layout_column="0" android:layout_row="1"
-                    android:text="@string/coureur"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/size16"
-                    android:gravity="end"
-                    android:padding="@dimen/margin6"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_column="0" android:layout_row="0"
+                        android:layout_columnWeight="1" android:layout_rowWeight="1"
+                        android:text="@string/equipe"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size16"
+                        android:gravity="end"
+                        android:padding="@dimen/margin6"/>
 
-                <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:layout_columnWeight="4" android:layout_rowWeight="1"
-                    android:layout_column="1" android:layout_row="1"
-                    android:id="@+id/coureurs"
-                    android:layout_margin="@dimen/margin6"/>
+                    <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_columnWeight="4" android:layout_rowWeight="1"
+                        android:layout_column="1" android:layout_row="0"
+                        android:id="@+id/equipes"
+                        android:layout_margin="@dimen/margin6"/>
 
-        </GridLayout>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_columnWeight="1" android:layout_rowWeight="1"
+                        android:layout_column="0" android:layout_row="1"
+                        android:text="@string/coureur"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size16"
+                        android:gravity="end"
+                        android:padding="@dimen/margin6"/>
 
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="bottom"
-            android:paddingTop="@dimen/margin16"
-            android:paddingBottom="@dimen/margin30">
+                    <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_columnWeight="4" android:layout_rowWeight="1"
+                        android:layout_column="1" android:layout_row="1"
+                        android:id="@+id/coureurs"
+                        android:layout_margin="@dimen/margin6"/>
+
+            </GridLayout>
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:layout_gravity="center">
+                android:gravity="bottom"
+                android:paddingTop="@dimen/margin16"
+                android:paddingBottom="@dimen/margin30">
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="@string/zero"
-                    android:id="@+id/displayTimer"
-                    android:layout_gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/size20"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_gravity="center">
 
-                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:gravity="center">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="@string/zero"
+                        android:id="@+id/displayTimer"
+                        android:layout_gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size20"/>
 
-                    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="@string/start"
-                        android:id="@+id/start" />
+                    <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center"
+                        android:gravity="center">
 
-                    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="@string/stop"
-                        android:id="@+id/stop" />
+                        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="@string/start"
+                            android:id="@+id/start" />
 
-                    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="@string/tour"
-                        android:id="@+id/tour" />
+                        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="@string/stop"
+                            android:id="@+id/stop" />
+
+                        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:text="@string/tour"
+                            android:id="@+id/tour" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
-    </LinearLayout>
+
+        <com.jetradarmobile.snowfall.SnowfallView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/snowfall"
+            app:snowflakesNum="250"
+            app:snowflakeAlphaMin="150"
+            app:snowflakeAlphaMax="255"
+            app:snowflakeAngleMax="5"
+            app:snowflakeSizeMin="8dp"
+            app:snowflakeSizeMax="32dp"
+            app:snowflakeSpeedMin="4"
+            app:snowflakeSpeedMax="12"
+            app:snowflakesFadingEnabled="true"
+            app:snowflakesAlreadyFalling="false"
+            app:snowflakeImage="@drawable/snowflake"/>
+
+    </RelativeLayout>
+
+
 
     <android.support.design.widget.NavigationView
         android:id="@+id/navigation_view"
