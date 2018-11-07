@@ -13,9 +13,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,14 +75,22 @@ public class MainActivity extends AppCompatActivity {
 
     private void easterEgg(int count) {
         final SnowfallView snowfall = (SnowfallView) findViewById(R.id.snowfall);
+        final RelativeLayout sapin = (RelativeLayout) findViewById(R.id.sapin);
+        snowfall.setVisibility(View.VISIBLE);
         snowfall.restartFalling();
+        sapin.setVisibility(View.VISIBLE);
         Runnable myrunnable = new Runnable() {
             public void run() {
                 snowfall.stopFalling();
+                AlphaAnimation animation1 = new AlphaAnimation(1.0f, 0.0f);
+                animation1.setDuration(1000);
+                animation1.setStartOffset(4500);
+                animation1.setFillAfter(true);
+                sapin.startAnimation(animation1);
             }
         };
         Handler h = new Handler();
-        h.postDelayed(myrunnable, 3000);
+        h.postDelayed(myrunnable, 5000);
     }
 
 
@@ -95,11 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onShake(int count) {
-                /*
-                 * The following method, "handleShakeEvent(count):" is a stub //
-                 * method you would use to setup whatever you want done once the
-                 * device has been shook.
-                 */
                 easterEgg(count);
             }
         });

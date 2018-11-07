@@ -94,8 +94,7 @@
         </LinearLayout>
 
         <com.jetradarmobile.snowfall.SnowfallView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent" android:layout_height="match_parent"
             android:id="@+id/snowfall"
             app:snowflakesNum="250"
             app:snowflakeAlphaMin="150"
@@ -107,7 +106,22 @@
             app:snowflakeSpeedMax="12"
             app:snowflakesFadingEnabled="true"
             app:snowflakesAlreadyFalling="false"
-            app:snowflakeImage="@drawable/snowflake"/>
+            app:snowflakeImage="@drawable/snowflake"
+            android:visibility="invisible"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:id="@+id/sapin"
+            android:visibility="invisible"
+            >
+
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:background="@drawable/sapin"
+                android:gravity="bottom"
+                />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
