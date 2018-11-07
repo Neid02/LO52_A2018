@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -76,17 +77,37 @@ public class MainActivity extends AppCompatActivity {
     private void easterEgg(int count) {
         final SnowfallView snowfall = (SnowfallView) findViewById(R.id.snowfall);
         final RelativeLayout sapin = (RelativeLayout) findViewById(R.id.sapin);
+        sapin.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT));
         snowfall.setVisibility(View.VISIBLE);
         snowfall.restartFalling();
-        sapin.setVisibility(View.VISIBLE);
+        AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
+        animation.setDuration(200);
+        animation.setStartOffset(0);
+        animation.setFillAfter(true);
+        sapin.startAnimation(animation);
         Runnable myrunnable = new Runnable() {
             public void run() {
                 snowfall.stopFalling();
-                AlphaAnimation animation1 = new AlphaAnimation(1.0f, 0.0f);
-                animation1.setDuration(1000);
-                animation1.setStartOffset(4500);
-                animation1.setFillAfter(true);
-                sapin.startAnimation(animation1);
+                AlphaAnimation animation = new AlphaAnimation(1.0f, 0.0f);
+                animation.setDuration(1000);
+                animation.setStartOffset(4500);
+                animation.setFillAfter(true);
+                sapin.startAnimation(animation);
+                animation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        sapin.setLayoutParams(new RelativeLayout.LayoutParams(0,0));
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                    }
+                });
             }
         };
         Handler h = new Handler();
