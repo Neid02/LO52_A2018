@@ -158,8 +158,8 @@ public class TeamActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(TeamActivity.this, MainActivity.class));
+        if (id == R.id.action_credits) {
+            startActivity(new Intent(TeamActivity.this, CreditsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

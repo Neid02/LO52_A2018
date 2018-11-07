@@ -9,7 +9,7 @@
     <string name="listcrr">Liste des coureurs</string>
     <string name="listequ">Liste des équipes</string>
 
-    <string name="settings">Settings</string>
+    <string name="credits">Crédits</string>
     <string name="home">Accueil</string>
     <string name="team">Équipes</string>
     <string name="player">Coureurs</string>
@@ -23,4 +23,15 @@
     <string name="ordreCoureur">Ord. pass.</string>
     <string name="nomEquipe">Nom Équipe</string>
     <string name="sumEchelon">Total</string>
+
+
+
+
+
+
+
+
+    <string name="credits_end">Special Thanks
+Fabien Brisset - CODEP25</string>
+    <string name="credits_name">Directed by\nGrégoire Duvauchelle\n\nWritten By\nEmilien Moncan\n\nProduced by\nGrégoire Duvauchelle\n\nExecutive Producer\nEmilien Moncan\n\nLead Cast\nGrégoire Duvauchelle\n\nSupporting Cast\nEmilien Moncan\n\nDirector of Photography\nGrégoire Duvauchelle\n\nProduction Designer\nEmilien Moncan\n\nEditor\nGrégoire Duvauchelle\n\nAssociate Producers\nEmilien Moncan\n\nCostume Designer\nGrégoire Duvauchelle\n\nMusic Composer\nEmilien Moncan\n\nCasting Director\nGrégoire Duvauchelle\n\nUnit Production Manager\nGrégoire Duvauchelle\n\nFirst Assistant Director\nEmilien Moncan\n\nSecond Assistant Director\nGrégoire Duvauchelle\n\nFull Cast/Character List\nEmilien Moncan\n\nChoreographer\nGrégoire Duvauchelle\n\nStunt Coordinator\nEmilien Moncan\n\nFight Coordinator\nGrégoire Duvauchelle\n\nStunt Performers\nEmilien Moncan\n\nProduction Supervisor\nGrégoire Duvauchelle\n\nArt Director\nEmilien Moncan\n\nSet Decorator\nGrégoire Duvauchelle\n\nAssistant Set Decorator\nEmilien Moncan\n\nCamera/Steadicam Operator\nGrégoire Duvauchelle\n\nCamera Operator\nEmilien Moncan\n\n1st AC\nGrégoire Duvauchelle\n\n2nd AC/Camera PA\nEmilien Moncan\n\nFilm Loader\nGrégoire Duvauchelle\n\nScript Supervisor\nEmilien Moncan\n\nSound Mixer\nGrégoire Duvauchelle\n\nBoom Operator\nEmilien Moncan\n\nGaffer\nGrégoire Duvauchelle\n\nBest Boy\nEmilien Moncan\n\nKey Grip\nGrégoire Duvauchelle\n\nGrip\nEmilien Moncan\n\nDolly Grip\nGrégoire Duvauchelle\n\nSpecial Effects Supervisor\nEmilien Moncan\n\nPyrotechnics\nGrégoire Duvauchelle\n\nLocation Manager\nEmilien Moncan\n\nAssistant Location Managers\nGrégoire Duvauchelle\n\nProperty Master\nEmilien Moncan\n\nAssistant Property Master\nGrégoire Duvauchelle\n\nProps\nEmilien Moncan\n\nSet Dresser\nGrégoire Duvauchelle\n\nSet Designer\nEmilien Moncan\n\nAssistant Costume Designer\nGrégoire Duvauchelle\n\nCostume Supervisor\nEmilien Moncan\n\nKey Costumer\nGrégoire Duvauchelle\n\nCostumers\nEmilien Moncan\n\nMakeup Department Head\nGrégoire Duvauchelle\n\nMakeup Artists\nEmilien Moncan\n\nMakeup Effects Artists\nGrégoire Duvauchelle\n\nHair Department Head\nEmilien Moncan\n\nKey Hairstylist\nGrégoire Duvauchelle\n\nHairstylilst\nEmilien Moncan\n\nFirst Assistant Editor\nGrégoire Duvauchelle\n\nAssistant Editor\nEmilien Moncan\n\nVisual Effects Editor\nGrégoire Duvauchelle\n\nAssistant Visual Effects Editor\nEmilien Moncan\n\nPost Production Supervisor\nGrégoire Duvauchelle\n\nPost Production Assistant\nEmilien Moncan\n\nProduction Coordinator\nGrégoire Duvauchelle\n\n2nd 2nd Assistant Director\nEmilien Moncan\n\nCasting Associate\nGrégoire Duvauchelle\n\nCasting Assistant\nEmilien Moncan\n\nBackground Casting\nGrégoire Duvauchelle\n\nUnit Publicist\nEmilien Moncan\n\nStills Photographer\nGrégoire Duvauchelle\n\nAccountant\nEmilien Moncan\n\nAssistants to Director/Producers\nGrégoire Duvauchelle\n\nProduction Assistants\nEmilien Moncan\n\nPost Production Sound Services (by)\nGrégoire Duvauchelle\n\nSound Designer\nEmilien Moncan\n\nSupervising Sound Editor\nGrégoire Duvauchelle\n\nRe-recording mixer\nEmilien Moncan\n\nSound Effects Editor\nGrégoire Duvauchelle\n\nDialogue Editor\nEmilien Moncan\n\nADR Editor\nGrégoire Duvauchelle\n\nFoley Editor\nEmilien Moncan\n\nAssistant Sound Editor\nGrégoire Duvauchelle\n\nFoley Artist\nEmilien Moncan\n\nFoley Mixer\nGrégoire Duvauchelle\n\nMusic Editor\nEmilien Moncan\n\nMusic Orchestrated and Conducted (by)\nGrégoire Duvauchelle\n\nMusic Recorded and Mixed (by)\nEmilien Moncan\n\nTransportation Coordinator\nGrégoire Duvauchelle\n\nTransportation Captain\nEmilien Moncan\n\nMedics\nGrégoire Duvauchelle\n\nCraft Service\nEmilien Moncan\n\nCatering (by)\nGrégoire Duvauchelle\n\nSecond Unit Director\nEmilien Moncan\n\nSecond Unit Crew (same order as above)\nGrégoire Duvauchelle\n\nVisual Effects Supervisor\nEmilien Moncan\n\nVisual Effects Producer\nGrégoire Duvauchelle\n\nVisual Effects Art Director\nEmilien Moncan\n\nVisual Effects/Animation (by)\nGrégoire Duvauchelle\n\nDigital Artists\nEmilien Moncan\n\nTechnical Company Credits\nGrégoire Duvauchelle\n\n(Soundtrack Album On) Music Publisher\nEmilien Moncan\n\nSongs\nGrégoire Duvauchelle\n\n\n\n\n\n\n\nNo Animals were Harmed</string>
 </resources>
