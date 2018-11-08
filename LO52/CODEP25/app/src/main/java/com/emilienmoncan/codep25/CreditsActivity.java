@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.Interpolator;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,10 +54,12 @@ public class CreditsActivity extends AppCompatActivity {
                 Point size = new Point();
                 display.getSize(size);
 
-                TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, (int) +size.y, (int) -(credit_text.getHeight() + size.y));
+
+                TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, (int) size.y, (int) -(credit_text.getHeight() ));
                 translateAnimation.setDuration(56000);
                 translateAnimation.setFillAfter(true);
                 translateAnimation.setStartOffset(0);
+                translateAnimation.setInterpolator(new LinearInterpolator());
                 credit_text.startAnimation(translateAnimation);
                 translateAnimation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
@@ -67,8 +71,8 @@ public class CreditsActivity extends AppCompatActivity {
                     public void onAnimationEnd(Animation animation) {
                         credits_end.setVisibility(View.VISIBLE);
                         AlphaAnimation alphaAnimationEnd = new AlphaAnimation(1.0f, 0.0f);
-                        alphaAnimationEnd.setDuration(1500);
-                        alphaAnimationEnd.setStartOffset(2500);
+                        alphaAnimationEnd.setDuration(3000);
+                        alphaAnimationEnd.setStartOffset(3000);
                         alphaAnimationEnd.setFillAfter(true);
                         credits_end.startAnimation(alphaAnimationEnd);
                     }

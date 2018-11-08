@@ -34,9 +34,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Emilien\Desktop\Sans titre.png" />
-                                      <entry key="outputName" value="test" />
-                                      <entry key="theme" value="HOLO_DARK" />
+                                      <entry key="imageAsset" value="C:\Users\Emilien\Desktop\snowflake.png" />
+                                      <entry key="outputName" value="snowflake" />
+                                      <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>
                                   </option>
