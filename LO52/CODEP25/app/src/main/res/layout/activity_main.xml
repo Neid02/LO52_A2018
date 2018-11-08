@@ -99,7 +99,7 @@
             app:snowflakesNum="250"
             app:snowflakeAlphaMin="150"
             app:snowflakeAlphaMax="255"
-            app:snowflakeAngleMax="5"
+            app:snowflakeAngleMax="16"
             app:snowflakeSizeMin="8dp"
             app:snowflakeSizeMax="32dp"
             app:snowflakeSpeedMin="4"
