@@ -79,14 +79,17 @@ public class MainActivity extends AppCompatActivity {
         final RelativeLayout sapin = (RelativeLayout) findViewById(R.id.sapin);
         final RelativeLayout cieletoile = (RelativeLayout) findViewById(R.id.cieletoile);
         final RelativeLayout guirlande = (RelativeLayout) findViewById(R.id.guirlande);
+        final RelativeLayout joyeuxnoel = (RelativeLayout) findViewById(R.id.joyeuxnoel);
         cieletoile.bringToFront();
         sapin.bringToFront();
         guirlande.bringToFront();
+        joyeuxnoel.bringToFront();
         snowfall.bringToFront();
         sapin.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.MATCH_PARENT));
         snowfall.setVisibility(View.VISIBLE);
         cieletoile.setVisibility(View.VISIBLE);
         guirlande.setVisibility(View.VISIBLE);
+        joyeuxnoel.setVisibility(View.VISIBLE);
         snowfall.restartFalling();
         AlphaAnimation animation = new AlphaAnimation(0.0f, 1.0f);
         animation.setDuration(200);
@@ -95,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         sapin.startAnimation(animation);
         cieletoile.startAnimation(animation);
         guirlande.startAnimation(animation);
+        joyeuxnoel.startAnimation(animation);
         Runnable myrunnable = new Runnable() {
             public void run() {
                 AlphaAnimation animation = new AlphaAnimation(1.0f, 0.0f);
@@ -104,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 sapin.startAnimation(animation);
                 cieletoile.startAnimation(animation);
                 guirlande.startAnimation(animation);
+                joyeuxnoel.startAnimation(animation);
                 animation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
