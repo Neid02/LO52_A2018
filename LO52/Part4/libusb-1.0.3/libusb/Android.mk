@@ -6,7 +6,8 @@ LOCAL_SRC_FILES:= \
  descriptor.c \
  io.c \
  sync.c \
- os/linux_usbfs.c
+ os/linux_usbfs.c \
+ os/darwin_usb.c
 
 LOCAL_C_INCLUDES += \
 external/libusb-1.0.3/ \

@@ -3,6 +3,7 @@
 Les fichiers sources se trouve dans libusb.
 	
 Code ajouter pour timespec
+Dans libusbi.h
 
 #ifndef TIMESPEC_TO_TIMEVAL
 #define TIMESPEC_TO_TIMEVAL(tv, ts)					\
@@ -11,3 +12,8 @@ Code ajouter pour timespec
 		(tv)->tv_usec = (ts)->tv_nsec / 1000;			\
 	} while (0)
 #endif
+
+Code a ajouter pour prelinkmap
+rajouter ceci dans ./build/core/prelink-linux-arm.map
+libqcamera.so       0xA9400000
+libusb.so           0xA8000000
