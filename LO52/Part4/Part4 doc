@@ -1,0 +1,13 @@
+
+
+Les fichiers sources se trouve dans libusb.
+	
+Code ajouter pour timespec
+
+#ifndef TIMESPEC_TO_TIMEVAL
+#define TIMESPEC_TO_TIMEVAL(tv, ts)					\
+	do {								\
+		(tv)->tv_sec = (TIMEVAL_TV_SEC_TYPE) (ts)->tv_sec;	\
+		(tv)->tv_usec = (ts)->tv_nsec / 1000;			\
+	} while (0)
+#endif
