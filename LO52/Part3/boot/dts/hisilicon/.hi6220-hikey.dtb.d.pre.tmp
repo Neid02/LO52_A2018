@@ -1,9 +1,0 @@
-hi6220-hikey.o: arch/arm64/boot/dts/hisilicon/hi6220-hikey.dts \
- arch/arm64/boot/dts/hisilicon/hikey-pinctrl.dtsi \
- arch/arm64/boot/dts/include/dt-bindings/pinctrl/hisi.h \
- arch/arm64/boot/dts/hisilicon/hikey-gpio.dtsi \
- arch/arm64/boot/dts/hisilicon/hi6220.dtsi \
- arch/arm64/boot/dts/include/dt-bindings/interrupt-controller/arm-gic.h \
- arch/arm64/boot/dts/include/dt-bindings/interrupt-controller/irq.h \
- arch/arm64/boot/dts/include/dt-bindings/clock/hi6220-clock.h \
- arch/arm64/boot/dts/include/dt-bindings/thermal/thermal.h
