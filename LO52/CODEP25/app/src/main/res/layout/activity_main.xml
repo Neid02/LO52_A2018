@@ -64,18 +64,27 @@
                     <Chronometer
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/chronometer"/>
+                        android:id="@+id/chronometer"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size16"
+                        android:padding="@dimen/margin6"/>
 
                     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_gravity="center"
                         android:gravity="center">
 
-                        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:id="@+id/start_pause"/>
+                        <Button android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:id="@+id/start_pause"
+                            android:layout_weight="1"
+                            android:layout_margin="@dimen/margin6"
+                            android:padding="@dimen/margin16"/>
 
-                        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:id="@+id/reset_lap"/>
+                        <Button android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:id="@+id/reset_lap"
+                            android:layout_weight="1"
+                            android:layout_margin="@dimen/margin6"
+                            android:padding="@dimen/margin16"/>
 
                     </LinearLayout>
 
