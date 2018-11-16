@@ -1,4 +1,4 @@
-package com.emilienmoncan.codep25;
+package com.silentpangolin.codep25;
 
 import org.junit.Test;
 

@@ -1,9 +1,9 @@
-package com.emilienmoncan.codep25.DataBase.ORM;
+package com.silentpangolin.codep25.DataBase.ORM;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.emilienmoncan.codep25.DataBase.MySQLiteDatabase;
+import com.silentpangolin.codep25.DataBase.MySQLiteDatabase;
 
 public class DBTypeTour {
 

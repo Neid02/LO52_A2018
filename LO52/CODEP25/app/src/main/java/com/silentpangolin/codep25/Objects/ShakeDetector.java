@@ -1,4 +1,4 @@
-package com.emilienmoncan.codep25.Objects;
+package com.silentpangolin.codep25.Objects;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

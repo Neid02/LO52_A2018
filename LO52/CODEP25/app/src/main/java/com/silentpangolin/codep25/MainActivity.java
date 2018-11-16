@@ -1,4 +1,4 @@
-package com.emilienmoncan.codep25;
+package com.silentpangolin.codep25;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,17 +19,18 @@ import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.design.widget.NavigationView;
 
-import com.emilienmoncan.codep25.DataBase.ORM.DBCoureur;
-import com.emilienmoncan.codep25.DataBase.ORM.DBEquipe;
-import com.emilienmoncan.codep25.Objects.Coureur;
-import com.emilienmoncan.codep25.Objects.Equipe;
-import com.emilienmoncan.codep25.Objects.ShakeDetector;
+import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
+import com.silentpangolin.codep25.DataBase.ORM.DBEquipe;
+import com.silentpangolin.codep25.Objects.Coureur;
+import com.silentpangolin.codep25.Objects.Equipe;
+import com.silentpangolin.codep25.Objects.ShakeDetector;
 import com.jetradarmobile.snowfall.SnowfallView;
 
 import java.util.ArrayList;
@@ -41,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigation;
 
-    private long milliseconds = 0;
+    /*private long milliseconds = 0;
     private long seconds = 0;
     private long minutes = 0;
     private long time = 0;
     private static Timer timer;
+    private boolean isStopped;*/
     private TextView displayTimer;
-    private boolean isStopped;
     private ArrayList<Coureur> coureurs;
     private ArrayList<Equipe> equipes;
     private int idCoureur;
@@ -118,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         };
         Handler h = new Handler();
         h.postDelayed(myrunnable, 5000);
-
     }
 
 
@@ -164,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         dbCoureur.close();
     }
 
-    private void displayTime(long time){
+    /*private void displayTime(long time){
 
         milliseconds = time % 1000;
         time /= 1000;
@@ -186,14 +187,18 @@ public class MainActivity extends AppCompatActivity {
             theTime += "0";
         theTime += milliseconds;
         displayTimer.setText(theTime);
-    }
+    }*/
 
     private void setButton(){
         Button start = (Button) findViewById(R.id.start);
+        final Chronometer chronometer = (Chronometer)findViewById(R.id.chronometer);
+        chronometer.setFormat();
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                minutes = seconds = milliseconds = 0;
+                chronometer.setBase(SystemClock.elapsedRealtime());
+                chronometer.start();
+                /*minutes = seconds = milliseconds = 0;
                 timer = new Timer();
                 isStopped = false;
                 timer.scheduleAtFixedRate(new TimerTask() {
@@ -209,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
-                }, 0, 1);
+                }, 0, 1);*/
             }
         });
 
@@ -217,9 +222,10 @@ public class MainActivity extends AppCompatActivity {
         tour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), Long.toString(time), Toast.LENGTH_SHORT).show();
+
+                /*Toast.makeText(getApplicationContext(), Long.toString(time), Toast.LENGTH_SHORT).show();
                 time = 0;
-                displayTime(0);
+                displayTime(0);*/
             }
         });
 
@@ -227,18 +233,19 @@ public class MainActivity extends AppCompatActivity {
         stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timer.cancel();
+                chronometer.stop();
+                /*timer.cancel();
                 timer.purge();
                 milliseconds = seconds = minutes = time = 0;
                 isStopped = true;
-                displayTime(0);
+                displayTime(0);*/
             }
         });
     }
 
     private void setSpinners(){
         final Spinner spinnerEquipe, spinnerCoureur;
-        displayTimer = (TextView) findViewById(R.id.displayTimer);
+        //displayTimer = (TextView) findViewById(R.id.displayTimer);
         spinnerEquipe = (Spinner) findViewById(R.id.equipes);
         spinnerCoureur = (Spinner) findViewById(R.id.coureurs);
 

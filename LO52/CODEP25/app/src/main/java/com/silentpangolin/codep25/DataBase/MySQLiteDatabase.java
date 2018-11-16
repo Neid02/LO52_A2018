@@ -1,4 +1,4 @@
-package com.emilienmoncan.codep25.DataBase;
+package com.silentpangolin.codep25.DataBase;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -6,8 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.emilienmoncan.codep25.DataBase.ORM.DBCoureur;
-import com.emilienmoncan.codep25.Objects.Coureur;
+import com.silentpangolin.codep25.Objects.Coureur;
 
 import java.util.ArrayList;
 

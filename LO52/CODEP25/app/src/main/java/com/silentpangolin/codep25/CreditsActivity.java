@@ -1,4 +1,4 @@
-package com.emilienmoncan.codep25;
+package com.silentpangolin.codep25;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -15,13 +15,12 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.emilienmoncan.codep25.Objects.MyScrollView;
+import com.silentpangolin.codep25.Objects.MyScrollView;
 
 public class CreditsActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
@@ -41,8 +40,8 @@ public class CreditsActivity extends AppCompatActivity {
     }
 
     private void setGeneric(){
-        final MyScrollView myScrollView = (MyScrollView) findViewById(R.id.credits_text);
-        final TextView credit_text = (TextView)findViewById(R.id.credits_text_view);
+        final MyScrollView myScrollView = (MyScrollView)findViewById(R.id.credits_text_view) ;
+        final TextView credit_text = (TextView)findViewById(R.id.credits_text);
         final ViewTreeObserver observer = myScrollView.getViewTreeObserver();
         final LinearLayout credits_end = (LinearLayout) findViewById(R.id.credits_end);
 

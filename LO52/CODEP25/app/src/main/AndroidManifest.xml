@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.emilienmoncan.codep25">
+    package="com.silentpangolin.codep25">
 
     <uses-feature
         android:name="android.hardware.sensor.accelerometer"
@@ -13,16 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.silentpangolin.codep25.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PlayerActivity" />
-        <activity android:name=".TeamActivity" />
-        <activity android:name=".CreditsActivity"></activity>
+        <activity android:name="com.silentpangolin.codep25.PlayerActivity" />
+        <activity android:name="com.silentpangolin.codep25.TeamActivity" />
+        <activity android:name="com.silentpangolin.codep25.CreditsActivity"></activity>
     </application>
 
 </manifest>

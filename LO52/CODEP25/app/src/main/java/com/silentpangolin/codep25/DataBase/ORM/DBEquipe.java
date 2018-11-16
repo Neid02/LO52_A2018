@@ -1,11 +1,11 @@
-package com.emilienmoncan.codep25.DataBase.ORM;
+package com.silentpangolin.codep25.DataBase.ORM;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.emilienmoncan.codep25.DataBase.MySQLiteDatabase;
-import com.emilienmoncan.codep25.Objects.Equipe;
+import com.silentpangolin.codep25.DataBase.MySQLiteDatabase;
+import com.silentpangolin.codep25.Objects.Equipe;
 
 import java.util.ArrayList;
 

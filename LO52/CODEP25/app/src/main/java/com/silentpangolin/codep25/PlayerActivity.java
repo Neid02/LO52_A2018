@@ -1,4 +1,4 @@
-package com.emilienmoncan.codep25;
+package com.silentpangolin.codep25;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -12,8 +12,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.emilienmoncan.codep25.DataBase.ORM.DBCoureur;
-import com.emilienmoncan.codep25.Objects.Coureur;
+import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
+import com.silentpangolin.codep25.Objects.Coureur;
 
 import java.util.ArrayList;
 import java.util.HashMap;
