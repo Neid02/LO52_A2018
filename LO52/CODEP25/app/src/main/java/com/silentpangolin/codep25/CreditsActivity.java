@@ -3,6 +3,7 @@ package com.silentpangolin.codep25;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +20,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.silentpangolin.codep25.Objects.MyScrollView;
 
@@ -36,10 +38,24 @@ public class CreditsActivity extends AppCompatActivity {
 
         initInstances();
 
-        setGeneric();
+        //setGeneric();
+
+        setVideo();
     }
 
-    private void setGeneric(){
+    private void setVideo(){
+        VideoView video = (VideoView)findViewById(R.id.video);
+        video.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.pangolin);
+        video.start();
+        video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+    }
+
+    /*private void setGeneric(){
         final MyScrollView myScrollView = (MyScrollView)findViewById(R.id.credits_text_view) ;
         final TextView credit_text = (TextView)findViewById(R.id.credits_text);
         final ViewTreeObserver observer = myScrollView.getViewTreeObserver();
@@ -83,8 +99,7 @@ public class CreditsActivity extends AppCompatActivity {
                 });
             }
         });
-
-    }
+    }*/
 
     private void initInstances() {
         getSupportActionBar().setHomeButtonEnabled(true);

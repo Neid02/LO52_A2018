@@ -9,7 +9,7 @@
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:background="@color/black">
 
-        <com.silentpangolin.codep25.Objects.MyScrollView
+        <!--<com.silentpangolin.codep25.Objects.MyScrollView
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:id="@+id/credits_text_view"
@@ -45,6 +45,22 @@
                 android:src="@mipmap/ic_launcher" />
 
         </LinearLayout>
+        -->
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/credits_end"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <VideoView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/video"/>
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 
