@@ -29,8 +29,14 @@
 #include <sys/time.h>
 #include <time.h>
 #include <unistd.h>
-
 #include "libusbi.h"
+
+#define TIMESPEC_TO_TIMEVAL(tv, ts) 
+	do {   
+	(tv)->tv_sec = (ts)->tv_sec;          
+	(tv)->tv_usec = (ts)->tv_nsec / 1000; 
+}while (0)
+
 
 /**
  * \page io Synchronous and asynchronous device I/O
@@ -386,6 +392,10 @@ if (r == 0 && actual_length == sizeof(data)) {
  * may have a LIBUSB_TRANSFER_STALL status code. This indicates the control
  * request was not supported.
  *
+
+
+
+
  * \section asyncintr Considerations for interrupt transfers
  * 
  * All interrupt transfers are performed using the polling interval presented
