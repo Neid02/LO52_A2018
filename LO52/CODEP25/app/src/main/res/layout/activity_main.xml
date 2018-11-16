@@ -61,12 +61,6 @@
                     android:gravity="center"
                     android:layout_gravity="center">
 
-                    <!--<TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:text="@string/zero"
-                        android:id="@+id/displayTimer"
-                        android:layout_gravity="center"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size20"/>-->
                     <Chronometer
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -78,16 +72,10 @@
                         android:gravity="center">
 
                         <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="@string/start"
-                            android:id="@+id/start" />
+                            android:id="@+id/start_pause"/>
 
                         <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="@string/stop"
-                            android:id="@+id/stop" />
-
-                        <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="@string/tour"
-                            android:id="@+id/tour" />
+                            android:id="@+id/reset_lap"/>
 
                     </LinearLayout>
 

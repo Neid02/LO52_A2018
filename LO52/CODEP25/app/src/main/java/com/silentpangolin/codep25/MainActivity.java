@@ -22,9 +22,8 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.support.design.widget.NavigationView;
+import android.widget.Toast;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBEquipe;
@@ -34,8 +33,6 @@ import com.silentpangolin.codep25.Objects.ShakeDetector;
 import com.jetradarmobile.snowfall.SnowfallView;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,19 +40,12 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigation;
 
-    /*private long milliseconds = 0;
-    private long seconds = 0;
-    private long minutes = 0;
-    private long time = 0;
-    private static Timer timer;
-    private boolean isStopped;*/
-    private TextView displayTimer;
     private ArrayList<Coureur> coureurs;
     private ArrayList<Equipe> equipes;
     private int idCoureur;
+    private boolean OnStop = true;
+    private long timeWhenPaused = 0;
 
-
-    // The following are used for the shake detection
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
@@ -165,87 +155,60 @@ public class MainActivity extends AppCompatActivity {
         dbCoureur.close();
     }
 
-    /*private void displayTime(long time){
+    private void changeButtons(boolean OnStop){
+        Button start_pause = (Button) findViewById(R.id.start_pause);
+        Button reset_lap = (Button) findViewById(R.id.reset_lap);
 
-        milliseconds = time % 1000;
-        time /= 1000;
-        seconds = time % 60;
-        time /= 60;
-        minutes = time;
-        String theTime;
-        if (minutes < 10)
-            theTime = "0" + minutes + " : ";
-        else
-            theTime = minutes + " : ";
-        if (seconds < 10)
-            theTime += "0" + seconds + " : ";
-        else
-            theTime += seconds + " : ";
-        if (milliseconds < 100)
-            theTime += "0";
-        if(milliseconds < 10)
-            theTime += "0";
-        theTime += milliseconds;
-        displayTimer.setText(theTime);
-    }*/
+        if(OnStop){
+            reset_lap.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.reset), null, null, null);
+            reset_lap.setText(R.string.reset);
+            start_pause.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.start), null, null, null);
+            start_pause.setText(R.string.start);
+        }else{
+            reset_lap.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.lap), null, null, null);
+            reset_lap.setText(R.string.lap);
+            start_pause.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.stop), null, null, null);
+            start_pause.setText(R.string.pause);
+        }
+    }
 
     private void setButton(){
-        Button start = (Button) findViewById(R.id.start);
+        Button start_pause = (Button) findViewById(R.id.start_pause);
+        Button reset_lap = (Button) findViewById(R.id.reset_lap);
+        changeButtons(OnStop);
         final Chronometer chronometer = (Chronometer)findViewById(R.id.chronometer);
-        start.setOnClickListener(new View.OnClickListener() {
+        start_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chronometer.setBase(SystemClock.elapsedRealtime());
-                chronometer.start();
-                /*minutes = seconds = milliseconds = 0;
-                timer = new Timer();
-                isStopped = false;
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(!(isStopped)){
-                                    time += 1;
-                                    displayTime(time);
-                                }
-                            }
-                        });
-                    }
-                }, 0, 1);*/
+                if(OnStop) {
+                    chronometer.start();
+                    chronometer.setBase(SystemClock.elapsedRealtime() + timeWhenPaused);
+                }else {
+                    timeWhenPaused = chronometer.getBase() - SystemClock.elapsedRealtime();
+                    chronometer.stop();
+                }
+                OnStop = !OnStop;
+                changeButtons(OnStop);
             }
         });
 
-        Button tour = (Button) findViewById(R.id.tour);
-        tour.setOnClickListener(new View.OnClickListener() {
+        reset_lap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(getApplicationContext(), Long.toString(SystemClock.elapsedRealtime() - chronometer.getBase()), Toast.LENGTH_SHORT).show();
-                /*time = 0;
-                displayTime(0);*/
-            }
-        });
-
-        Button stop = (Button) findViewById(R.id.stop);
-        stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                chronometer.stop();
-                chronometer.setBase(SystemClock.elapsedRealtime());
-                /*timer.cancel();
-                timer.purge();
-                milliseconds = seconds = minutes = time = 0;
-                isStopped = true;
-                displayTime(0);*/
+                if(OnStop) {
+                    chronometer.setBase(SystemClock.elapsedRealtime());
+                    timeWhenPaused = 0;
+                }else{
+                    // TOUR ICI
+                    // lap : SystemClock.elapsedRealtime() - chronometer.getBase()
+                    Toast.makeText(getApplicationContext(), Long.toString(SystemClock.elapsedRealtime() - chronometer.getBase()), Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
     private void setSpinners(){
         final Spinner spinnerEquipe, spinnerCoureur;
-        //displayTimer = (TextView) findViewById(R.id.displayTimer);
         spinnerEquipe = (Spinner) findViewById(R.id.equipes);
         spinnerCoureur = (Spinner) findViewById(R.id.coureurs);
 
