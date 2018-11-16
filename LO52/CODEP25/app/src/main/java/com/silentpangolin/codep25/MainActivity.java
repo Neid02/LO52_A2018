@@ -192,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
     private void setButton(){
         Button start = (Button) findViewById(R.id.start);
         final Chronometer chronometer = (Chronometer)findViewById(R.id.chronometer);
-        chronometer.setFormat();
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,8 +222,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                /*Toast.makeText(getApplicationContext(), Long.toString(time), Toast.LENGTH_SHORT).show();
-                time = 0;
+                Toast.makeText(getApplicationContext(), Long.toString(chronometer.getBase()), Toast.LENGTH_SHORT).show();
+                /*time = 0;
                 displayTime(0);*/
             }
         });
@@ -234,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 chronometer.stop();
+                chronometer.setBase(SystemClock.elapsedRealtime());
                 /*timer.cancel();
                 timer.purge();
                 milliseconds = seconds = minutes = time = 0;
