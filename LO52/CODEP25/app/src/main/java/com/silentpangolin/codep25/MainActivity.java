@@ -20,10 +20,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.support.design.widget.NavigationView;
 import android.widget.Toast;
+import android.widget.ListView;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBEquipe;
@@ -33,6 +36,9 @@ import com.silentpangolin.codep25.Objects.ShakeDetector;
 import com.jetradarmobile.snowfall.SnowfallView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,11 +46,15 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigation;
 
+    private ArrayList<HashMap<String, String>> laps;
+    private ListView lapsListView;
+    private int numLaps = 0;
     private ArrayList<Coureur> coureurs;
     private ArrayList<Equipe> equipes;
     private int idCoureur;
     private boolean OnStop = true;
     private long timeWhenPaused = 0;
+    private SimpleAdapter adapter;
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
@@ -64,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
         setButton();
 
         initShaker();
+
+        laps = new ArrayList<>();
+        lapsListView = findViewById(R.id.listLaps);
+        adapter = new SimpleAdapter(this.getBaseContext(), laps, R.layout.list_laps,
+                new String[]{"num", "time"}, new int[]{R.id.numLap, R.id.timeLap});
+        lapsListView.setAdapter(adapter);
     }
 
     private void easterEgg(int count) {
@@ -198,10 +214,25 @@ public class MainActivity extends AppCompatActivity {
                 if(OnStop) {
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     timeWhenPaused = 0;
+                    numLaps = 0;
+                    laps.clear();
+                    adapter.notifyDataSetChanged();
                 }else{
                     // TOUR ICI
-                    // lap : SystemClock.elapsedRealtime() - chronometer.getBase()
-                    Toast.makeText(getApplicationContext(), Long.toString(SystemClock.elapsedRealtime() - chronometer.getBase()), Toast.LENGTH_SHORT).show();
+                    long millis = SystemClock.elapsedRealtime() - chronometer.getBase();
+                    HashMap<String, String> item = new HashMap<>();
+                    numLaps++;
+                    item.put("num", Integer.toString(numLaps));
+                    String msm = String.format(Locale.FRANCE, "%02d:%02d:%02d",
+                            TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
+                            TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1),
+                            millis);
+                    item.put("time", msm);
+
+                    laps.add(item);
+                    Toast.makeText(getApplicationContext(), Long.toString(millis), Toast.LENGTH_SHORT).show();
+                    adapter.notifyDataSetChanged();
+
                 }
             }
         });
