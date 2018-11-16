@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getApplicationContext(), Long.toString(chronometer.getBase()), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), Long.toString(SystemClock.elapsedRealtime() - chronometer.getBase()), Toast.LENGTH_SHORT).show();
                 /*time = 0;
                 displayTime(0);*/
             }
