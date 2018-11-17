@@ -1,0 +1,26 @@
+<tabs>
+    <tab
+        id="@+id/clean"
+        icon="@drawable/ic_home"
+        title="Accueil"
+        activeColor="@color/selected_txt"
+        badgeBackgroundColor="#FF0000"
+        badgeHidesWhenActive="true"
+        inActiveColor="@color/unselected_txt"
+        />
+    <tab
+        id="@+id/wifi"
+        icon="@drawable/ic_participant"
+        title="Participants"
+        activeColor="@color/selected_txt"
+        inActiveColor="@color/unselected_txt"
+        />
+    <tab
+        id="@+id/more"
+        icon="@drawable/ic_course"
+        title="Course"
+        activeColor="@color/selected_txt"
+        inActiveColor="@color/unselected_txt"
+        />
+
+</tabs>

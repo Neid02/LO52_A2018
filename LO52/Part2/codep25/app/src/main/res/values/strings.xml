@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Codep25</string>
+    <string name="add_participant">Ajouter un Participant</string>
+    <string name="empty_messages">Tous les champs sont obligatoires</string>
 </resources>
