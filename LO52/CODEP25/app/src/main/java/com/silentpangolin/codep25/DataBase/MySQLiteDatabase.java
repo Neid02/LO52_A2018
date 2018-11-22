@@ -142,7 +142,7 @@ public class MySQLiteDatabase  extends SQLiteOpenHelper {
         }catch(Exception e){
             Toast.makeText(this.context, e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
-            Log.d("MySQLite", e.getMessage());
+            Log.e("MySQLite", e.getMessage());
         }
     }
 
@@ -185,7 +185,7 @@ public class MySQLiteDatabase  extends SQLiteOpenHelper {
         crrs.add(new Coureur(31, "Personne", "31", 90, 0, 0));
         crrs.add(new Coureur(32, "Personne", "32", 100, 0, 0));
 
-        System.out.println("List Created");
+        Log.e("MySQLite", "List created");
 
         return crrs;
     }

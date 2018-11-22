@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
-import android.icu.text.UnicodeSetSpanner;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
@@ -33,8 +32,6 @@ import android.widget.Spinner;
 import android.support.design.widget.NavigationView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBEquipe;
@@ -42,6 +39,8 @@ import com.silentpangolin.codep25.Objects.Coureur;
 import com.silentpangolin.codep25.Objects.Equipe;
 import com.silentpangolin.codep25.Objects.ShakeDetector;
 import com.jetradarmobile.snowfall.SnowfallView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -60,8 +59,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean OnStop = true;
     private long timeWhenPaused = 0;
     private int maxTeam = 0;
-    private ArrayList<Button> allButtons = new ArrayList<Button>();
     private int ordrePassage = 0;
+    private ArrayList<Button> allButtons = new ArrayList<Button>();
+    private int[] steps;
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
@@ -72,15 +72,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initInstances();
+        try {
+            initInstances();
 
-        getDataFromDataBase();
+            getDataFromDataBase();
 
-        setSpinners();
+            setSpinner();
 
-        setButton();
+            setButton();
 
-        initShaker();
+            initShaker();
+        }catch(Exception e){
+            Log.e("MyApplication", e.getMessage());
+        }
 
         /*laps = new ArrayList<>();
         lapsListView = findViewById(R.id.listLaps);
@@ -115,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        setGridLayoutButton(mSelectedItems);
+                        setTableLayoutButton(mSelectedItems);
                     }
                 })
                 .setNegativeButton(R.string.annuler, new DialogInterface.OnClickListener() {
@@ -127,12 +131,11 @@ public class MainActivity extends AppCompatActivity {
         return builder.create();
     }
 
-    private void setGridLayoutButton(ArrayList<Equipe> teamSelected){
-        TableLayout tableLayoutButton = (TableLayout) findViewById(R.id.tableLayoutButton);
-        tableLayoutButton.removeAllViews();
-        allButtons.clear();
+    private void setTableLayoutButton(@NotNull ArrayList<Equipe> teamSelected){
+        final TableLayout tableLayoutButton = (TableLayout) findViewById(R.id.tableLayoutButton);
         allButtons = new ArrayList<Button>();
-        ArrayList<Coureur> crrs = new ArrayList<Coureur>();
+        tableLayoutButton.removeAllViews();
+        final ArrayList<Coureur> crrs = new ArrayList<Coureur>();
         ArrayList<String> names = new ArrayList<String>();
         DBCoureur dbCoureur = new DBCoureur(this);
         dbCoureur.open();
@@ -144,15 +147,50 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         dbCoureur.close();
+        steps = new int[crrs.size()];
         TableRow tableRow = new TableRow(getApplicationContext());
         tableRow.setGravity(Gravity.CENTER);
         for(int i = 0; i < crrs.size(); ++i){
-            Button button = new Button(getApplicationContext());
-
-            button.setText(names.get(i) + " \n " + crrs.get(i).getPrenom_crr() + " " + crrs.get(i).getNom_crr());
-            //button.setTag(Integer.toString(ce.getId_crr()));
-
+            steps[i] = 0;
+            final Button button = new Button(getApplicationContext());
+            final int pos = i;
             allButtons.add(button);
+            button.setText(names.get(i) + " \n " + crrs.get(i).getPrenom_crr() + " " + crrs.get(i).getNom_crr());
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /** MAKE THE ARRAY LIST OF STRING
+                     * FOR INSERTIONIN DATABASE */
+                    ++steps[pos];
+                    Log.e("DisplayTime",
+                            "ID CRR : " + crrs.get(pos).getId_crr() +
+                                    " - DUREE : " + getTime() +
+                                    " - ETAPE : " + steps[pos]);
+                    if(steps[pos] == 5){
+                        button.setClickable(false);
+                        button.setAlpha(0.5f);
+                    }
+                    boolean flag = true;
+                    for(int i = 0; i < crrs.size(); ++i)
+                        if(steps[i] != 5)
+                            flag = false;
+                    if(flag){
+                        /** HERE INSERT TEMPS IN DATABASE
+                         * ARRAY LIST OF STRING */
+                        Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
+                        chronometer.setBase(SystemClock.elapsedRealtime());
+                        timeWhenPaused = 0;
+                        OnStop = !OnStop;
+                        changeButtons(OnStop);
+                        tableLayoutButton.removeAllViews();
+                    }
+
+                }
+            });
+            button.setClickable(false);
+            button.setFocusable(false);
+            button.setAlpha(0.5f);
+
             if (i % 2 == 0) {
                 tableRow = new TableRow(getApplicationContext());
                 tableRow.setGravity(Gravity.CENTER);
@@ -264,12 +302,28 @@ public class MainActivity extends AppCompatActivity {
             reset_lap.setText(R.string.reset);
             start_pause.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.start), null, null, null);
             start_pause.setText(R.string.start);
+            if(allButtons.size() != 0)
+                for(Button b : allButtons) {
+                    b.setClickable(false);
+                    b.setFocusable(false);
+                    b.setAlpha(0.5f);
+                }
         }else{
             start_pause.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.stop), null, null, null);
             start_pause.setText(R.string.pause);
             reset_lap.setAlpha(0.5f);
             reset_lap.setClickable(false);
+            if(allButtons.size() != 0)
+                for(Button b : allButtons) {
+                    b.setClickable(true);
+                    b.setFocusable(true);
+                    b.setAlpha(1.0f);
+                }
         }
+    }
+
+    private long getTime(){
+        return SystemClock.elapsedRealtime() - ((Chronometer)findViewById(R.id.chronometer)).getBase();
     }
 
     private void setButton(){
@@ -298,7 +352,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         changeButtons(OnStop);
-        final Chronometer chronometer = (Chronometer)findViewById(R.id.chronometer);
+        final Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
         start_pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -320,6 +374,9 @@ public class MainActivity extends AppCompatActivity {
                 if(OnStop) {
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     timeWhenPaused = 0;
+                    if(steps.length != 0)
+                        for(int i = 0; i < steps.length; ++i)
+                            steps[i] = 0;
                     /*numLaps = 0;
                     laps.clear();
                     adapter.notifyDataSetChanged();
@@ -343,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setSpinners(){
+    private void setSpinner(){
         final Spinner spinnerOrdre = (Spinner) findViewById(R.id.ordrePassage);
         ArrayAdapter<String> dataAdapterOrdre = new ArrayAdapter<>(this, R.layout.spinner_item);
 
