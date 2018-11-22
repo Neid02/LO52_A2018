@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.icu.text.UnicodeSetSpanner;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +33,8 @@ import android.widget.Spinner;
 import android.support.design.widget.NavigationView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBEquipe;
@@ -140,27 +145,24 @@ public class MainActivity extends AppCompatActivity {
         }
         dbCoureur.close();
         TableRow tableRow = new TableRow(getApplicationContext());
+        tableRow.setGravity(Gravity.CENTER);
         for(int i = 0; i < crrs.size(); ++i){
             Button button = new Button(getApplicationContext());
 
             button.setText(names.get(i) + " \n " + crrs.get(i).getPrenom_crr() + " " + crrs.get(i).getNom_crr());
             //button.setTag(Integer.toString(ce.getId_crr()));
-            //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 100);
-            // params.weight = 5;
-            //button.setLayoutParams(params);
 
             allButtons.add(button);
             if (i % 2 == 0) {
                 tableRow = new TableRow(getApplicationContext());
-                tableRow.addView(button);
+                tableRow.setGravity(Gravity.CENTER);
+                tableRow.addView(button, i % 2);
                 if (i == (crrs.size() - 1)) tableLayoutButton.addView(tableRow);
-            } else {
-                tableRow.addView(button);
+            }else {
+                tableRow.addView(button, i % 2);
                 tableLayoutButton.addView(tableRow);
             }
         }
-
-
     }
 
     private void easterEgg() {
@@ -256,6 +258,8 @@ public class MainActivity extends AppCompatActivity {
         Button reset_lap = (Button) findViewById(R.id.reset_lap);
 
         if(OnStop){
+            reset_lap.setAlpha(1.0f);
+            reset_lap.setClickable(true);
             reset_lap.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.reset), null, null, null);
             reset_lap.setText(R.string.reset);
             start_pause.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.start), null, null, null);
@@ -263,6 +267,8 @@ public class MainActivity extends AppCompatActivity {
         }else{
             start_pause.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.stop), null, null, null);
             start_pause.setText(R.string.pause);
+            reset_lap.setAlpha(0.5f);
+            reset_lap.setClickable(false);
         }
     }
 

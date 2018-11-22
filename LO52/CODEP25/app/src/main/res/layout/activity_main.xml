@@ -58,19 +58,24 @@
 
                 </LinearLayout>
 
-                <ImageView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/dropdown"
-                    android:id="@+id/dropdown"
-                    android:gravity="center"
-                    android:layout_gravity="bottom"
-                    android:layout_marginTop="@dimen/margin6"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:rotation="90"
-                    android:color="@color/black"
-                    android:layout_marginBottom="@dimen/margin3"/>
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/dropdown"
+                        android:id="@+id/dropdown"
+                        android:gravity="bottom"
+                        android:layout_gravity="bottom"
+                        android:layout_marginTop="@dimen/margin6"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:rotation="90"
+                        android:color="@color/black"
+                        android:layout_marginBottom="@dimen/margin3"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -131,9 +136,9 @@
 
             <TableLayout
                 android:layout_width="match_parent" android:layout_height="match_parent"
-                android:background="@drawable/border_all_black"
-                android:layout_margin="@dimen/margin6"
-                android:id="@+id/tableLayoutButton">
+                android:layout_margin="@dimen/margin16"
+                android:id="@+id/tableLayoutButton"
+                android:layout_gravity="center">
 
 
             </TableLayout>
