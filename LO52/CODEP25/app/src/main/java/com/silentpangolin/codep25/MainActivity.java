@@ -1,8 +1,6 @@
 package com.silentpangolin.codep25;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,17 +22,14 @@ import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.support.design.widget.NavigationView;
-import android.widget.Toast;
-import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBEquipe;
@@ -44,9 +39,6 @@ import com.silentpangolin.codep25.Objects.ShakeDetector;
 import com.jetradarmobile.snowfall.SnowfallView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean OnStop = true;
     private long timeWhenPaused = 0;
     private int maxTeam = 0;
+    private ArrayList<Button> allButtons = new ArrayList<Button>();
+    private int ordrePassage = 0;
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
@@ -93,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public AlertDialog onCreateDialog() {
-        final ArrayList<String> mSelectedItems = new ArrayList<String>();
+        final ArrayList<Equipe> mSelectedItems = new ArrayList<Equipe>();
         final String[] nameTeam = new String[equipes.size()];
         for(int i = 0; i < equipes.size(); ++i){
             nameTeam[i] = equipes.get(i).getName_equ();
@@ -107,16 +101,16 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which,
                                                 boolean isChecked) {
                                 if (isChecked) {
-                                    mSelectedItems.add(nameTeam[which]);
-                                } else if (mSelectedItems.equals(nameTeam[which])) {
-                                    mSelectedItems.remove(nameTeam[which]);
+                                    mSelectedItems.add(equipes.get(which));
+                                } else if (mSelectedItems.contains(equipes.get(which))) {
+                                    mSelectedItems.remove(equipes.get(which));
                                 }
                             }
                         })
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
+                        setGridLayoutButton(mSelectedItems);
                     }
                 })
                 .setNegativeButton(R.string.annuler, new DialogInterface.OnClickListener() {
@@ -126,6 +120,47 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         return builder.create();
+    }
+
+    private void setGridLayoutButton(ArrayList<Equipe> teamSelected){
+        TableLayout tableLayoutButton = (TableLayout) findViewById(R.id.tableLayoutButton);
+        tableLayoutButton.removeAllViews();
+        allButtons.clear();
+        allButtons = new ArrayList<Button>();
+        ArrayList<Coureur> crrs = new ArrayList<Coureur>();
+        ArrayList<String> names = new ArrayList<String>();
+        DBCoureur dbCoureur = new DBCoureur(this);
+        dbCoureur.open();
+        for(Equipe e : teamSelected){
+            Coureur c = dbCoureur.getCoureurWithIDTeamAndOrder(e.getId_equ(), ordrePassage);
+            if(c != null){
+                crrs.add(c);
+                names.add(e.getName_equ());
+            }
+        }
+        dbCoureur.close();
+        TableRow tableRow = new TableRow(getApplicationContext());
+        for(int i = 0; i < crrs.size(); ++i){
+            Button button = new Button(getApplicationContext());
+
+            button.setText(names.get(i) + " \n " + crrs.get(i).getPrenom_crr() + " " + crrs.get(i).getNom_crr());
+            //button.setTag(Integer.toString(ce.getId_crr()));
+            //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(100, 100);
+            // params.weight = 5;
+            //button.setLayoutParams(params);
+
+            allButtons.add(button);
+            if (i % 2 == 0) {
+                tableRow = new TableRow(getApplicationContext());
+                tableRow.addView(button);
+                if (i == (crrs.size() - 1)) tableLayoutButton.addView(tableRow);
+            } else {
+                tableRow.addView(button);
+                tableLayoutButton.addView(tableRow);
+            }
+        }
+
+
     }
 
     private void easterEgg() {
@@ -173,8 +208,6 @@ public class MainActivity extends AppCompatActivity {
         Handler h = new Handler();
         h.postDelayed(myrunnable, 5000);
     }
-
-
 
     private void initShaker(){
         // ShakeDetector initialization
@@ -313,6 +346,17 @@ public class MainActivity extends AppCompatActivity {
         }
         dataAdapterOrdre.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerOrdre.setAdapter(dataAdapterOrdre);
+        spinnerOrdre.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ordrePassage = ++i;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void initInstances() {

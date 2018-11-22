@@ -129,13 +129,14 @@
 
             </LinearLayout>
 
-            <GridLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                android:rowCount="17" android:columnCount="3"
+            <TableLayout
+                android:layout_width="match_parent" android:layout_height="match_parent"
                 android:background="@drawable/border_all_black"
                 android:layout_margin="@dimen/margin6"
-                android:id="@+id/gridLayoutButton">
+                android:id="@+id/tableLayoutButton">
 
-            </GridLayout>
+
+            </TableLayout>
 
         </LinearLayout>
 

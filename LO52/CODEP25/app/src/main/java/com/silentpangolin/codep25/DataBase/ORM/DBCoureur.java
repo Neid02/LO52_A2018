@@ -78,6 +78,27 @@ public class DBCoureur {
         return crrs;
     }
 
+    public Coureur getCoureurWithIDTeamAndOrder(int id, int ordre){
+        Coureur crr = new Coureur();
+
+        Cursor c = bdd.rawQuery("SELECT * " +
+                " FROM " + TABLE +
+                " WHERE " + id_equ_crr + " = " + id +
+                " AND " + ordrepassage_crr + " = " + ordre + ";", null);
+
+        if (c.getCount() == 0) return null;
+
+        c.moveToFirst();
+        crr.setId_crr(c.getInt(num_id_crr));
+        crr.setNom_crr(c.getString(num_nom_crr));
+        crr.setPrenom_crr(c.getString(num_prenom_crr));
+        crr.setEchelon_crr(c.getInt(num_echelon_crr));
+        crr.setOrdrepassage_crr(c.getInt(num_ordrepassage_crr));
+        crr.setId_equ_crr(c.getInt(num_id_equ_crr));
+
+        return crr;
+    }
+
     public ArrayList<Coureur> getAllCoureurWithIDTeam(int id) {
         ArrayList<Coureur> crrs = new ArrayList<>();
 
