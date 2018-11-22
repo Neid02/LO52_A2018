@@ -11,49 +11,77 @@
         <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
             android:orientation="vertical">
 
-
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="top"
-                android:padding="@dimen/margin16">
+                android:color="@color/white"
+                android:background="@drawable/border_all_grey"
+                android:layout_marginTop="@dimen/margin6" android:layout_marginStart="@dimen/margin30" android:layout_marginEnd="@dimen/margin30"
+                >
 
-                <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="@string/chooseTeam"
-                    android:id="@+id/chooseTeam"
-                    android:layout_margin="@dimen/margin6"
-                    android:padding="@dimen/margin16"
-                    android:layout_gravity="center"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/display"
+                    android:padding="@dimen/margin6">
 
-                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:gravity="center">
+                    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="@string/chooseTeam"
+                        android:id="@+id/chooseTeam"
+                        android:layout_margin="@dimen/margin3"
+                        android:padding="@dimen/margin16"
+                        android:layout_gravity="center"/>
 
-                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/ordrePassage"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size16"
-                        android:padding="@dimen/margin6"
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:orientation="horizontal"
                         android:layout_gravity="center"
-                        android:gravity="center"/>
+                        android:gravity="center">
 
-                    <Spinner android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:id="@+id/ordrePassage"
-                        android:layout_margin="@dimen/margin6"
-                        android:layout_gravity="center"
-                        android:gravity="center"/>
+                        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/ordrePassage"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/size16"
+                            android:padding="@dimen/margin3"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                        <Spinner android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:id="@+id/ordrePassage"
+                            android:layout_margin="@dimen/margin6"
+                            android:layout_gravity="center"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dropdown"
+                    android:id="@+id/dropdown"
+                    android:gravity="center"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="@dimen/margin6"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:rotation="90"
+                    android:color="@color/black"
+                    android:layout_marginBottom="@dimen/margin3"/>
 
             </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="bottom"
-                android:paddingTop="@dimen/margin16"
-                android:paddingBottom="@dimen/margin30">
+                android:paddingTop="@dimen/margin6"
+                android:paddingBottom="@dimen/margin6"
+                android:color="@color/white"
+                android:background="@drawable/border_all_grey"
+                android:layout_marginTop="@dimen/margin6" android:layout_marginBottom="@dimen/margin6" android:layout_marginStart="@dimen/margin30" android:layout_marginEnd="@dimen/margin30">
 
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -65,7 +93,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/chronometer"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/size16"
+                        android:textSize="@dimen/size20"
                         android:padding="@dimen/margin6"/>
 
                     <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -100,6 +128,14 @@
                     />-->
 
             </LinearLayout>
+
+            <GridLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                android:rowCount="17" android:columnCount="3"
+                android:background="@drawable/border_all_black"
+                android:layout_margin="@dimen/margin6"
+                android:id="@+id/gridLayoutButton">
+
+            </GridLayout>
 
         </LinearLayout>
 

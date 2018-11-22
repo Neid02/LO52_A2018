@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
@@ -25,6 +26,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Chronometer;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SimpleAdapter;
@@ -234,6 +237,20 @@ public class MainActivity extends AppCompatActivity {
         Button start_pause = (Button) findViewById(R.id.start_pause);
         Button reset_lap = (Button) findViewById(R.id.reset_lap);
         Button chooseTeam = (Button) findViewById(R.id.chooseTeam);
+        ImageView dropDown = (ImageView) findViewById(R.id.dropdown);
+        dropDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    LinearLayout linear = (LinearLayout) findViewById(R.id.display);
+                    ViewGroup.LayoutParams layoutParams = linear.getLayoutParams();
+                    if ((layoutParams.height == 0) && (layoutParams.width == 0)) {
+                        linear.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    } else {
+                        linear.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                    }
+            }
+        });
+
         chooseTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
