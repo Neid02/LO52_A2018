@@ -176,7 +176,8 @@ public class MainActivity extends AppCompatActivity {
                             flag = false;
                     if(flag){
                         /** HERE INSERT TEMPS IN DATABASE
-                         * ARRAY LIST OF STRING */
+                         * ARRAY LIST OF STRING
+                         * + SAY "IT'S GOOD BOY, IT IS IN THE DATABASE" */
                         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
                         chronometer.setBase(SystemClock.elapsedRealtime());
                         timeWhenPaused = 0;
@@ -305,7 +306,6 @@ public class MainActivity extends AppCompatActivity {
             if(allButtons.size() != 0)
                 for(Button b : allButtons) {
                     b.setClickable(false);
-                    b.setFocusable(false);
                     b.setAlpha(0.5f);
                 }
         }else{
@@ -316,7 +316,6 @@ public class MainActivity extends AppCompatActivity {
             if(allButtons.size() != 0)
                 for(Button b : allButtons) {
                     b.setClickable(true);
-                    b.setFocusable(true);
                     b.setAlpha(1.0f);
                 }
         }
