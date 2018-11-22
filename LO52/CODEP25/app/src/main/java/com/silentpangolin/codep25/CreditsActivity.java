@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.support.design.widget.NavigationView;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,13 +39,13 @@ public class CreditsActivity extends AppCompatActivity {
 
         initInstances();
 
-        //setGeneric();
-
-        setVideo();
+        setGeneric();
     }
 
-    private void setVideo(){
+    /*private void setVideo(){
         VideoView video = (VideoView)findViewById(R.id.video);
+        LinearLayout video_view = (LinearLayout)findViewById(R.id.video_view);
+        video_view.setVisibility(View.VISIBLE);
         video.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.pangolin);
         video.start();
         video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -53,11 +54,11 @@ public class CreditsActivity extends AppCompatActivity {
                 mp.setLooping(true);
             }
         });
-    }
+    }*/
 
-    /*private void setGeneric(){
+    private void setGeneric(){
         final MyScrollView myScrollView = (MyScrollView)findViewById(R.id.credits_text_view) ;
-        final TextView credit_text = (TextView)findViewById(R.id.credits_text);
+        final TextView credits_text = (TextView)findViewById(R.id.credits_text);
         final ViewTreeObserver observer = myScrollView.getViewTreeObserver();
         final LinearLayout credits_end = (LinearLayout) findViewById(R.id.credits_end);
 
@@ -69,13 +70,12 @@ public class CreditsActivity extends AppCompatActivity {
                 Point size = new Point();
                 display.getSize(size);
 
-
-                TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, (int) size.y, (int) -(credit_text.getHeight() ));
+                TranslateAnimation translateAnimation = new TranslateAnimation(0, 0, (int) size.y, (int) -(credits_text.getHeight() ));
                 translateAnimation.setDuration(56000);
                 translateAnimation.setFillAfter(true);
                 translateAnimation.setStartOffset(0);
                 translateAnimation.setInterpolator(new LinearInterpolator());
-                credit_text.startAnimation(translateAnimation);
+                credits_text.startAnimation(translateAnimation);
                 translateAnimation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
@@ -90,6 +90,25 @@ public class CreditsActivity extends AppCompatActivity {
                         alphaAnimationEnd.setStartOffset(3000);
                         alphaAnimationEnd.setFillAfter(true);
                         credits_end.startAnimation(alphaAnimationEnd);
+                        /*alphaAnimationEnd.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                setVideo();
+                                credits_text.setAlpha(0.0f);
+                                credits_end.setAlpha(0.0f);
+                                credits_text.setVisibility(View.INVISIBLE);
+                                credits_end.setVisibility(View.INVISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+                            }
+                        });*/
                     }
 
                     @Override
@@ -99,7 +118,7 @@ public class CreditsActivity extends AppCompatActivity {
                 });
             }
         });
-    }*/
+    }
 
     private void initInstances() {
         getSupportActionBar().setHomeButtonEnabled(true);

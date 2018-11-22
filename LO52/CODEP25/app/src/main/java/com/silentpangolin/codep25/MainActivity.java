@@ -1,6 +1,10 @@
 package com.silentpangolin.codep25;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.Sensor;
@@ -19,6 +23,7 @@ import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -46,15 +51,15 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigation;
 
-    private ArrayList<HashMap<String, String>> laps;
+    /*private ArrayList<HashMap<String, String>> laps;
     private ListView lapsListView;
     private int numLaps = 0;
+    private SimpleAdapter adapter;*/
     private ArrayList<Coureur> coureurs;
     private ArrayList<Equipe> equipes;
-    private int idCoureur;
     private boolean OnStop = true;
     private long timeWhenPaused = 0;
-    private SimpleAdapter adapter;
+    private int maxTeam = 0;
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
@@ -75,14 +80,52 @@ public class MainActivity extends AppCompatActivity {
 
         initShaker();
 
-        laps = new ArrayList<>();
+        /*laps = new ArrayList<>();
         lapsListView = findViewById(R.id.listLaps);
         adapter = new SimpleAdapter(this.getBaseContext(), laps, R.layout.list_laps,
                 new String[]{"num", "time"}, new int[]{R.id.numLap, R.id.timeLap});
-        lapsListView.setAdapter(adapter);
+        lapsListView.setAdapter(adapter);*/
+
     }
 
-    private void easterEgg(int count) {
+
+    public AlertDialog onCreateDialog() {
+        final ArrayList<String> mSelectedItems = new ArrayList<String>();
+        final String[] nameTeam = new String[equipes.size()];
+        for(int i = 0; i < equipes.size(); ++i){
+            nameTeam[i] = equipes.get(i).getName_equ();
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(R.string.chooseTeam)
+                .setMultiChoiceItems(nameTeam, null,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which,
+                                                boolean isChecked) {
+                                if (isChecked) {
+                                    mSelectedItems.add(nameTeam[which]);
+                                } else if (mSelectedItems.equals(nameTeam[which])) {
+                                    mSelectedItems.remove(nameTeam[which]);
+                                }
+                            }
+                        })
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .setNegativeButton(R.string.annuler, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+
+        return builder.create();
+    }
+
+    private void easterEgg() {
         final SnowfallView snowfall = (SnowfallView) findViewById(R.id.snowfall);
         final RelativeLayout sapin = (RelativeLayout) findViewById(R.id.sapin);
         final RelativeLayout guirlande = (RelativeLayout) findViewById(R.id.guirlande);
@@ -140,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onShake(int count) {
-                easterEgg(count);
+                easterEgg();
             }
         });
     }
@@ -168,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
         DBCoureur dbCoureur = new DBCoureur(this);
         dbCoureur.open();
         coureurs = dbCoureur.getAllCoureur();
+        maxTeam = dbCoureur.getNumMaxCoureurByTeam();
         dbCoureur.close();
     }
 
@@ -181,8 +225,6 @@ public class MainActivity extends AppCompatActivity {
             start_pause.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.start), null, null, null);
             start_pause.setText(R.string.start);
         }else{
-            reset_lap.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.lap), null, null, null);
-            reset_lap.setText(R.string.lap);
             start_pause.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.stop), null, null, null);
             start_pause.setText(R.string.pause);
         }
@@ -191,6 +233,14 @@ public class MainActivity extends AppCompatActivity {
     private void setButton(){
         Button start_pause = (Button) findViewById(R.id.start_pause);
         Button reset_lap = (Button) findViewById(R.id.reset_lap);
+        Button chooseTeam = (Button) findViewById(R.id.chooseTeam);
+        chooseTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog alertDialog = onCreateDialog();
+                alertDialog.show();
+            }
+        });
         changeButtons(OnStop);
         final Chronometer chronometer = (Chronometer)findViewById(R.id.chronometer);
         start_pause.setOnClickListener(new View.OnClickListener() {
@@ -214,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                 if(OnStop) {
                     chronometer.setBase(SystemClock.elapsedRealtime());
                     timeWhenPaused = 0;
-                    numLaps = 0;
+                    /*numLaps = 0;
                     laps.clear();
                     adapter.notifyDataSetChanged();
                 }else{
@@ -231,68 +281,21 @@ public class MainActivity extends AppCompatActivity {
 
                     laps.add(item);
                     Toast.makeText(getApplicationContext(), Long.toString(millis), Toast.LENGTH_SHORT).show();
-                    adapter.notifyDataSetChanged();
-
+                    adapter.notifyDataSetChanged();*/
                 }
             }
         });
     }
 
     private void setSpinners(){
-        final Spinner spinnerEquipe, spinnerCoureur;
-        spinnerEquipe = (Spinner) findViewById(R.id.equipes);
-        spinnerCoureur = (Spinner) findViewById(R.id.coureurs);
+        final Spinner spinnerOrdre = (Spinner) findViewById(R.id.ordrePassage);
+        ArrayAdapter<String> dataAdapterOrdre = new ArrayAdapter<>(this, R.layout.spinner_item);
 
-        ArrayAdapter<String> dataAdapterEquipe = new ArrayAdapter<>(this, R.layout.spinner_item);
-        if (equipes.size() > 0)
-            for(Equipe e : equipes)
-                dataAdapterEquipe.add(e.getName_equ());
-
-        dataAdapterEquipe.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinnerEquipe.setAdapter(dataAdapterEquipe);
-
-        if(coureurs.size() > 0)
-            spinnerCoureur.setAdapter(getAdapterForSpinnerCoureur(0));
-
-        spinnerEquipe.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                if (coureurs.size() > 0)
-                    spinnerCoureur.setAdapter(getAdapterForSpinnerCoureur(position));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spinnerCoureur.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                idCoureur = coureurs.get(position).getId_crr();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-    }
-
-    private ArrayAdapter getAdapterForSpinnerCoureur(int position){
-        ArrayAdapter<String>  dataAdapterCoureur = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item);
-        if (coureurs.size() > 0){
-            DBCoureur dbCoureur = new DBCoureur(this);
-            dbCoureur.open();
-            ArrayList<Coureur> crrs = dbCoureur.getAllCoureurWithIDTeam(equipes.get(position).getId_equ());
-            dbCoureur.close();
-            for(Coureur c : crrs)
-                dataAdapterCoureur.add(c.getNom_crr().toUpperCase() + " " + c.getPrenom_crr());
+        for(int i = 1; i <= maxTeam; ++i){
+            dataAdapterOrdre.add(Integer.toString(i));
         }
-
-        dataAdapterCoureur.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        return dataAdapterCoureur;
+        dataAdapterOrdre.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spinnerOrdre.setAdapter(dataAdapterOrdre);
     }
 
     private void initInstances() {

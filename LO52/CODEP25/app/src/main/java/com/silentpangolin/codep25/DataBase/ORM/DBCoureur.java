@@ -104,6 +104,25 @@ public class DBCoureur {
         return crrs;
     }
 
+    public int getNumMaxCoureurByTeam(){
+        Cursor c = bdd.rawQuery(
+                "SELECT MAX(count) " +
+                "FROM (" +
+                    "SELECT COUNT(*) as count " +
+                    " FROM " + TABLE +
+                    " GROUP BY " + id_equ_crr +
+                ");", null);
+
+        if (c.getCount() == 0) return -1;
+
+        c.moveToFirst();
+        int temp = c.getInt(0);
+        c.close();
+
+        return temp;
+
+    }
+
     /*public long insertQuotationPR(QuotationPR quopr) {
         ContentValues values = new ContentValues();
         values.put(QUOPR_QUOID, quopr.getQuoPR_QuoID());

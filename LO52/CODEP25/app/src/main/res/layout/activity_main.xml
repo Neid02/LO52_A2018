@@ -12,43 +12,42 @@
             android:orientation="vertical">
 
 
-            <GridLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:rowCount="2"
-                android:columnCount="2"
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:gravity="top"
                 android:padding="@dimen/margin16">
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_column="0" android:layout_row="0"
-                        android:layout_columnWeight="1" android:layout_rowWeight="1"
-                        android:text="@string/equipe"
+                <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/chooseTeam"
+                    android:id="@+id/chooseTeam"
+                    android:layout_margin="@dimen/margin6"
+                    android:padding="@dimen/margin16"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/ordrePassage"
                         android:textColor="@color/black"
                         android:textSize="@dimen/size16"
-                        android:gravity="end"
-                        android:padding="@dimen/margin6"/>
+                        android:padding="@dimen/margin6"
+                        android:layout_gravity="center"
+                        android:gravity="center"/>
 
-                    <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_columnWeight="4" android:layout_rowWeight="1"
-                        android:layout_column="1" android:layout_row="0"
-                        android:id="@+id/equipes"
-                        android:layout_margin="@dimen/margin6"/>
+                    <Spinner android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/ordrePassage"
+                        android:layout_margin="@dimen/margin6"
+                        android:layout_gravity="center"
+                        android:gravity="center"/>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_columnWeight="1" android:layout_rowWeight="1"
-                        android:layout_column="0" android:layout_row="1"
-                        android:text="@string/coureur"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/size16"
-                        android:gravity="end"
-                        android:padding="@dimen/margin6"/>
+                </LinearLayout>
 
-                    <Spinner android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_columnWeight="4" android:layout_rowWeight="1"
-                        android:layout_column="1" android:layout_row="1"
-                        android:id="@+id/coureurs"
-                        android:layout_margin="@dimen/margin6"/>
-
-            </GridLayout>
+            </LinearLayout>
 
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -90,7 +89,7 @@
 
                 </LinearLayout>
 
-                <ListView
+                <!--<ListView
                     android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:scrollbars="vertical"
                     android:id="@+id/listLaps"
@@ -98,7 +97,7 @@
                     android:layout_marginStart="@dimen/margin16"
                     android:layout_marginEnd="@dimen/margin16"
                     android:background="@drawable/border_all_grey_notop"
-                    />
+                    />-->
 
             </LinearLayout>
 

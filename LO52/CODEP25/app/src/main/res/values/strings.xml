@@ -4,8 +4,8 @@
     <string name="start">Start</string>
     <string name="lap">Tour</string>
     <string name="reset">Reset</string>
-    <string name="equipe">Equipe : </string>
-    <string name="coureur">Coureur : </string>
+    <string name="chooseTeam">Choisir les équipes</string>
+    <string name="ordrePassage">Ordre de passage :</string>
     <string name="listcrr">Liste des coureurs</string>
     <string name="listequ">Liste des équipes</string>
 
@@ -23,6 +23,9 @@
     <string name="ordreCoureur">Ord. pass.</string>
     <string name="nomEquipe">Nom Équipe</string>
     <string name="sumEchelon">Total</string>
+
+    <string name="ok">Valider</string>
+    <string name="annuler">Annuler</string>
 
 
 
