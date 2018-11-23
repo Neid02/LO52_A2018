@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Handler;
@@ -25,9 +26,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.support.design.widget.NavigationView;
 import android.widget.TableLayout;
@@ -50,10 +54,6 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigation;
 
-    /*private ArrayList<HashMap<String, String>> laps;
-    private ListView lapsListView;
-    private int numLaps = 0;
-    private SimpleAdapter adapter;*/
     private ArrayList<Coureur> coureurs;
     private ArrayList<Equipe> equipes;
     private boolean OnStop = true;
@@ -81,13 +81,6 @@ public class MainActivity extends AppCompatActivity {
         setButton();
 
         initShaker();
-
-        /*laps = new ArrayList<>();
-        lapsListView = findViewById(R.id.listLaps);
-        adapter = new SimpleAdapter(this.getBaseContext(), laps, R.layout.list_laps,
-                new String[]{"num", "time"}, new int[]{R.id.numLap, R.id.timeLap});
-        lapsListView.setAdapter(adapter);*/
-
     }
 
 
@@ -128,9 +121,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setTableLayoutButton(@NotNull ArrayList<Equipe> teamSelected){
-        final TableLayout tableLayoutButton = (TableLayout) findViewById(R.id.tableLayoutButton);
+        ScrollView scr = (ScrollView) findViewById(R.id.scroll);
+        scr.setNestedScrollingEnabled(true);
+
         allButtons = new ArrayList<Button>();
-        tableLayoutButton.removeAllViews();
         final ArrayList<Coureur> crrs = new ArrayList<Coureur>();
         ArrayList<String> names = new ArrayList<String>();
         DBCoureur dbCoureur = new DBCoureur(this);
@@ -144,16 +138,20 @@ public class MainActivity extends AppCompatActivity {
         }
         dbCoureur.close();
         steps = new int[crrs.size()];
-        TableRow tableRow = new TableRow(getApplicationContext());
-        tableRow.setGravity(Gravity.CENTER);
-        tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
+
+        final LinearLayout linearAllButtons = (LinearLayout) findViewById(R.id.tableLayoutButton);
+        linearAllButtons.removeAllViews();
+
+        LinearLayout linear2Button = new LinearLayout(getApplicationContext());
+        linear2Button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        linear2Button.setOrientation(LinearLayout.HORIZONTAL);
+
         for(int i = 0; i < crrs.size(); ++i){
-            tableRow.setBackgroundColor(getResources().getColor(R.color.red));
             steps[i] = 0;
             final Button button = new Button(getApplicationContext());
             final int pos = i;
             allButtons.add(button);
-            final String text = names.get(i) + " \n " + crrs.get(i).getPrenom_crr() + " " + crrs.get(i).getNom_crr() + "\n" + getString(R.string.tour);
+            final String text = names.get(i) + " \n " + crrs.get(i).getPrenom_crr() + " " + crrs.get(i).getNom_crr() + "\n" + getString(R.string.tour) + " ";
             button.setText(text + "0");
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -184,23 +182,32 @@ public class MainActivity extends AppCompatActivity {
                         timeWhenPaused = 0;
                         OnStop = !OnStop;
                         changeButtons(OnStop);
-                        tableLayoutButton.removeAllViews();
+                        linearAllButtons.removeAllViews();
                     }
 
                 }
             });
             button.setClickable(false);
-            button.setFocusable(false);
             button.setAlpha(0.5f);
+            button.setGravity(Gravity.CENTER);
+            LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.f);
+            button.setLayoutParams(layout);
 
-            if (i % 2 == 0) {
-                tableRow = new TableRow(getApplicationContext());
-                tableRow.setGravity(Gravity.CENTER);
-                tableRow.addView(button, i % 2);
-                if (i == (crrs.size() - 1)) tableLayoutButton.addView(tableRow);
-            }else {
-                tableRow.addView(button, i % 2);
-                tableLayoutButton.addView(tableRow);
+            if(i%2 == 0){
+                linear2Button.addView(button);
+                if(i+1 == crrs.size()){
+                    LinearLayout linear = new LinearLayout(getApplicationContext());
+                    linear.setLayoutParams(layout);
+                    linear2Button.addView(linear);
+                    linearAllButtons.addView(linear2Button);
+                }
+            }
+            if(i%2 == 1){
+                linear2Button.addView(button);
+                linearAllButtons.addView(linear2Button);
+                linear2Button = new LinearLayout(getApplicationContext());
+                linear2Button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+                linear2Button.setOrientation(LinearLayout.HORIZONTAL);
             }
         }
     }
@@ -264,20 +271,6 @@ public class MainActivity extends AppCompatActivity {
                 easterEgg();
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Add the following line to register the Session Manager Listener onResume
-        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
-    }
-
-    @Override
-    public void onPause() {
-        // Add the following line to unregister the Sensor Manager onPause
-        mSensorManager.unregisterListener(mShakeDetector);
-        super.onPause();
     }
 
     private void getDataFromDataBase(){
@@ -377,24 +370,6 @@ public class MainActivity extends AppCompatActivity {
                     if(steps.length != 0)
                         for(int i = 0; i < steps.length; ++i)
                             steps[i] = 0;
-                    /*numLaps = 0;
-                    laps.clear();
-                    adapter.notifyDataSetChanged();
-                }else{
-                    // TOUR ICI
-                    long millis = SystemClock.elapsedRealtime() - chronometer.getBase();
-                    HashMap<String, String> item = new HashMap<>();
-                    numLaps++;
-                    item.put("num", Integer.toString(numLaps));
-                    String msm = String.format(Locale.FRANCE, "%02d:%02d:%02d",
-                            TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
-                            TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1),
-                            millis);
-                    item.put("time", msm);
-
-                    laps.add(item);
-                    Toast.makeText(getApplicationContext(), Long.toString(millis), Toast.LENGTH_SHORT).show();
-                    adapter.notifyDataSetChanged();*/
                 }
             }
         });
@@ -496,5 +471,19 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 }
