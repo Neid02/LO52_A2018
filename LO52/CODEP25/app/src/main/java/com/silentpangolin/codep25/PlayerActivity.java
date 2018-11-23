@@ -33,8 +33,6 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
-        setTitle(R.string.listcrr);
-
         initInstances();
 
         DBCoureur dbCoureur = new DBCoureur(this);
@@ -80,7 +78,9 @@ public class PlayerActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 switch (id) {
                     case R.id.home:
-                        startActivity(new Intent(PlayerActivity.this, MainActivity.class));
+                        Intent intent = new Intent(PlayerActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                         break;
                     case R.id.player:
                         startActivity(new Intent(PlayerActivity.this, PlayerActivity.class));

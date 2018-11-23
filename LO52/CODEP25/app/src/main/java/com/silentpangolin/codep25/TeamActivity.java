@@ -35,8 +35,6 @@ public class TeamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team);
 
-        setTitle(R.string.listequ);
-
         initInstances();
 
         DBEquipe dbEquipe = new DBEquipe(this);
@@ -106,7 +104,9 @@ public class TeamActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 switch (id) {
                     case R.id.home:
-                        startActivity(new Intent(TeamActivity.this, MainActivity.class));
+                        Intent intent = new Intent(TeamActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                         break;
                     case R.id.player:
                         startActivity(new Intent(TeamActivity.this, PlayerActivity.class));

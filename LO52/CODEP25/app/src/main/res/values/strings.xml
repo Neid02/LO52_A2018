@@ -8,6 +8,7 @@
     <string name="ordrePassage">Ordre de passage :</string>
     <string name="listcrr">Liste des coureurs</string>
     <string name="listequ">Liste des équipes</string>
+    <string name="tour">Tour : </string>
 
     <string name="credits">Crédits</string>
     <string name="home">Accueil</string>

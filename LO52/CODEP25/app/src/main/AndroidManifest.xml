@@ -16,13 +16,12 @@
         <activity android:name="com.silentpangolin.codep25.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.silentpangolin.codep25.PlayerActivity" />
-        <activity android:name="com.silentpangolin.codep25.TeamActivity" />
-        <activity android:name="com.silentpangolin.codep25.CreditsActivity"></activity>
+        <activity android:name="com.silentpangolin.codep25.PlayerActivity" android:label="@string/listcrr"/>
+        <activity android:name="com.silentpangolin.codep25.TeamActivity" android:label="@string/listequ"/>
+        <activity android:name="com.silentpangolin.codep25.CreditsActivity" android:label="@string/credits"/>
     </application>
 
 </manifest>

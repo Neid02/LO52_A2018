@@ -72,19 +72,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            initInstances();
+        initInstances();
 
-            getDataFromDataBase();
+        getDataFromDataBase();
 
-            setSpinner();
+        setSpinner();
 
-            setButton();
+        setButton();
 
-            initShaker();
-        }catch(Exception e){
-            Log.e("MyApplication", e.getMessage());
-        }
+        initShaker();
 
         /*laps = new ArrayList<>();
         lapsListView = findViewById(R.id.listLaps);
@@ -150,18 +146,22 @@ public class MainActivity extends AppCompatActivity {
         steps = new int[crrs.size()];
         TableRow tableRow = new TableRow(getApplicationContext());
         tableRow.setGravity(Gravity.CENTER);
+        tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT));
         for(int i = 0; i < crrs.size(); ++i){
+            tableRow.setBackgroundColor(getResources().getColor(R.color.red));
             steps[i] = 0;
             final Button button = new Button(getApplicationContext());
             final int pos = i;
             allButtons.add(button);
-            button.setText(names.get(i) + " \n " + crrs.get(i).getPrenom_crr() + " " + crrs.get(i).getNom_crr());
+            final String text = names.get(i) + " \n " + crrs.get(i).getPrenom_crr() + " " + crrs.get(i).getNom_crr() + "\n" + getString(R.string.tour);
+            button.setText(text + "0");
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     /** MAKE THE ARRAY LIST OF STRING
                      * FOR INSERTIONIN DATABASE */
                     ++steps[pos];
+                    button.setText(text + steps[pos]);
                     Log.e("DisplayTime",
                             "ID CRR : " + crrs.get(pos).getId_crr() +
                                     " - DUREE : " + getTime() +
@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                          * ARRAY LIST OF STRING
                          * + SAY "IT'S GOOD BOY, IT IS IN THE DATABASE" */
                         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
+                        chronometer.stop();
                         chronometer.setBase(SystemClock.elapsedRealtime());
                         timeWhenPaused = 0;
                         OnStop = !OnStop;
@@ -436,7 +437,9 @@ public class MainActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 switch (id) {
                     case R.id.home:
-                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                         break;
                     case R.id.player:
                         startActivity(new Intent(MainActivity.this, PlayerActivity.class));

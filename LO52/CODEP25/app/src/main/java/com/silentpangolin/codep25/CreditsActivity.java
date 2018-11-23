@@ -35,8 +35,6 @@ public class CreditsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_credits);
 
-        setTitle(R.string.credits);
-
         initInstances();
 
         setGeneric();
@@ -135,7 +133,9 @@ public class CreditsActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 switch (id) {
                     case R.id.home:
-                        startActivity(new Intent(CreditsActivity.this, MainActivity.class));
+                        Intent intent = new Intent(CreditsActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                         break;
                     case R.id.player:
                         startActivity(new Intent(CreditsActivity.this, PlayerActivity.class));
