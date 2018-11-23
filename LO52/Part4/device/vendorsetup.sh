@@ -1,0 +1,3 @@
+add_lunch_combo lo52_pasuta-eng
+add_lunch_combo lo52_pasuta-user
+add_lunch_combo lo52_pasuta-userdebug
