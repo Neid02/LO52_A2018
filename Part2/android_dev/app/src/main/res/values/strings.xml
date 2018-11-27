@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">TipStop manager</string>
+    <string name="table_manifestation_1">nom</string>
+    <string name="table_manifestation_2">date</string>
+    <string name="table_manifestation_3">lieu</string>
+    <string name="title_activity_add_manifestation">ajouter une manifestaion</string>
+    <string name="appbar_scrolling_view_behavior">Test bahavior</string>
+    <string name="dialog_fire_missiles">Fire missiles?</string>
+    <string name="fire">Missiles</string>
+    <string name="cancel">Annuler</string>
+    <string name="ok">valider</string>
+</resources>
