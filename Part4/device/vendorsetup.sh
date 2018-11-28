@@ -1,0 +1,3 @@
+add_lunch_combo lo52_DFL-eng
+add_lunch_combo lo52_DFL-user
+add_lunch_combo lo52_DFL-userdebug

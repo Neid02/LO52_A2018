@@ -1,0 +1,10 @@
+$(call inherit-product, device/linaro/hikey/hickey.mk)
+PRODUCT_PACKAGES += libusb
+PRODUCT_PROPERTY_OVERRIDE := ro.hw = lo52
+PRODUCT_PROPERTY_OVERRIDE := net.dns1 = 8.8.8.8
+PRODUCT_PROPERTY_OVERRIDE := net.dns2 = 4.4.4.4
+DEVICE_PACKAGE_OVERLAYS:= device/overlay
+PRODUCT_NAME:= lo52_DFL
+PRODUCT_BRAND:= lo52_DFL
+PRODUCT_MODEL:= lo52_DFL
+PRODUCT_DEVICE:= lo52_DFL
