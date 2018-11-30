@@ -1,0 +1,3 @@
+add_lunch_combo lo52_Yovo_Loho-eng
+add_lunch_combo lo52_Yovo_Loho-user
+add_lunch_combo lo52_Yovo_Loho-userdebug
