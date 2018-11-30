@@ -442,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, TeamActivity.class));
                         break;
                     case R.id.rankingPlayer:
-                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                        startActivity(new Intent(MainActivity.this, RankingPlayerActivity.class));
                         break;
                     case R.id.rankingTeam:
                         startActivity(new Intent(MainActivity.this, MainActivity.class));

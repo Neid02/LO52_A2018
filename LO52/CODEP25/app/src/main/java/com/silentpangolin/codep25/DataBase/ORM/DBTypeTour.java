@@ -5,6 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.silentpangolin.codep25.DataBase.MySQLiteDatabase;
+import com.silentpangolin.codep25.Objects.TypeTour;
+
+import java.util.ArrayList;
 
 public class DBTypeTour {
 
@@ -79,4 +82,24 @@ public class DBTypeTour {
         return ID;
     }
 
+    public ArrayList<TypeTour> getAllTypeTour(){
+        ArrayList<TypeTour> types = new ArrayList<>();
+
+        Cursor c = bdd.rawQuery("SELECT * " +
+                " FROM " + TABLE + ";", null);
+
+        if(c.getCount() == 0) return null;
+
+        c.moveToFirst();
+        for(int i = 0; i < c.getCount(); ++i){
+            TypeTour type = new TypeTour();
+            type.setId_typetour(c.getInt(num_id_typetour));
+            type.setInitials_typetour(c.getString(num_initials_typetour));
+            type.setName_typetour(c.getString(num_name_typetour));
+            types.add(type);
+
+            c.moveToNext();
+        }
+        return types;
+    }
 }

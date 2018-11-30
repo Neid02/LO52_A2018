@@ -30,9 +30,8 @@
 
     <string name="saveTemps">Temps enregistrés !</string>
 
-
-
-
+    <string name="chooseTypeTour">Type de tour :</string>
+    <string name="coureur">Coureur :</string>
 
 
     <string name="credits_end">Special Thanks

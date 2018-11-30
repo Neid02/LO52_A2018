@@ -2,6 +2,7 @@ package com.silentpangolin.codep25.DataBase.ORM;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.ArrayAdapter;
 
@@ -62,5 +63,30 @@ public class DBTemps {
 
             bdd.insert(TABLE, null, values);
         }
+    }
+
+    public ArrayList<Temps> getAllTemps(){
+        ArrayList<Temps> tps = new ArrayList<>();
+
+        Cursor c = bdd.rawQuery("SELECT * FROM " + TABLE + ";", null);
+
+        if(c.getCount() == 0) return null;
+
+        c.moveToFirst();
+        for(int i = 0; i < c.getCount(); ++i){
+            Temps t = new Temps();
+            t.setId_temps(c.getInt(num_id_temps));
+            t.setDuree_temps(c.getLong(num_duree_temps));
+            t.setId_crr_temps(c.getInt(num_id_crr_temps));
+            t.setId_equ_temps(c.getInt(num_id_equ_temps));
+            t.setId_typetour_temps(c.getInt(num_id_typetour_temps));
+            t.setDate_temps(c.getLong(num_date_temps));
+
+            tps.add(t);
+
+            c.moveToNext();
+        }
+
+        return tps;
     }
 }
