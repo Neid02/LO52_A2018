@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="fr.utbm.mamassi_maillard_lo52.codep25v2">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".activities.Stages"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.ParametresCourses"
+            android:label="@string/title_activity_parametres_courses"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.AddTypeCourseActivity"
+            android:label="@string/title_activity_add_type_course"
+            android:parentActivityName=".activities.ParametresCourses"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.utbm.mamassi_maillard_lo52.codep25v2.activities.ParametresCourses" />
+        </activity>
+        <activity
+            android:name=".activities.ParametresTours"
+            android:label="@string/title_activity_parametres_tours"
+            android:parentActivityName=".activities.ParametresCourses"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.utbm.mamassi_maillard_lo52.codep25v2.activities.ParametresCourses" />
+        </activity>
+        <activity
+            android:name=".activities.AddTypeTourActivity"
+            android:label="@string/title_activity_add_type_tour"
+            android:parentActivityName=".activities.ParametresTours"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.utbm.mamassi_maillard_lo52.codep25v2.activities.ParametresTours" />
+        </activity>
+        <activity
+            android:name=".activities.AddStageActivity"
+            android:label="@string/title_activity_add_stage"
+            android:parentActivityName=".activities.Stages"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.utbm.mamassi_maillard_lo52.codep25v2.activities.Stages" />
+        </activity>
+        <activity
+            android:name=".activities.CoursesActivity"
+            android:label="@string/title_activity_courses"
+            android:parentActivityName=".activities.Stages"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.utbm.mamassi_maillard_lo52.codep25v2.activities.Stages" />
+        </activity>
+        <activity
+            android:name=".activities.AddCourseActivity"
+            android:label="@string/title_activity_add_course"
+            android:parentActivityName=".activities.CoursesActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.utbm.mamassi_maillard_lo52.codep25v2.activities.CoursesActivity" />
+        </activity>
+        <activity
+            android:name=".activities.ParticipantsActivity"
+            android:label="@string/title_activity_participants"
+            android:parentActivityName=".activities.CoursesActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.utbm.mamassi_maillard_lo52.codep25v2.activities.CoursesActivity" />
+        </activity>
+        <activity
+            android:name=".activities.AddParticipantActivity"
+            android:label="@string/title_activity_add_participant"
+            android:parentActivityName=".activities.ParticipantsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="fr.utbm.mamassi_maillard_lo52.codep25v2.activities.ParticipantsActivity" />
+        </activity>
+    </application>
+
+</manifest>
