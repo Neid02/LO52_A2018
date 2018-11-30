@@ -1,5 +1,14 @@
 package fr.utbm.lo52.domain;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+
+@Entity(primaryKeys = {"IdRace", "IdRunner"},foreignKeys = { @ForeignKey(entity = Race.class,
+        parentColumns = "Id",
+        childColumns = "IdRace"),@ForeignKey(entity = Runner.class,
+        parentColumns = "Id",
+        childColumns = "IdRunner")})
+
 public class Participant {
 
     private long IdRace;

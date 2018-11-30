@@ -1,11 +1,18 @@
 package fr.utbm.lo52.domain;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity
 public class Race {
 
+    @PrimaryKey(autoGenerate = true)
     private long Id;
+
     private String Name;
+
     private Date Date;
 
 

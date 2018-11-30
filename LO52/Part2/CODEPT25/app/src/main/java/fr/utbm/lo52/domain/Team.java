@@ -1,5 +1,14 @@
 package fr.utbm.lo52.domain;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
+
+@Entity(primaryKeys = {"IdTeam", "IdRace"},
+        indices = {@Index(value = {"IdTeam", "IdRace"}, unique = true)},foreignKeys = @ForeignKey(entity = Race.class,
+        parentColumns = "Id",
+        childColumns = "IdRace"))
+
 public class Team {
 
 
@@ -8,21 +17,22 @@ public class Team {
     private String Name;
 
 
-    public Team(long id, long idRace, String name) {
-        IdTeam = id;
+    public Team(long idTeam, long idRace, String name) {
+        IdTeam = idTeam;
         IdRace = idRace;
         Name = name;
     }
 
-    public Team() {
+    public void setIdTeam(long idTeam) {
+        IdTeam = idTeam;
     }
 
-    public long getId() {
+    public long getIdTeam() {
         return IdTeam;
     }
 
-    public void setId(long id) {
-        IdTeam = id;
+    public Team() {
+
     }
 
     public long getIdRace() {

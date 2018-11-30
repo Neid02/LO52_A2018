@@ -1,10 +1,19 @@
 package fr.utbm.lo52.domain;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+
+@Entity(primaryKeys = {"IdRace", "IdTeam","IdRunner"},foreignKeys = { @ForeignKey(entity = Team.class,
+        parentColumns = {"IdTeam","IdRace"},
+        childColumns = {"IdTeam","IdRace"}),@ForeignKey(entity = Runner.class,
+        parentColumns = "Id",
+        childColumns = "IdRunner")})
 public class TeamRunner {
 
-    private long IdRunner;
+
     private long IdRace;
     private long IdTeam;
+    private long IdRunner;
     private long Order;
 
     public TeamRunner(long idRunner, long idRace, long idTeam, long order) {
