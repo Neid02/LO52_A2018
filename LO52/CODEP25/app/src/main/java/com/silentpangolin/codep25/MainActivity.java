@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Handler;
@@ -26,23 +25,23 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.GridLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.support.design.widget.NavigationView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBEquipe;
+import com.silentpangolin.codep25.DataBase.ORM.DBTemps;
+import com.silentpangolin.codep25.DataBase.ORM.DBTypeTour;
 import com.silentpangolin.codep25.Objects.Coureur;
 import com.silentpangolin.codep25.Objects.Equipe;
 import com.silentpangolin.codep25.Objects.ShakeDetector;
 import com.jetradarmobile.snowfall.SnowfallView;
+import com.silentpangolin.codep25.Objects.Temps;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -54,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigation;
 
-    private ArrayList<Coureur> coureurs;
     private ArrayList<Equipe> equipes;
     private boolean OnStop = true;
     private long timeWhenPaused = 0;
@@ -62,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private int ordrePassage = 0;
     private ArrayList<Button> allButtons = new ArrayList<Button>();
     private int[] steps;
+    private ArrayList<Temps> allTemps = new ArrayList<Temps>();
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
@@ -125,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         scr.setNestedScrollingEnabled(true);
 
         allButtons = new ArrayList<Button>();
+        allTemps = new ArrayList<Temps>();
         final ArrayList<Coureur> crrs = new ArrayList<Coureur>();
         ArrayList<String> names = new ArrayList<String>();
         DBCoureur dbCoureur = new DBCoureur(this);
@@ -156,26 +156,47 @@ public class MainActivity extends AppCompatActivity {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /** MAKE THE ARRAY LIST OF STRING
-                     * FOR INSERTIONIN DATABASE */
                     ++steps[pos];
+                    DBTypeTour dbTypeTour = new DBTypeTour(getApplicationContext());
+                    dbTypeTour.open();
+                    allTemps.add(new Temps(
+                            getTime(),
+                            crrs.get(pos).getId_crr(),
+                            crrs.get(pos).getId_equ_crr(),
+                            dbTypeTour.getIDTypeTourWithNbTours(steps[pos]),
+                            System.currentTimeMillis()));
+                    dbTypeTour.close();
+
                     button.setText(text + steps[pos]);
-                    Log.e("DisplayTime",
-                            "ID CRR : " + crrs.get(pos).getId_crr() +
-                                    " - DUREE : " + getTime() +
-                                    " - ETAPE : " + steps[pos]);
                     if(steps[pos] == 5){
                         button.setClickable(false);
                         button.setAlpha(0.5f);
+                        long temps = 0;
+                        for(Temps t : allTemps){
+                            if(t.getId_crr_temps() == crrs.get(pos).getId_crr()){
+                                temps += t.getDuree_temps();
+                            }
+                        }
+                        dbTypeTour.open();
+                        allTemps.add(new Temps(
+                                temps,
+                                crrs.get(pos).getId_crr(),
+                                crrs.get(pos).getId_equ_crr(),
+                                dbTypeTour.getIDTypeTourWithNbTours(-1),
+                                System.currentTimeMillis()));
+                        dbTypeTour.close();
                     }
                     boolean flag = true;
                     for(int i = 0; i < crrs.size(); ++i)
                         if(steps[i] != 5)
                             flag = false;
                     if(flag){
-                        /** HERE INSERT TEMPS IN DATABASE
-                         * ARRAY LIST OF STRING
-                         * + SAY "IT'S GOOD BOY, IT IS IN THE DATABASE" */
+                        DBTemps dbTemps = new DBTemps(getApplicationContext());
+                        dbTemps.open();
+                        dbTemps.insertTemps(allTemps);
+                        dbTemps.close();
+                        allTemps = new ArrayList<Temps>();
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.saveTemps), Toast.LENGTH_LONG).show();
                         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
                         chronometer.stop();
                         chronometer.setBase(SystemClock.elapsedRealtime());
@@ -184,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
                         changeButtons(OnStop);
                         linearAllButtons.removeAllViews();
                     }
-
                 }
             });
             button.setClickable(false);
@@ -281,7 +301,6 @@ public class MainActivity extends AppCompatActivity {
 
         DBCoureur dbCoureur = new DBCoureur(this);
         dbCoureur.open();
-        coureurs = dbCoureur.getAllCoureur();
         maxTeam = dbCoureur.getNumMaxCoureurByTeam();
         dbCoureur.close();
     }

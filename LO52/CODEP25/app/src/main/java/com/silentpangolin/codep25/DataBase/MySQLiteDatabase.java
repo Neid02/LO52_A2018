@@ -31,6 +31,7 @@ public class MySQLiteDatabase  extends SQLiteOpenHelper {
             "CREATE TABLE "
             + "TYPETOUR ("
             + "id_typetour INTEGER PRIMARY KEY, "
+            + "initials_typetour TEXT NOT NULL, "
             + "name_typetour TEXT NOT NULL"
             + ");";
 
@@ -58,7 +59,9 @@ public class MySQLiteDatabase  extends SQLiteOpenHelper {
             + "id_temps INTEGER PRIMARY KEY, "
             + "duree_temps INTEGER NOT NULL, "
             + "id_crr_temps INTEGER NOT NULL, "
+            + "id_equ_temps INTEGER NOT NULL, "
             + "id_typetour_temps INTEGER NOT NULL, "
+            + "date_temps INTEGER NOT NULL, "
             + "FOREIGN KEY(id_crr_temps) REFERENCES COUREUR(id_crr), "
             + "FOREIGN KEY(id_typetour_temps) REFERENCES TYPETOUR(id_typetour));";
 
@@ -138,6 +141,11 @@ public class MySQLiteDatabase  extends SQLiteOpenHelper {
                         c.getEchelon_crr() + ", " +
                         c.getOrdrepassage_crr() + ", " +
                         c.getId_equ_crr() + ");" );
+
+            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('sp', 'Sprint')");
+            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('fr', 'Fractionné')");
+            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('ps', 'Pit-Stop')");
+            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('gn', 'Général')");
 
         }catch(Exception e){
             Toast.makeText(this.context, e.getMessage(), Toast.LENGTH_LONG).show();
