@@ -9,12 +9,13 @@
         android:orientation="vertical"
         android:background="@color/white">
 
+
         <LinearLayout
             android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:background="@drawable/border_all_grey"
             android:layout_marginStart="@dimen/margin16"
             android:layout_marginEnd="@dimen/margin16"
-            android:layout_marginTop="@dimen/margin16">
+            android:layout_marginTop="@dimen/margin16"
+            android:background="@drawable/border_all_grey">
 
             <TextView
                 android:layout_width="0dp" android:layout_height="match_parent"
@@ -30,9 +31,9 @@
                 android:layout_width="0dp" android:layout_height="wrap_content"
                 android:layout_weight="4"
                 android:orientation="vertical"
-                android:background="@drawable/border_right"
                 android:layout_gravity="center_horizontal"
-                android:padding="@dimen/margin6">
+                android:padding="@dimen/margin6"
+                android:background="@drawable/border_right">
 
                 <TextView
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -50,7 +51,7 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_width="0dp" android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="@string/echelonCoureur"
                 android:textColor="@color/black"
@@ -60,7 +61,15 @@
                 android:layout_gravity="center"
                 />
 
+            <LinearLayout
+                android:layout_width="0dp" android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/border_left_grey"/>
         </LinearLayout>
+
+
+
+
 
         <ListView
             android:layout_width="match_parent" android:layout_height="wrap_content"

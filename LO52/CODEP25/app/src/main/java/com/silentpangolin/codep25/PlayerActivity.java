@@ -1,5 +1,6 @@
 package com.silentpangolin.codep25;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
@@ -7,8 +8,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -17,6 +22,7 @@ import com.silentpangolin.codep25.Objects.Coureur;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PlayerActivity extends AppCompatActivity {
 
@@ -27,6 +33,7 @@ public class PlayerActivity extends AppCompatActivity {
     private ListView listCrr;
     private ArrayList<HashMap<String, String>> listItem;
     private SimpleAdapter adapter;
+    private ArrayList<Integer> IDcrr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,15 +51,18 @@ public class PlayerActivity extends AppCompatActivity {
 
         listItem = new ArrayList<>();
 
-        if (crrs.size() > 0)
-            for (int i = 0; i < crrs.size(); ++i)
+        if (crrs.size() > 0) {
+            IDcrr = new ArrayList<>();
+            for (int i = 0; i < crrs.size(); ++i) {
                 listItem.add(getItem(crrs.get(i), i + 1));
+                IDcrr.add(crrs.get(i).getId_crr());
+            }
+        }
 
-        adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_coureur,
+        adapter = new MyPersonalAdapter(this.getBaseContext(), listItem, R.layout.list_coureur,
                 new String[]{"num", "nom", "prenom", "echelon"}, new int[]{R.id.numCrr, R.id.nomCrr, R.id.prenomCrr, R.id.echelonCrr});
 
         listCrr.setAdapter(adapter);
-
     }
 
     public HashMap<String, String> getItem(Coureur c, int i) {
@@ -138,5 +148,29 @@ public class PlayerActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public class MyPersonalAdapter extends SimpleAdapter {
+
+        public MyPersonalAdapter(Context pContext, ArrayList<HashMap<String, String>> pListItem, int pID,
+                                 String[] pFrom, int[] pTo) {
+            super(pContext, pListItem, pID, pFrom, pTo);
+        }
+
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            View view = super.getView(position, convertView, parent);
+
+            ImageButton deleteCrr = (ImageButton) view.findViewById(R.id.deleteCrr);
+            deleteCrr.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.wtf("Test", Integer.toString(IDcrr.get(position)));
+
+                }
+            });
+            return view;
+        }
     }
 }

@@ -50,5 +50,13 @@
             android:layout_gravity="center"
             />
 
+        <ImageButton
+            android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/deleteCrr"
+            android:layout_gravity="center"
+            android:src="@drawable/delete"
+            android:background="@drawable/border_left_grey"/>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
