@@ -52,6 +52,7 @@ public class PlayerActivity extends AppCompatActivity {
                 new String[]{"num", "nom", "prenom", "echelon"}, new int[]{R.id.numCrr, R.id.nomCrr, R.id.prenomCrr, R.id.echelonCrr});
 
         listCrr.setAdapter(adapter);
+
     }
 
     public HashMap<String, String> getItem(Coureur c, int i) {

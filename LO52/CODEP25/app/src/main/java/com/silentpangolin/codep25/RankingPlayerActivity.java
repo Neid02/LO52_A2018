@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,12 +25,19 @@ import com.silentpangolin.codep25.Objects.Coureur;
 import com.silentpangolin.codep25.Objects.Temps;
 import com.silentpangolin.codep25.Objects.TypeTour;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class RankingPlayerActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigation;
+
+    private int[] coureurs;
+    private int[] types;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +47,6 @@ public class RankingPlayerActivity extends AppCompatActivity {
         initInstances();
 
         setSpinner();
-
-        DBTemps dbTemps = new DBTemps(getApplicationContext());
-        dbTemps.open();
-        ArrayList<Temps> tps = dbTemps.getAllTemps();
-        dbTemps.close();
-        String txt = "";
-        for(Temps t : tps)
-            txt += t.toString() + "\n";
-        ((TextView)findViewById(R.id.allTemps)).setText(txt);
     }
 
 
@@ -61,11 +61,14 @@ public class RankingPlayerActivity extends AppCompatActivity {
         ArrayList<TypeTour> allTypeTour = dbTypeTour.getAllTypeTour();
         dbTypeTour.close();
 
-        for(TypeTour t : allTypeTour)
-            dataAdapterTour.add(t.getName_typetour());
+        types = new int[allTypeTour.size()];
+        for (int i = 0; i < allTypeTour.size(); ++i) {
+            dataAdapterTour.add(allTypeTour.get(i).getName_typetour());
+            types[i] = allTypeTour.get(i).getId_typetour();
+        }
 
         dataAdapterTour.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        spinnerTour.setAdapter(dataAdapterCoureur);
+        spinnerTour.setAdapter(dataAdapterTour);
         spinnerTour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -83,8 +86,11 @@ public class RankingPlayerActivity extends AppCompatActivity {
         ArrayList<Coureur> allcrrs = dbCoureur.getAllCoureur();
         dbCoureur.close();
 
-        for(Coureur c : allcrrs)
-            dataAdapterCoureur.add(c.getNom_crr() + " " + c.getPrenom_crr());
+        coureurs = new int[allcrrs.size()];
+        for (int i = 0; i < allcrrs.size(); ++i) {
+            dataAdapterCoureur.add(allcrrs.get(i).getNom_crr() + " " + allcrrs.get(i).getPrenom_crr());
+            coureurs[i] = allcrrs.get(i).getId_crr();
+        }
 
         dataAdapterCoureur.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerCoureur.setAdapter(dataAdapterCoureur);
@@ -102,7 +108,47 @@ public class RankingPlayerActivity extends AppCompatActivity {
     }
 
 
-    private void setList(){}
+    private void setList(){
+        Spinner coureur = (Spinner) findViewById(R.id.spinnerCoureur);
+        Spinner type = (Spinner) findViewById(R.id.spinnerTour);
+        DBTemps dbTemps = new DBTemps(getApplicationContext());
+        dbTemps.open();
+        ArrayList<Temps> tps = dbTemps.getAllTempsWithIDCoureurAndIDType(coureurs[coureur.getSelectedItemPosition()], types[type.getSelectedItemPosition()]);
+        dbTemps.close();
+
+        ArrayList<HashMap<String, String>> listItem = new ArrayList<>();
+        ListView listRank = (ListView) findViewById(R.id.listRank);
+
+        if (tps != null) {
+            Log.wtf("DisplayError", Integer.toString(tps.size()));
+            if (tps.size() > 0) {
+                for (int i = 0; i < tps.size(); ++i)
+                    listItem.add(getItem(tps.get(i).getDuree_temps(), i + 1));
+
+                SimpleAdapter adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking_coureur,
+                        new String[]{"numRank", "dureeRank"}, new int[]{R.id.numRank, R.id.dureeRank});
+
+                listRank.setAdapter(adapter);
+            }
+        }
+    }
+
+    private HashMap<String, String> getItem(long duree, int i) {
+        HashMap<String, String> item = new HashMap<>();
+        item.put("numRank", Integer.toString(i));
+        item.put("dureeRank", getTime(duree));
+        return item;
+    }
+
+    private String getTime(long duree){
+        String time = "";
+        time = Long.toString(duree % 1000);
+        duree /= 1000;
+        time = Long.toString(duree % 60) + " . " + time;
+        duree /= 60;
+        time = Long.toString(duree) + " : " + time;
+        return time;
+    }
 
     private void initInstances() {
         getSupportActionBar().setHomeButtonEnabled(true);

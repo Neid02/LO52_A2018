@@ -9,6 +9,4 @@
     <dimen name="margin3">3dp</dimen>
     <dimen name="height1">1dp</dimen>
     <dimen name="image100">100dp</dimen>
-
-
 </resources>

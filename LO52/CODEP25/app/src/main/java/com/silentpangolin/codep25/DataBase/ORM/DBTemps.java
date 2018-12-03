@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.silentpangolin.codep25.DataBase.MySQLiteDatabase;
@@ -69,6 +70,42 @@ public class DBTemps {
         ArrayList<Temps> tps = new ArrayList<>();
 
         Cursor c = bdd.rawQuery("SELECT * FROM " + TABLE + ";", null);
+
+        if(c.getCount() == 0) return null;
+
+        c.moveToFirst();
+        for(int i = 0; i < c.getCount(); ++i){
+            Temps t = new Temps();
+            t.setId_temps(c.getInt(num_id_temps));
+            t.setDuree_temps(c.getLong(num_duree_temps));
+            t.setId_crr_temps(c.getInt(num_id_crr_temps));
+            t.setId_equ_temps(c.getInt(num_id_equ_temps));
+            t.setId_typetour_temps(c.getInt(num_id_typetour_temps));
+            t.setDate_temps(c.getLong(num_date_temps));
+
+            tps.add(t);
+
+            c.moveToNext();
+        }
+
+        return tps;
+    }
+
+    public ArrayList<Temps> getAllTempsWithIDCoureurAndIDType(int ID, int Type){
+        ArrayList<Temps> tps = new ArrayList<>();
+
+        Cursor c = bdd.rawQuery(
+                "SELECT *" +
+                    " FROM " + TABLE +
+                    " WHERE " + id_crr_temps + " = " + ID +
+                    " AND " + id_typetour_temps + " = " + Type +
+                    " ORDER BY " + duree_temps + " ASC;", null);
+
+        Log.wtf("DisplayError", "SELECT *" +
+                " FROM " + TABLE +
+                " WHERE " + id_crr_temps + " = " + ID +
+                " AND " + id_typetour_temps + " = " + Type +
+                " ORDER BY " + duree_temps + " DESC;");
 
         if(c.getCount() == 0) return null;
 

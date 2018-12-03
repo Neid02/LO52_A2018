@@ -29,7 +29,9 @@
         <activity
             android:name=".CreditsActivity"
             android:label="@string/credits" />
-        <activity android:name=".RankingPlayerActivity"></activity>
+        <activity
+            android:name=".RankingPlayerActivity"
+            android:label="@string/rankingPlayer"/>
     </application>
 
 </manifest>

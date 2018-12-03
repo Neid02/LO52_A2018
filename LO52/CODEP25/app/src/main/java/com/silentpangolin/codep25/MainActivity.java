@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             allButtons.add(button);
             final String text = names.get(i) + " \n " + crrs.get(i).getPrenom_crr() + " " + crrs.get(i).getNom_crr() + "\n" + getString(R.string.tour) + " ";
             button.setText(text + "0");
+            button.setTag(text);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -327,10 +328,11 @@ public class MainActivity extends AppCompatActivity {
             reset_lap.setAlpha(0.5f);
             reset_lap.setClickable(false);
             if(allButtons.size() != 0)
-                for(Button b : allButtons) {
-                    b.setClickable(true);
-                    b.setAlpha(1.0f);
-                }
+                for(int i = 0; i < allButtons.size(); ++i)
+                    if(steps[i] < 5){
+                        allButtons.get(i).setClickable(true);
+                        allButtons.get(i).setAlpha(1.0f);
+                    }
         }
     }
 
@@ -346,13 +348,13 @@ public class MainActivity extends AppCompatActivity {
         dropDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    LinearLayout linear = (LinearLayout) findViewById(R.id.display);
-                    ViewGroup.LayoutParams layoutParams = linear.getLayoutParams();
-                    if ((layoutParams.height == 0) && (layoutParams.width == 0)) {
-                        linear.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    } else {
-                        linear.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
-                    }
+                LinearLayout linear = (LinearLayout) findViewById(R.id.display);
+                ViewGroup.LayoutParams layoutParams = linear.getLayoutParams();
+                if ((layoutParams.height == 0) && (layoutParams.width == 0)) {
+                    linear.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                } else {
+                    linear.setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+                }
             }
         });
 
@@ -389,6 +391,8 @@ public class MainActivity extends AppCompatActivity {
                     if(steps.length != 0)
                         for(int i = 0; i < steps.length; ++i)
                             steps[i] = 0;
+                    for(Button b : allButtons)
+                        b.setText(b.getTag() + "0");
                 }
             }
         });
