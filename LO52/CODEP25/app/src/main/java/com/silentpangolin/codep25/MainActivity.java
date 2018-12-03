@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Button> allButtons = new ArrayList<Button>();
     private int[] steps;
     private ArrayList<Temps> allTemps = new ArrayList<Temps>();
+    private long[] times;
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
@@ -146,8 +147,11 @@ public class MainActivity extends AppCompatActivity {
         linear2Button.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
         linear2Button.setOrientation(LinearLayout.HORIZONTAL);
 
+        times = new long[crrs.size()];
+
         for(int i = 0; i < crrs.size(); ++i){
             steps[i] = 0;
+            times[i] = 0;
             final Button button = new Button(getApplicationContext());
             final int pos = i;
             allButtons.add(button);
@@ -161,12 +165,14 @@ public class MainActivity extends AppCompatActivity {
                     DBTypeTour dbTypeTour = new DBTypeTour(getApplicationContext());
                     dbTypeTour.open();
                     allTemps.add(new Temps(
-                            getTime(),
+                            getTime(times[pos]),
                             crrs.get(pos).getId_crr(),
                             crrs.get(pos).getId_equ_crr(),
                             dbTypeTour.getIDTypeTourWithNbTours(steps[pos]),
                             System.currentTimeMillis()));
                     dbTypeTour.close();
+
+                    times[pos] = getTime(0);
 
                     button.setText(text + steps[pos]);
                     if(steps[pos] == 5){
@@ -336,8 +342,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private long getTime(){
-        return SystemClock.elapsedRealtime() - ((Chronometer)findViewById(R.id.chronometer)).getBase();
+    private long getTime(long time){
+        return SystemClock.elapsedRealtime() - ((Chronometer)findViewById(R.id.chronometer)).getBase() - time;
     }
 
     private void setButton(){
@@ -449,7 +455,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(MainActivity.this, RankingPlayerActivity.class));
                         break;
                     case R.id.rankingTeam:
-                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                        startActivity(new Intent(MainActivity.this, RankingTeamActivity.class));
                         break;
                 }
                 return false;

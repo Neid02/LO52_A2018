@@ -7,7 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBTemps;
@@ -25,11 +23,8 @@ import com.silentpangolin.codep25.Objects.Coureur;
 import com.silentpangolin.codep25.Objects.Temps;
 import com.silentpangolin.codep25.Objects.TypeTour;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 public class RankingPlayerActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
@@ -120,7 +115,6 @@ public class RankingPlayerActivity extends AppCompatActivity {
         ListView listRank = (ListView) findViewById(R.id.listRank);
 
         if (tps != null) {
-            Log.wtf("DisplayError", Integer.toString(tps.size()));
             if (tps.size() > 0) {
                 for (int i = 0; i < tps.size(); ++i)
                     listItem.add(getItem(tps.get(i).getDuree_temps(), i + 1));
@@ -179,7 +173,7 @@ public class RankingPlayerActivity extends AppCompatActivity {
                         startActivity(new Intent(RankingPlayerActivity.this, RankingPlayerActivity.class));
                         break;
                     case R.id.rankingTeam:
-                        startActivity(new Intent(RankingPlayerActivity.this, MainActivity.class));
+                        startActivity(new Intent(RankingPlayerActivity.this, RankingTeamActivity.class));
                         break;
                 }
                 return false;

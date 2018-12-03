@@ -101,12 +101,6 @@ public class DBTemps {
                     " AND " + id_typetour_temps + " = " + Type +
                     " ORDER BY " + duree_temps + " ASC;", null);
 
-        Log.wtf("DisplayError", "SELECT *" +
-                " FROM " + TABLE +
-                " WHERE " + id_crr_temps + " = " + ID +
-                " AND " + id_typetour_temps + " = " + Type +
-                " ORDER BY " + duree_temps + " DESC;");
-
         if(c.getCount() == 0) return null;
 
         c.moveToFirst();

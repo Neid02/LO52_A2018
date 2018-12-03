@@ -147,7 +147,7 @@ public class CreditsActivity extends AppCompatActivity {
                         startActivity(new Intent(CreditsActivity.this, RankingPlayerActivity.class));
                         break;
                     case R.id.rankingTeam:
-                        startActivity(new Intent(CreditsActivity.this, MainActivity.class));
+                        startActivity(new Intent(CreditsActivity.this, RankingTeamActivity.class));
                         break;
                 }
                 return false;

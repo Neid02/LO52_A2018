@@ -31,7 +31,10 @@
             android:label="@string/credits" />
         <activity
             android:name=".RankingPlayerActivity"
-            android:label="@string/rankingPlayer"/>
+            android:label="@string/rankingPlayer" />
+        <activity
+            android:name=".RankingTeamActivity"
+            android:label="@string/rankingTeam" />
     </application>
 
 </manifest>

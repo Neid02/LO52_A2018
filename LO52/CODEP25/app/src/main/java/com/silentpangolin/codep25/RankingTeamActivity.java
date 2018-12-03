@@ -9,59 +9,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
-import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
-import com.silentpangolin.codep25.Objects.Coureur;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-public class PlayerActivity extends AppCompatActivity {
-
+public class RankingTeamActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
     NavigationView navigation;
 
-    private ListView listCrr;
-    private ArrayList<HashMap<String, String>> listItem;
-    private SimpleAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_player);
+        setContentView(R.layout.activity_ranking_team);
 
         initInstances();
-
-        DBCoureur dbCoureur = new DBCoureur(this);
-        dbCoureur.open();
-        ArrayList<Coureur> crrs = dbCoureur.getAllCoureur();
-        dbCoureur.close();
-
-        listCrr = (ListView) findViewById(R.id.listCrr);
-
-        listItem = new ArrayList<>();
-
-        if (crrs.size() > 0)
-            for (int i = 0; i < crrs.size(); ++i)
-                listItem.add(getItem(crrs.get(i), i + 1));
-
-        adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_coureur,
-                new String[]{"num", "nom", "prenom", "echelon"}, new int[]{R.id.numCrr, R.id.nomCrr, R.id.prenomCrr, R.id.echelonCrr});
-
-        listCrr.setAdapter(adapter);
-
-    }
-
-    public HashMap<String, String> getItem(Coureur c, int i) {
-        HashMap<String, String> item = new HashMap<>();
-        item.put("num", Integer.toString(i));
-        item.put("nom", c.getNom_crr());
-        item.put("prenom", c.getPrenom_crr());
-        item.put("echelon", Integer.toString(c.getEchelon_crr()));
-        return item;
     }
 
     private void initInstances() {
@@ -69,7 +28,7 @@ public class PlayerActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        drawerToggle = new ActionBarDrawerToggle(PlayerActivity.this, drawerLayout, R.string.app_name, R.string.app_name);
+        drawerToggle = new ActionBarDrawerToggle(RankingTeamActivity.this, drawerLayout, R.string.app_name, R.string.app_name);
         drawerLayout.setDrawerListener(drawerToggle);
 
         navigation = (NavigationView) findViewById(R.id.navigation_view);
@@ -79,21 +38,21 @@ public class PlayerActivity extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 switch (id) {
                     case R.id.home:
-                        Intent intent = new Intent(PlayerActivity.this, MainActivity.class);
+                        Intent intent = new Intent(RankingTeamActivity.this, MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         break;
                     case R.id.player:
-                        startActivity(new Intent(PlayerActivity.this, PlayerActivity.class));
+                        startActivity(new Intent(RankingTeamActivity.this, PlayerActivity.class));
                         break;
                     case R.id.team:
-                        startActivity(new Intent(PlayerActivity.this, TeamActivity.class));
+                        startActivity(new Intent(RankingTeamActivity.this, TeamActivity.class));
                         break;
                     case R.id.rankingPlayer:
-                        startActivity(new Intent(PlayerActivity.this, RankingPlayerActivity.class));
+                        startActivity(new Intent(RankingTeamActivity.this, RankingPlayerActivity.class));
                         break;
                     case R.id.rankingTeam:
-                        startActivity(new Intent(PlayerActivity.this, RankingTeamActivity.class));
+                        startActivity(new Intent(RankingTeamActivity.this, MainActivity.class));
                         break;
                 }
                 return false;
@@ -134,7 +93,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_credits) {
-            startActivity(new Intent(PlayerActivity.this, CreditsActivity.class));
+            startActivity(new Intent(RankingTeamActivity.this, CreditsActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
