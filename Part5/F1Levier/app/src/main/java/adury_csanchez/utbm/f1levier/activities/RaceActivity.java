@@ -40,6 +40,7 @@ import adury_csanchez.utbm.f1levier.model.LapTime;
 import adury_csanchez.utbm.f1levier.model.Race;
 import adury_csanchez.utbm.f1levier.model.Runner;
 import adury_csanchez.utbm.f1levier.model.Team;
+import adury_csanchez.utbm.f1levier.model.TeamComparator;
 
 public class RaceActivity extends AppCompatActivity {
 
@@ -144,7 +145,7 @@ public class RaceActivity extends AppCompatActivity {
 
             // Create button
             Button triggerButton = new Button(this);
-            triggerButton.setText(team.getName());
+            triggerButton.setText(team.getName()+" "+team.getWeight(enrolmentDAO));
             triggerButton.setEnabled(false);
             triggerButton.setWidth(mapPXtoDP(100));
             // Add it to the linearLayoutRow and to the list of trigger buttons
@@ -364,6 +365,7 @@ public class RaceActivity extends AppCompatActivity {
         for(int i = nbTeams-1;i>=0;i--){
             if(it.hasNext()) enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
         }
+        Collections.sort(lt,new TeamComparator(enrolmentDAO));
         for(int i = 0;i<nbTeams-nbTeamsOf2;i++){
             if(it.hasNext()) enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
         }

@@ -42,4 +42,12 @@ public class Team {
         Log.d(TAG, "id="+mId+", name="+mName);
     }
 
+    public int getWeight(EnrolmentDAO enrolmentDAO){
+        int w=0;
+        for(Enrolment e : enrolmentDAO.getEnrolmentsOfTeam(getId())){
+            w+=e.getRunner().getWeight();
+        }
+        return w;
+    }
+
 }
