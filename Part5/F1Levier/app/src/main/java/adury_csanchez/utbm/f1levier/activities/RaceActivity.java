@@ -338,7 +338,9 @@ public class RaceActivity extends AppCompatActivity {
     public void createRandomRunners(int nb){
         RunnerDAO runnerDAO = new RunnerDAO(this);
         Random rd = new Random();
-        runnerDAO.createRunner(RandomNames.getRandomFirstName(),RandomNames.getRandomLastName(),rd.nextInt(100));
+        for(int i = 0;i<nb;i++) {
+            runnerDAO.createRunner(RandomNames.getRandomFirstName(),RandomNames.getRandomLastName(),rd.nextInt(100));
+        }
     }
     public void createWeightedTeamsForRace(Race race){
         TeamDAO teamDAO = new TeamDAO(this);
@@ -357,13 +359,13 @@ public class RaceActivity extends AppCompatActivity {
         Iterator<Runner> it = lr.iterator();
         List<Team> lt = teamDAO.getTeamsOfRace(race.getId());
         for(int i = 0;i<nbTeams;i++){
-            enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
+            if(it.hasNext()) enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
         }
         for(int i = nbTeams-1;i>=0;i--){
-            enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
+            if(it.hasNext()) enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
         }
         for(int i = 0;i<nbTeams-nbTeamsOf2;i++){
-            enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
+            if(it.hasNext()) enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
         }
     }
 
