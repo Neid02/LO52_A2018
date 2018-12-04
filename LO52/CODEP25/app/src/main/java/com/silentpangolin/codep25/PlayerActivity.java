@@ -41,6 +41,7 @@ public class PlayerActivity extends AppCompatActivity {
     private SimpleAdapter adapter;
     private ArrayList<Integer> IDcrr;
     private ArrayList<Coureur> allCrrs;
+    private boolean modify = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,6 +212,7 @@ public class PlayerActivity extends AppCompatActivity {
                         dbCoureur.open();
                         dbCoureur.updateCoureur(allCrrs.get(position));
                         dbCoureur.close();
+                        modify = true;
                     }
                 }
             });
@@ -242,15 +244,6 @@ public class PlayerActivity extends AppCompatActivity {
             (alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)).setTextColor(getResources().getColor(R.color.grey_black));
         }
 
-        private HashMap<String, String> getItem(Coureur c, int i) {
-            HashMap<String, String> item = new HashMap<>();
-            item.put("num", Integer.toString(i));
-            item.put("nom", c.getNom_crr());
-            item.put("prenom", c.getPrenom_crr());
-            item.put("echelon", Integer.toString(c.getEchelon_crr()));
-            return item;
-        }
-
         private void setDeleteDialog(final int position){
             AlertDialog.Builder builder = new AlertDialog.Builder(PlayerActivity.this);
             builder.setTitle(getResources().getString(R.string.deleteCrr));
@@ -258,14 +251,13 @@ public class PlayerActivity extends AppCompatActivity {
             builder.setCancelable(true);
             builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+                    DBCoureur dbCoureur = new DBCoureur(getApplicationContext());
+                    dbCoureur.open();
+                    dbCoureur.deleteCoureur(allCrrs.get(position).getId_crr());
                     listItem.remove(position);
                     allCrrs.remove(position);
                     adapter.notifyDataSetChanged();
-                    /**
-                     * REMOVE HERE THE PLAYER
-                     *
-                     *
-                     */
+                    modify = true;
                 }
             });
             builder.setNegativeButton(R.string.annuler, new DialogInterface.OnClickListener() {
@@ -280,6 +272,15 @@ public class PlayerActivity extends AppCompatActivity {
 
             (alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)).setTextColor(getResources().getColor(R.color.grey_black));
             (alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)).setTextColor(getResources().getColor(R.color.grey_black));
+        }
+
+        private HashMap<String, String> getItem(Coureur c, int i) {
+            HashMap<String, String> item = new HashMap<>();
+            item.put("num", Integer.toString(i));
+            item.put("nom", c.getNom_crr());
+            item.put("prenom", c.getPrenom_crr());
+            item.put("echelon", Integer.toString(c.getEchelon_crr()));
+            return item;
         }
     }
 }

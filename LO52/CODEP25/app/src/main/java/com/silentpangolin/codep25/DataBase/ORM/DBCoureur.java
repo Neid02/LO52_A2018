@@ -153,4 +153,8 @@ public class DBCoureur {
         values.put(id_equ_crr, c.getId_equ_crr());
         bdd.update(TABLE, values, id_crr + " = " + c.getId_crr(), null);
     }
+
+    public int deleteCoureur(int ID){
+        return bdd.delete(TABLE, id_crr + " = " + ID, null);
+    }
 }
