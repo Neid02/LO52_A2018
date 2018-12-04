@@ -141,35 +141,16 @@ public class DBCoureur {
         c.close();
 
         return temp;
-
     }
 
-    /*public long insertQuotationPR(QuotationPR quopr) {
+    public void updateCoureur(Coureur c) {
         ContentValues values = new ContentValues();
-        values.put(QUOPR_QUOID, quopr.getQuoPR_QuoID());
-        values.put(QUOPR_PRID, quopr.getQuoPR_PRID());
-        values.put(QUOPR_QTE, quopr.getQuoPR_Qte());
-        values.put(QUOPR_BUSID, quopr.getQuoPR_BusID());
-
-        return bdd.insert(TABLE, null, values);
-    }*/
-
-    /**
-     * Mise à jour de tous les coureurs
-     *
-     * @param crrs
-     * @return int
-     */
-    public void updateAllCoureur(ArrayList<Coureur> crrs) {
-        for(Coureur c : crrs){
-            ContentValues values = new ContentValues();
-            values.put(id_crr, c.getId_crr());
-            values.put(nom_crr, c.getNom_crr());
-            values.put(prenom_crr, c.getPrenom_crr());
-            values.put(echelon_crr, c.getEchelon_crr());
-            values.put(ordrepassage_crr, c.getOrdrepassage_crr());
-            values.put(id_equ_crr, c.getId_equ_crr());
-            bdd.update(TABLE, values, id_crr + " = " + c.getId_crr(), null);
-        }
+        values.put(id_crr, c.getId_crr());
+        values.put(nom_crr, c.getNom_crr());
+        values.put(prenom_crr, c.getPrenom_crr());
+        values.put(echelon_crr, c.getEchelon_crr());
+        values.put(ordrepassage_crr, c.getOrdrepassage_crr());
+        values.put(id_equ_crr, c.getId_equ_crr());
+        bdd.update(TABLE, values, id_crr + " = " + c.getId_crr(), null);
     }
 }

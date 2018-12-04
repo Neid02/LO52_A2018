@@ -10,7 +10,6 @@
         android:background="@color/white">
 
 
-
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

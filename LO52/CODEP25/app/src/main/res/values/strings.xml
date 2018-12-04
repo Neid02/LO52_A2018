@@ -33,6 +33,13 @@
     <string name="chooseTypeTour">Type de tour :</string>
     <string name="coureur">Coureur :</string>
 
+    <string name="deleteCrr">Voulez-vous supprimer ce coureur :</string>
+
+    <string name="modifytitle">Modifier le coureur</string>
+    <string name="modifyprenom">Prénom :</string>
+    <string name="modifynom">Nom :</string>
+    <string name="modifyechelon">Échelon :</string>
+
 
     <string name="credits_end">Special Thanks
 Fabien Brisset - CODEP25</string>

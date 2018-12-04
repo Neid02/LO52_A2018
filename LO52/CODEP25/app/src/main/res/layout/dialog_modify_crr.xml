@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/margin16">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/modifynom"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size16"
+            android:paddingStart="@dimen/margin6" android:paddingTop="@dimen/margin6" android:paddingEnd="@dimen/margin6" />
+
+        <EditText
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/modifyEditNom"
+            android:paddingBottom="@dimen/margin6"
+            android:maxLines="1"
+            android:inputType="text"/>
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/modifyprenom"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size16"
+            android:paddingStart="@dimen/margin6" android:paddingTop="@dimen/margin6" android:paddingEnd="@dimen/margin6" />
+
+        <EditText
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:id="@+id/modifyEditPrenom"
+            android:paddingBottom="@dimen/margin6"
+            android:maxLines="1"
+            android:inputType="text"/>
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="@string/modifyechelon"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size16"
+            android:paddingStart="@dimen/margin6" android:paddingTop="@dimen/margin6" android:paddingEnd="@dimen/margin6" />
+
+        <NumberPicker
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/modifyEditEchelon" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
