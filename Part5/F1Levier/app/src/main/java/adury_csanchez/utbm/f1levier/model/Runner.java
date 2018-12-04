@@ -1,8 +1,9 @@
 package adury_csanchez.utbm.f1levier.model;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
-public class Runner {
+public class Runner implements Comparable<Runner>{
 
     public static final String TAG = "Runner";
 
@@ -63,4 +64,8 @@ public class Runner {
         Log.d(TAG, "id="+mId+", firstName="+mFirstName+", lastName="+mLastName+", weight="+mWeight);
     }
 
+    @Override
+    public int compareTo(@NonNull Runner runner) {
+        return getWeight()-runner.getWeight();
+    }
 }

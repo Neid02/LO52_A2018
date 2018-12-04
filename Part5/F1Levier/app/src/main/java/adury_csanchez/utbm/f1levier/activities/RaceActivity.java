@@ -23,6 +23,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -106,24 +107,10 @@ public class RaceActivity extends AppCompatActivity {
         final Race race1 = raceDAO.createRace("Deleon race");
 
 
-        int nbTeamToGenerate=10;
-        for(int i=0;i<nbTeamToGenerate;i++)
-        {
-            Team t=teamDAO.createTeam(RandomNames.getRandomCountry());
+        int nbRunnersToGenerate=28;
+        createRandomRunners(28);
+        createWeightedTeamsForRace(race1);
 
-            Runner r1 = runnerDAO.createRunner(RandomNames.getRandomFirstName(),RandomNames.getRandomLastName(),10);
-            Runner r2 = runnerDAO.createRunner(RandomNames.getRandomFirstName(),RandomNames.getRandomLastName(),10);
-            enrolmentDAO.createEnrolment(r1.getId(),t.getId());
-            enrolmentDAO.createEnrolment(r2.getId(),t.getId());
-
-            Random random = new Random();
-            if(random.nextBoolean()) {
-                Runner r3 = runnerDAO.createRunner(RandomNames.getRandomFirstName(),RandomNames.getRandomLastName(),10);
-                enrolmentDAO.createEnrolment(r3.getId(),t.getId());
-            }
-
-            subscriptionDAO.createSubscription(t.getId(),race1.getId());
-        }
         // TODO To remove \> =====================================
 
 
@@ -346,6 +333,37 @@ public class RaceActivity extends AppCompatActivity {
                 }
             });
 
+        }
+    }
+    public void createRandomRunners(int nb){
+        RunnerDAO runnerDAO = new RunnerDAO(this);
+        Random rd = new Random();
+        runnerDAO.createRunner(RandomNames.getRandomFirstName(),RandomNames.getRandomLastName(),rd.nextInt(100));
+    }
+    public void createWeightedTeamsForRace(Race race){
+        TeamDAO teamDAO = new TeamDAO(this);
+        RunnerDAO runnerDAO = new RunnerDAO(this);
+        EnrolmentDAO enrolmentDAO = new EnrolmentDAO(this);
+        SubscriptionDAO subscriptionDAO = new SubscriptionDAO(this);
+        List<Runner> lr = runnerDAO.getAllRunners();
+        Collections.sort(lr);
+        Collections.reverse(lr);
+        int nbTeams = (lr.size()+2)/3;
+        int nbTeamsOf2 = nbTeams*3-lr.size();
+        for(int i = 0;i<nbTeams;i++){
+            Team t = teamDAO.createTeam(RandomNames.getRandomCountry());
+            subscriptionDAO.createSubscription(t.getId(),race.getId());
+        }
+        Iterator<Runner> it = lr.iterator();
+        List<Team> lt = teamDAO.getTeamsOfRace(race.getId());
+        for(int i = 0;i<nbTeams;i++){
+            enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
+        }
+        for(int i = nbTeams-1;i>=0;i--){
+            enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
+        }
+        for(int i = 0;i<nbTeams-nbTeamsOf2;i++){
+            enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
         }
     }
 

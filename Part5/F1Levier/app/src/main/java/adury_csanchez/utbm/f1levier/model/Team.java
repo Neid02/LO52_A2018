@@ -2,6 +2,8 @@ package adury_csanchez.utbm.f1levier.model;
 
 import android.util.Log;
 
+import adury_csanchez.utbm.f1levier.DAO.EnrolmentDAO;
+
 public class Team {
 
     public static final String TAG = "Team";
