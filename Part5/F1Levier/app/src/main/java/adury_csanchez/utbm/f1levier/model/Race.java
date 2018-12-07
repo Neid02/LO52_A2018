@@ -1,6 +1,11 @@
 package adury_csanchez.utbm.f1levier.model;
 
+import android.content.Context;
 import android.util.Log;
+
+import java.util.List;
+
+import adury_csanchez.utbm.f1levier.DAO.TeamDAO;
 
 public class Race {
 
@@ -34,6 +39,10 @@ public class Race {
     public void setName(String name)
     {
         this.mName=name;
+    }
+
+    public List<Team> getTeams(Context c){
+        return new TeamDAO(c).getTeamsOfRace(getId());
     }
 
     public void printLogRace()

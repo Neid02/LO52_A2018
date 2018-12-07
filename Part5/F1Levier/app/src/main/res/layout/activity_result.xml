@@ -13,4 +13,11 @@
         android:text="Results"
         tools:layout_editor_absoluteX="91dp"
         tools:layout_editor_absoluteY="115dp" />
+
+    <LinearLayout
+        android:layout_width="368dp"
+        android:layout_height="417dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="142dp"></LinearLayout>
 </android.support.constraint.ConstraintLayout>

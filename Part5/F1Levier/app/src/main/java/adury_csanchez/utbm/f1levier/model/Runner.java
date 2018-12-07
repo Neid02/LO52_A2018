@@ -1,7 +1,13 @@
 package adury_csanchez.utbm.f1levier.model;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import java.util.List;
+
+import adury_csanchez.utbm.f1levier.DAO.LapTimeDAO;
+import adury_csanchez.utbm.f1levier.DAO.RunnerDAO;
 
 public class Runner implements Comparable<Runner>{
 
@@ -57,6 +63,10 @@ public class Runner implements Comparable<Runner>{
     public void setWeight(int weight)
     {
         this.mWeight = weight;
+    }
+
+    public List<LapTime> getLapTimes(Context c){
+        return new LapTimeDAO(c).getLapTimesOfRunner(getId());
     }
 
     public void printLogRunner()

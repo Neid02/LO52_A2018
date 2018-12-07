@@ -8,7 +8,6 @@ import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -40,11 +39,12 @@ import adury_csanchez.utbm.f1levier.model.LapTime;
 import adury_csanchez.utbm.f1levier.model.Race;
 import adury_csanchez.utbm.f1levier.model.Runner;
 import adury_csanchez.utbm.f1levier.model.Team;
-import adury_csanchez.utbm.f1levier.model.TeamComparator;
+import adury_csanchez.utbm.f1levier.model.TeamWeightComparator;
 
 public class RaceActivity extends AppCompatActivity {
 
    private ArrayList<Button> listTriggerButtons;
+   private Race race;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class RaceActivity extends AppCompatActivity {
                 {
                     chronometer.stop();
                     // Go to result activity
-                    startActivity(new Intent(RaceActivity.this, ResultActivity.class));
+                    goToResults();
                 }
             }
         });
@@ -98,26 +98,18 @@ public class RaceActivity extends AppCompatActivity {
 
         // TODO  =====  <  To remove once first activity is done
         this.deleteDatabase("f1levier.db");
-
-        RunnerDAO runnerDAO = new RunnerDAO(this);
-        TeamDAO teamDAO = new TeamDAO(this);
-        RaceDAO raceDAO = new RaceDAO(this);
-        EnrolmentDAO enrolmentDAO = new EnrolmentDAO(this);
-        SubscriptionDAO subscriptionDAO = new SubscriptionDAO(this);
-
-        final Race race1 = raceDAO.createRace("Deleon race");
+        race = new RaceDAO(this).createRace("Deleon race");
 
 
         int nbRunnersToGenerate=28;
-        createRandomRunners(28);
-        createWeightedTeamsForRace(race1);
+        createWeightedTeamsForRace(race,createRandomRunners(nbRunnersToGenerate));
 
         // TODO To remove \> =====================================
 
 
 
 
-        final List<Team> listTeams = teamDAO.getTeamsOfRace(race1.getId());
+        final List<Team> listTeams = race.getTeams(this);
         final LapTimeDAO lapTimeDAO=new LapTimeDAO(this);
 
         //====================================================================
@@ -145,7 +137,7 @@ public class RaceActivity extends AppCompatActivity {
 
             // Create button
             Button triggerButton = new Button(this);
-            triggerButton.setText(team.getName()+" "+team.getWeight(enrolmentDAO));
+            triggerButton.setText(team.getName()+" "+team.getWeight(this));
             triggerButton.setEnabled(false);
             triggerButton.setWidth(mapPXtoDP(100));
             // Add it to the linearLayoutRow and to the list of trigger buttons
@@ -211,9 +203,7 @@ public class RaceActivity extends AppCompatActivity {
             linearLayoutSub.addView(linearLayoutSubSub);
 
             // Get runners enrolled in this team
-            List<Runner> runners = new ArrayList<>();
-            for(Enrolment e : enrolmentDAO.getEnrolmentsOfTeam(team.getId()))
-                runners.add(e.getRunner());
+            List<Runner> runners = team.getRunners(this);
 
             final List<ProgressBar> listProgressBarIndividual = new ArrayList<ProgressBar>();
             final List<LapTime> listCurrentLaps = new ArrayList<LapTime>();
@@ -303,7 +293,7 @@ public class RaceActivity extends AppCompatActivity {
                             // Add lap time to database
                             lapTimeDAO.createLapTime(
                                     currentLap.getAuthor().getId(),
-                                    race1.getId(),
+                                    race.getId(),
                                     currentLap.getLapNumber(),
                                     currentLap.getTimeSprint1(),
                                     currentLap.getTimeFractionated1(),
@@ -328,7 +318,7 @@ public class RaceActivity extends AppCompatActivity {
                         // Check if everyone have finished
                         if(nbTeamFinished.incrementAndGet() >= listTeams.size()){
                             // Start the result activity
-                            startActivity(new Intent(RaceActivity.this, ResultActivity.class));
+                            goToResults();
                         }
                     }
                 }
@@ -336,19 +326,20 @@ public class RaceActivity extends AppCompatActivity {
 
         }
     }
-    public void createRandomRunners(int nb){
+    public List<Runner> createRandomRunners(int nb){
         RunnerDAO runnerDAO = new RunnerDAO(this);
         Random rd = new Random();
+        List<Runner> lr = new ArrayList<>();
         for(int i = 0;i<nb;i++) {
-            runnerDAO.createRunner(RandomNames.getRandomFirstName(),RandomNames.getRandomLastName(),rd.nextInt(100));
+            Runner runner = runnerDAO.createRunner(RandomNames.getRandomFirstName(),RandomNames.getRandomLastName(),rd.nextInt(100));
+            lr.add(runner);
         }
+        return lr;
     }
-    public void createWeightedTeamsForRace(Race race){
+    public void createWeightedTeamsForRace(Race race, List<Runner> lr){
         TeamDAO teamDAO = new TeamDAO(this);
-        RunnerDAO runnerDAO = new RunnerDAO(this);
         EnrolmentDAO enrolmentDAO = new EnrolmentDAO(this);
         SubscriptionDAO subscriptionDAO = new SubscriptionDAO(this);
-        List<Runner> lr = runnerDAO.getAllRunners();
         Collections.sort(lr);
         Collections.reverse(lr);
         int nbTeams = (lr.size()+2)/3;
@@ -365,7 +356,7 @@ public class RaceActivity extends AppCompatActivity {
         for(int i = nbTeams-1;i>=0;i--){
             if(it.hasNext()) enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
         }
-        Collections.sort(lt,new TeamComparator(enrolmentDAO));
+        Collections.sort(lt,new TeamWeightComparator(this));
         for(int i = 0;i<nbTeams-nbTeamsOf2;i++){
             if(it.hasNext()) enrolmentDAO.createEnrolment(it.next().getId(),lt.get(i).getId());
         }
@@ -373,5 +364,10 @@ public class RaceActivity extends AppCompatActivity {
 
     public int mapPXtoDP(int dimensionInPx){
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dimensionInPx, getResources().getDisplayMetrics()));
+    }
+    public void goToResults(){
+        Intent intent = new Intent(RaceActivity.this, ResultActivity.class);
+        intent.putExtra("RaceID",race.getId());
+        startActivity(intent);
     }
 }
