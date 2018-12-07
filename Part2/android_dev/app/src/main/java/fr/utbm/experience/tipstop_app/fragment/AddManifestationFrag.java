@@ -30,7 +30,7 @@ public class AddManifestationFrag extends DialogFragment {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.activity_add_manifestation, null);
+        View view = inflater.inflate(R.layout.layout_addmanifestation, null);
 
         builder.setView(view)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {

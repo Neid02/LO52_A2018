@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TipStop manager</string>
+    <string name="app_name">TipStop</string>
     <string name="table_manifestation_1">nom</string>
     <string name="table_manifestation_2">date</string>
     <string name="table_manifestation_3">lieu</string>
