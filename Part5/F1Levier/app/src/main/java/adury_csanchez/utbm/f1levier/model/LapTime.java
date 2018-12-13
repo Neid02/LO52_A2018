@@ -120,4 +120,7 @@ public class LapTime {
     public double getGlobalTime(){
         return mTimeFractionated1 + mTimeFractionated2 + mTimePitStop + mTimeSprint1 + mTimeSprint2;
     }
+    public double getMaxTime(){
+        return Math.max(mTimeFractionated1, Math.max(mTimeFractionated2, Math.max(mTimePitStop, Math.max(mTimeSprint1, mTimeSprint2))));
+    }
 }

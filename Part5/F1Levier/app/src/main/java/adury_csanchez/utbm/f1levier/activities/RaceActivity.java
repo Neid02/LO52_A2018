@@ -101,7 +101,7 @@ public class RaceActivity extends AppCompatActivity {
         race = new RaceDAO(this).createRace("Deleon race");
 
 
-        int nbRunnersToGenerate=28;
+        int nbRunnersToGenerate=5;
         createWeightedTeamsForRace(race,createRandomRunners(nbRunnersToGenerate));
 
         // TODO To remove \> =====================================
@@ -367,7 +367,7 @@ public class RaceActivity extends AppCompatActivity {
     }
     public void goToResults(){
         Intent intent = new Intent(RaceActivity.this, ResultActivity.class);
-        intent.putExtra("RaceID",race.getId());
+        intent.putExtra("RaceID",new Long(race.getId()));
         startActivity(intent);
     }
 }

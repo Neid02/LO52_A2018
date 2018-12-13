@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                findViewById(R.id.buttonGoToRace).setEnabled(false);
                 startActivity(new Intent(MainActivity.this, RaceActivity.class));
 
             }
