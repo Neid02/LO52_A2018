@@ -154,6 +154,19 @@ public class DBCoureur {
         bdd.update(TABLE, values, id_crr + " = " + c.getId_crr(), null);
     }
 
+    public void updateAllCoureurs(ArrayList<Coureur> all) {
+        for(Coureur c : all) {
+            ContentValues values = new ContentValues();
+            values.put(id_crr, c.getId_crr());
+            values.put(nom_crr, c.getNom_crr());
+            values.put(prenom_crr, c.getPrenom_crr());
+            values.put(echelon_crr, c.getEchelon_crr());
+            values.put(ordrepassage_crr, c.getOrdrepassage_crr());
+            values.put(id_equ_crr, c.getId_equ_crr());
+            bdd.update(TABLE, values, id_crr + " = " + c.getId_crr(), null);
+        }
+    }
+
     public int deleteCoureur(int ID){
         return bdd.delete(TABLE, id_crr + " = " + ID, null);
     }

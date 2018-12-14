@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Handler;
@@ -13,8 +14,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,11 +30,14 @@ import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.support.design.widget.NavigationView;
 import android.widget.Toast;
@@ -46,6 +55,7 @@ import com.silentpangolin.codep25.Objects.Temps;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private int[] steps;
     private ArrayList<Temps> allTemps = new ArrayList<Temps>();
     private long[] times;
+    private ArrayList<Equipe> mSelectedItems = new ArrayList<Equipe>();
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
@@ -85,37 +96,25 @@ public class MainActivity extends AppCompatActivity {
 
 
     public AlertDialog onCreateDialog() {
-        final ArrayList<Equipe> mSelectedItems = new ArrayList<Equipe>();
-        final String[] nameTeam = new String[equipes.size()];
-        for(int i = 0; i < equipes.size(); ++i){
-            nameTeam[i] = equipes.get(i).getName_equ();
-        }
+        mSelectedItems = new ArrayList<Equipe>();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle(R.string.chooseTeam)
-                .setMultiChoiceItems(nameTeam, null,
-                        new DialogInterface.OnMultiChoiceClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which,
-                                                boolean isChecked) {
-                                if (isChecked) {
-                                    mSelectedItems.add(equipes.get(which));
-                                } else if (mSelectedItems.contains(equipes.get(which))) {
-                                    mSelectedItems.remove(equipes.get(which));
-                                }
-                            }
-                        })
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        setTableLayoutButton(mSelectedItems);
-                    }
-                })
-                .setNegativeButton(R.string.annuler, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
+        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+        View view = layoutInflater.inflate(R.layout.dialog_choose_teams, null);
+
+        builder.setTitle(R.string.chooseTeam);
+        builder.setView(view);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                setTableLayoutButton(mSelectedItems);
+            }
+        });
+        builder.setNegativeButton(R.string.annuler, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+            }
+        });
 
         return builder.create();
     }
@@ -346,6 +345,13 @@ public class MainActivity extends AppCompatActivity {
         return SystemClock.elapsedRealtime() - ((Chronometer)findViewById(R.id.chronometer)).getBase() - time;
     }
 
+    private HashMap<String, String> getItem(String name) {
+        HashMap<String, String> item = new HashMap<>();
+        item.put("nameTeam", name);
+        item.put("namesPlayer", "kldfjhk");
+        return item;
+    }
+
     private void setButton(){
         Button start_pause = (Button) findViewById(R.id.start_pause);
         Button reset_lap = (Button) findViewById(R.id.reset_lap);
@@ -369,6 +375,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog alertDialog = onCreateDialog();
                 alertDialog.show();
+                ListView listTeams = (ListView) alertDialog.findViewById(R.id.listTeam);
+
+                ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
+
+                for(int i = 0; i < equipes.size(); ++i){
+                    listItem.add(getItem(equipes.get(i).getName_equ()));
+                }
+                SimpleAdapter adapter = new MyPersonalAdapter(getApplicationContext(), listItem, R.layout.item_team,
+                        new String[]{"nameTeam", "namesPlayer"}, new int[]{R.id.nameTeam, R.id.namesPlayer});
+
+                listTeams.setAdapter(adapter);
             }
         });
         changeButtons(OnStop);
@@ -514,5 +531,44 @@ public class MainActivity extends AppCompatActivity {
         // Add the following line to unregister the Sensor Manager onPause
         mSensorManager.unregisterListener(mShakeDetector);
         super.onPause();
+    }
+
+    public class MyPersonalAdapter extends SimpleAdapter {
+
+        public MyPersonalAdapter(Context context, ArrayList<HashMap<String, String>> listItem, int ID,
+                                 String[] from, int[] to) {
+            super(context, listItem, ID, from, to);
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            View view = super.getView(position, convertView, parent);
+            final CheckBox checkBox = (CheckBox) view.findViewById(R.id.checked);
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    checkBox.setChecked(!checkBox.isChecked());
+                    if(checkBox.isChecked()){
+                        mSelectedItems.add(equipes.get(position));
+                    }else if((mSelectedItems.contains(equipes.get(position))) && !(checkBox.isChecked())){
+                        mSelectedItems.remove(equipes.get(position));
+                    }
+                }
+            });
+
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(checkBox.isChecked()){
+                        mSelectedItems.add(equipes.get(position));
+                    }else if((mSelectedItems.contains(equipes.get(position))) && !(checkBox.isChecked())){
+                        mSelectedItems.remove(equipes.get(position));
+                    }
+                }
+            });
+
+            return view;
+        }
     }
 }

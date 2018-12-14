@@ -132,29 +132,15 @@ public class PlayerActivity extends AppCompatActivity {
                 dbEquipe.deleteAll();
                 dbEquipe.intertTeams(insertTeams);
                 dbEquipe.close();
-                /**
-                 for(Coureur c : all)
+                dbCoureur.open();
+                dbCoureur.updateAllCoureurs(all);
+                dbCoureur.close();
 
-                 UPDATE HERE
-                 db.execSQL("INSERT INTO COUREUR(nom_crr, prenom_crr, echelon_crr, ordrepassage_crr, id_equ_crr) VALUES ('" +
-                 c.getNom_crr() + "', '" +
-                 c.getPrenom_crr() + "', " +
-                 c.getEchelon_crr() + ", " +
-                 c.getOrdrepassage_crr() + ", " +
-                 c.getId_equ_crr() + ");" );**/
-
-                Log.wtf("SQL", "c'est bon bro");
-                Log.wtf("SQL", "Insert TEAMS : " + insertTeams.size() + "\n" + insertTeams.toString());
-                for(Coureur c : all)
-                    Log.wtf("SQL", "ID : " + c.getId_crr() + " - ID TEAM : " + c.getId_equ_crr());
             } catch (Exception e) {
-
                 e.printStackTrace();
                 Log.wtf("SQL", e.getMessage());
             }
         }
-
-        Log.wtf("SQL", "end onStop");
         /**
          *  REBUILD TEAMS
          *  DELETE TIME FOR COUREURS
