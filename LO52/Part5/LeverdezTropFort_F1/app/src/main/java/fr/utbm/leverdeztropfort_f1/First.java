@@ -5,6 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 public class First extends AppCompatActivity {
 
@@ -23,7 +33,27 @@ public class First extends AppCompatActivity {
         generer_equipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                BufferedReader bufferreader = new BufferedReader(new
+                        InputStreamReader(v.getContext().getResources().openRawResource(R.raw.data), Charset.forName("UTF8")));
+                String bufferLine;
+                String tempText = "";
+                try {
+                    while ((bufferLine = bufferreader.readLine()) != null) {
+                        tempText = tempText + bufferLine + "\n";
+                    }
+
+                    LinearLayout lView = new LinearLayout(v.getContext());
+
+                    TextView myText = new TextView(v.getContext());
+                    myText.setText(tempText);
+
+                    lView.addView(myText);
+
+                    setContentView(lView);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
