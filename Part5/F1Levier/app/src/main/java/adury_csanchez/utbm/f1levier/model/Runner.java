@@ -71,12 +71,7 @@ public class Runner implements Comparable<Runner>{
     }
 
     public List<LapTime> getLapTimesForRace(Context c,Race race){
-        List<LapTime> lapTimes = new LapTimeDAO(c).getLapTimesOfRunner(getId());
-        List<LapTime> lapTimesOfRace = new ArrayList<>();
-        for(final LapTime lapTime : lapTimes){
-            lapTimesOfRace.add(lapTime);
-        }
-        return lapTimesOfRace;
+        return new LapTimeDAO(c).getLapTimesOfRunnerForRace(getId(),race.getId());
     }
 
     public void printLogRunner()

@@ -147,4 +147,21 @@ public class LapTimeDAO {
 
         return lapTime;
     }
+    public List<LapTime> getLapTimesOfRunnerForRace(long runnerId, long raceId) {
+        List<LapTime> listLapTimes = new ArrayList<LapTime>();
+
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_LAP_TIMES, mAllColumns,
+                DBHelper.COLUMN_LAP_TIME_RUNNER_ID + " = ? AND " + DBHelper.COLUMN_LAP_TIME_RACE_ID + " = ?",
+                new String[] { String.valueOf(runnerId), String.valueOf(raceId) }, null, null, null);
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            LapTime lapTime = cursorToLapTime(cursor);
+            listLapTimes.add(lapTime);
+            cursor.moveToNext();
+        }
+        // make sure to close the cursor
+        cursor.close();
+        return listLapTimes;
+    }
 }

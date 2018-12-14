@@ -131,6 +131,8 @@ public class RunnerDAO {
         return listRunners;
     }
 
+
+
     private Runner cursorToRunner(Cursor cursor) {
         Runner runner = new Runner();
         runner.setId(cursor.getLong(0));

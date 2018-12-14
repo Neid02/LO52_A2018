@@ -240,7 +240,7 @@ public class RaceActivity extends AppCompatActivity {
                 lapTime.setAuthor(runner);
                 listCurrentLaps.add(lapTime);
             }
-            final AtomicLong previousTime= new AtomicLong(chronometer.getBase());
+            final AtomicLong previousTime= new AtomicLong(SystemClock.elapsedRealtime() - chronometer.getBase());
             triggerButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -270,7 +270,7 @@ public class RaceActivity extends AppCompatActivity {
                     ProgressBar progressBarIndividual= listProgressBarIndividual.get(runnerIndex);
 
                     // Get the elapsed time
-                    long elapsedMillis = SystemClock.elapsedRealtime() - previousTime.get();
+                    long elapsedMillis = SystemClock.elapsedRealtime()-chronometer.getBase() - previousTime.get();
 
                     switch (lapProgress)
                     {
