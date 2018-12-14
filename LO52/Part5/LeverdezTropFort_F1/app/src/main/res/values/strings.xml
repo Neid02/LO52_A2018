@@ -4,4 +4,5 @@
     <string name="d_marrer_la_course">Démarrer la course !</string>
     <string name="voir_le_classement_individuel">Voir le classement individuel</string>
     <string name="voir_le_classement_par_quipe">Voir le classement par équipe</string>
+    <string name="g_n_rer_les_quipes">Générer les équipes</string>
 </resources>

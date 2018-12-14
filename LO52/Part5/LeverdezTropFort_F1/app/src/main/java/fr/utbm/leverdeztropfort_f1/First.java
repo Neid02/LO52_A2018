@@ -14,10 +14,18 @@ public class First extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
 
+        Button generer_equipes = findViewById(R.id.button_generer_equipes);
         Button voir_equipes = findViewById(R.id.button_voir_equipes);
         Button demarrer_course = findViewById(R.id.button_demarrer_course);
         Button voir_classement_indiv = findViewById(R.id.button_voir_classement_indiv);
         Button voir_classement_equipe = findViewById(R.id.button_voir_classement_equipe);
+
+        generer_equipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
 
         voir_equipes.setOnClickListener(new View.OnClickListener() {
             @Override
