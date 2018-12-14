@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ResultActivity" />
-        <activity android:name=".activities.RaceActivity"></activity>
+        <activity android:name=".activities.RaceActivity" />
+        <activity android:name=".activities.TeamResultActivity"></activity>
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import adury_csanchez.utbm.f1levier.DAO.LapTimeDAO;
@@ -67,6 +68,15 @@ public class Runner implements Comparable<Runner>{
 
     public List<LapTime> getLapTimes(Context c){
         return new LapTimeDAO(c).getLapTimesOfRunner(getId());
+    }
+
+    public List<LapTime> getLapTimesForRace(Context c,Race race){
+        List<LapTime> lapTimes = new LapTimeDAO(c).getLapTimesOfRunner(getId());
+        List<LapTime> lapTimesOfRace = new ArrayList<>();
+        for(final LapTime lapTime : lapTimes){
+            lapTimesOfRace.add(lapTime);
+        }
+        return lapTimesOfRace;
     }
 
     public void printLogRunner()

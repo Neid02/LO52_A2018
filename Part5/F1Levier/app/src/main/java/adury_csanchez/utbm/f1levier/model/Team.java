@@ -72,7 +72,7 @@ public class Team {
     public double getGlobalTime(Context c){
         double t=0;
         for(LapTime lt : getLapTimes(c)){
-            t=Math.max(t,lt.getMaxTime());
+            t+=lt.getGlobalTime();
         }
         return t;
     }

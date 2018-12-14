@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import adury_csanchez.utbm.f1levier.DAO.EnrolmentDAO;
 import adury_csanchez.utbm.f1levier.DAO.LapTimeDAO;
@@ -239,8 +240,7 @@ public class RaceActivity extends AppCompatActivity {
                 lapTime.setAuthor(runner);
                 listCurrentLaps.add(lapTime);
             }
-
-
+            final AtomicLong previousTime= new AtomicLong(chronometer.getBase());
             triggerButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -270,7 +270,7 @@ public class RaceActivity extends AppCompatActivity {
                     ProgressBar progressBarIndividual= listProgressBarIndividual.get(runnerIndex);
 
                     // Get the elapsed time
-                    long elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
+                    long elapsedMillis = SystemClock.elapsedRealtime() - previousTime.get();
 
                     switch (lapProgress)
                     {
@@ -321,6 +321,7 @@ public class RaceActivity extends AppCompatActivity {
                             goToResults();
                         }
                     }
+                    previousTime.set(elapsedMillis + previousTime.get());
                 }
             });
 

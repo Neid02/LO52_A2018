@@ -1,5 +1,6 @@
 package adury_csanchez.utbm.f1levier.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.SystemClock;
@@ -59,6 +60,16 @@ public class ResultActivity extends AppCompatActivity {
             linearLayoutRow.addView(place);
             Button triggerButton = new Button(this);
             triggerButton.setText(" "+team.getName());
+            triggerButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ResultActivity.this, TeamResultActivity.class);
+                    intent.putExtra("RaceID",new Long(race.getId()));
+                    intent.putExtra("TeamID",new Long(team.getId()));
+                    startActivity(intent);
+                }
+            });
             linearLayoutRow.addView(triggerButton);
             TextView time = new TextView(this);
             time.append("Chrono : "+team.getGlobalTime(this)/1000.0+"s");
