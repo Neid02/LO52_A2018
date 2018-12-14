@@ -73,6 +73,7 @@ public class MySQLiteDatabase  extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_TEMPS);
 
         try{
+            String[] nameTeams = {"Zenithar","Kynareth","Asari","Krogan","Galarien","Volus","Geth","Turien","Mara","Orsimer","Nordique","Julianos","Dibella","Argonien","Dunmer","Elcor","Dragon","Falmer","Dovakhiin","Bosmer","Septim","Humain","Prothéen","Butarien","Hanari","Altmer","Rougegarde","Bréton","Promo 16 !","Prince Daedra","Khajiit","Maormer","Akatosh","Stendarr","Thorien","Impériaux","Dwemer","Rachni","Veilleurs","Moissonneur","Quarien","Arkay"};
             ArrayList<Coureur> all = createList();
             int gap = 1, count, average = 0;
             ArrayList<String> insertTeams = new ArrayList<>();
@@ -105,7 +106,7 @@ public class MySQLiteDatabase  extends SQLiteOpenHelper {
                                     c.setOrdrepassage_crr(1);
                                     b.setOrdrepassage_crr(2);
                                     a.setOrdrepassage_crr(3);
-                                    insertTeams.add("INSERT INTO EQUIPE(id_equ, name_equ) VALUES (" + count + ", 'Team" + count + "');");
+                                    insertTeams.add("INSERT INTO EQUIPE(id_equ, name_equ) VALUES (" + count + ", '" + nameTeams[count] + "');");
                                     ++count;
                                 }
                             }
@@ -118,7 +119,7 @@ public class MySQLiteDatabase  extends SQLiteOpenHelper {
                                 b.setId_equ_crr(count);
                                 c.setOrdrepassage_crr(1);
                                 b.setOrdrepassage_crr(2);
-                                insertTeams.add("INSERT INTO EQUIPE(id_equ, name_equ) VALUES (" + count + ", 'Team" + count + "');");
+                                insertTeams.add("INSERT INTO EQUIPE(id_equ, name_equ) VALUES (" + count + ", '" + nameTeams[count] + "');");
                                 ++count;
                             }
                         }
@@ -148,7 +149,6 @@ public class MySQLiteDatabase  extends SQLiteOpenHelper {
             db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('gn', 'Général')");
 
         }catch(Exception e){
-            Toast.makeText(this.context, e.getMessage(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
             Log.e("MySQLite", e.getMessage());
         }

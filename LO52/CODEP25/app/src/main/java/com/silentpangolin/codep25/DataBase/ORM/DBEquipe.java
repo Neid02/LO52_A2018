@@ -1,5 +1,6 @@
 package com.silentpangolin.codep25.DataBase.ORM;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -60,5 +61,15 @@ public class DBEquipe {
             c.moveToNext();
         }
         return equs;
+    }
+
+    public int deleteAll(){
+        return bdd.delete(TABLE, null, null);
+    }
+
+    public void intertTeams(ArrayList<String> all){
+        for(String s : all){
+            bdd.execSQL(s);
+        }
     }
 }
