@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">F1LevierJNI</string>
+    <string name="right">RIGHT</string>
+    <string name="left">LEFT</string>
+    <string name="down">DOWN</string>
+    <string name="up">UP</string>
+    <string name="def">Def</string>
+    <string name="read">READ</string>
+    <string name="write">WRITE</string>
+</resources>
