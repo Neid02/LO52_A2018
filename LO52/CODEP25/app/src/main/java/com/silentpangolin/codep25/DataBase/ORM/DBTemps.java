@@ -120,4 +120,8 @@ public class DBTemps {
 
         return tps;
     }
+
+    public int removeTempsWithIDCoureur(int ID) {
+        return bdd.delete(TABLE, id_crr_temps + " = " + ID, null);
+    }
 }

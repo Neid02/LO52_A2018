@@ -22,7 +22,8 @@
         </activity>
         <activity
             android:name=".PlayerActivity"
-            android:label="@string/listcrr" />
+            android:label="@string/listcrr"
+            android:noHistory="true" />
         <activity
             android:name=".TeamActivity"
             android:label="@string/listequ" />

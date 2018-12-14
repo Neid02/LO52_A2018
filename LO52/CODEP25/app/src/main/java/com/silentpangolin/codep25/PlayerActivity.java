@@ -24,6 +24,7 @@ import android.widget.NumberPicker;
 import android.widget.SimpleAdapter;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
+import com.silentpangolin.codep25.DataBase.ORM.DBTemps;
 import com.silentpangolin.codep25.Objects.Coureur;
 
 import java.util.ArrayList;
@@ -71,6 +72,16 @@ public class PlayerActivity extends AppCompatActivity {
                 new String[]{"num", "nom", "prenom", "echelon"}, new int[]{R.id.numCrr, R.id.nomCrr, R.id.prenomCrr, R.id.echelonCrr});
 
         listCrr.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onStop(){
+
+        /**
+         *  REBUILD TEAMS
+         *  DELETE TIME FOR COUREURS
+         */
+        super.onStop();
     }
 
     private HashMap<String, String> getItem(Coureur c, int i) {
@@ -202,6 +213,8 @@ public class PlayerActivity extends AppCompatActivity {
                     EditText nom = (EditText) view.findViewById(R.id.modifyEditNom);
                     EditText prenom = (EditText) view.findViewById(R.id.modifyEditPrenom);
                     if(!(nom.getText().toString().equals("")) && !(prenom.getText().toString().equals(""))){
+                        if(allCrrs.get(position).getEchelon_crr() != echelon.getValue())
+                            modify = true;
                         allCrrs.get(position).setEchelon_crr(echelon.getValue());
                         allCrrs.get(position).setNom_crr(nom.getText().toString());
                         allCrrs.get(position).setPrenom_crr(prenom.getText().toString());
@@ -212,7 +225,6 @@ public class PlayerActivity extends AppCompatActivity {
                         dbCoureur.open();
                         dbCoureur.updateCoureur(allCrrs.get(position));
                         dbCoureur.close();
-                        modify = true;
                     }
                 }
             });
@@ -251,9 +263,14 @@ public class PlayerActivity extends AppCompatActivity {
             builder.setCancelable(true);
             builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+                    DBTemps dbTemps = new DBTemps(getApplicationContext());
+                    dbTemps.open();
+                    dbTemps.removeTempsWithIDCoureur(allCrrs.get(position).getId_crr());
+                    dbTemps.close();
                     DBCoureur dbCoureur = new DBCoureur(getApplicationContext());
                     dbCoureur.open();
                     dbCoureur.deleteCoureur(allCrrs.get(position).getId_crr());
+                    dbCoureur.close();
                     listItem.remove(position);
                     allCrrs.remove(position);
                     adapter.notifyDataSetChanged();
