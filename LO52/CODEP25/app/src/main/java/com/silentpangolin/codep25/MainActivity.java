@@ -345,10 +345,10 @@ public class MainActivity extends AppCompatActivity {
         return SystemClock.elapsedRealtime() - ((Chronometer)findViewById(R.id.chronometer)).getBase() - time;
     }
 
-    private HashMap<String, String> getItem(String name) {
+    private HashMap<String, String> getItem(String name, String coureur) {
         HashMap<String, String> item = new HashMap<>();
         item.put("nameTeam", name);
-        item.put("namesPlayer", "kldfjhk");
+        item.put("namesPlayer", coureur);
         return item;
     }
 
@@ -379,9 +379,19 @@ public class MainActivity extends AppCompatActivity {
 
                 ArrayList<HashMap<String, String>> listItem = new ArrayList<HashMap<String, String>>();
 
+                DBCoureur dbCoureur = new DBCoureur(getApplicationContext());
+                dbCoureur.open();
                 for(int i = 0; i < equipes.size(); ++i){
-                    listItem.add(getItem(equipes.get(i).getName_equ()));
+                    String crr = "";
+                    ArrayList<Coureur> crrs = dbCoureur.getAllCoureurWithIDTeam(equipes.get(i).getId_equ());
+                    for(int j = 0; j < crrs.size(); ++j){
+                        crr += crrs.get(j).getNom_crr() + " ";
+                        if (j != (crrs.size() - 1))
+                            crr += "- ";
+                    }
+                    listItem.add(getItem(equipes.get(i).getName_equ(), crr));
                 }
+                dbCoureur.close();
                 SimpleAdapter adapter = new MyPersonalAdapter(getApplicationContext(), listItem, R.layout.item_team,
                         new String[]{"nameTeam", "namesPlayer"}, new int[]{R.id.nameTeam, R.id.namesPlayer});
 

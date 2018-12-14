@@ -143,10 +143,10 @@ public class MySQLiteDatabase  extends SQLiteOpenHelper {
                         c.getOrdrepassage_crr() + ", " +
                         c.getId_equ_crr() + ");" );
 
-            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('sp', 'Sprint')");
-            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('fr', 'Fractionné')");
-            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('ps', 'Pit-Stop')");
-            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('gn', 'Général')");
+            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('sp', 'Sprint');");
+            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('fr', 'Fractionné');");
+            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('ps', 'Pit-Stop');");
+            db.execSQL("INSERT INTO TYPETOUR(initials_typetour, name_typetour) VALUES ('gn', 'Général');");
 
         }catch(Exception e){
             e.printStackTrace();

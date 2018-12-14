@@ -121,6 +121,10 @@ public class DBTemps {
         return tps;
     }
 
+    public void deleteIDTeam(){
+        bdd.execSQL("UPDATE " + TABLE + "SET " + id_equ_temps + " = -1;");
+    }
+
     public int removeTempsWithIDCoureur(int ID) {
         return bdd.delete(TABLE, id_crr_temps + " = " + ID, null);
     }

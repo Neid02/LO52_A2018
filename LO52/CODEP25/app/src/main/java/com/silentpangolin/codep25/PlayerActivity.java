@@ -136,6 +136,11 @@ public class PlayerActivity extends AppCompatActivity {
                 dbCoureur.updateAllCoureurs(all);
                 dbCoureur.close();
 
+                DBTemps dbTemps = new DBTemps(getApplicationContext());
+                dbTemps.open();
+                dbTemps.deleteIDTeam();
+                dbTemps.close();
+
             } catch (Exception e) {
                 e.printStackTrace();
                 Log.wtf("SQL", e.getMessage());
