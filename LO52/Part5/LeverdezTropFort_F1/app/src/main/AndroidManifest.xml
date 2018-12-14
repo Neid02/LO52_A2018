@@ -16,6 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Afficher_equipes" />
+        <activity android:name=".Demarrer_course" />
+        <activity android:name=".Afficher_classment_indiv" />
+        <activity android:name=".Afficher_classment_equipe"></activity>
     </application>
 
 </manifest>

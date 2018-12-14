@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LeverdezTropFort_F1</string>
+    <string name="voir_les_quipes">Voir les équipes</string>
+    <string name="d_marrer_la_course">Démarrer la course !</string>
+    <string name="voir_le_classement_individuel">Voir le classement individuel</string>
+    <string name="voir_le_classement_par_quipe">Voir le classement par équipe</string>
 </resources>
