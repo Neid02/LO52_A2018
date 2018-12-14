@@ -1,4 +1,4 @@
-package com.utbm.lo52.f1levier.Activities;
+package com.utbm.lo52.f1levier.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

@@ -1,20 +1,25 @@
-package com.utbm.lo52.f1levier.DAO.data;
+package com.utbm.lo52.f1levier.entity;
 
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity
+import io.reactivex.annotations.NonNull;
+
+@Entity(tableName = "PARTICIPANT")
 public class Participant {
 
-    @PrimaryKey
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ID_PARTICIPANT")
     private int id;
 
+    @NonNull
     @ColumnInfo(name = "NOM")
     private String nom;
 
+    @NonNull
     @ColumnInfo(name = "PRENOM")
     private String prenom;
 
