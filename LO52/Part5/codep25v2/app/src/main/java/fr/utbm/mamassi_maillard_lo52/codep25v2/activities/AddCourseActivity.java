@@ -79,7 +79,7 @@ public class AddCourseActivity extends AppCompatActivity implements View.OnClick
     private void initViews() {
         this.mTxtTitre = (EditText) findViewById(R.id.txt_titre);
         TextView tv = (TextView) findViewById(R.id.infoDate);
-        tv.setText("Date de la course : "+nowDate);
+        tv.setText("Date de la course : " + nowDate);
         this.mBtnAdd = (Button) findViewById(R.id.btn_add);
         this.mBtnCancel = (Button) findViewById(R.id.btn_annuler);
         this.mSpinnerTypeCourse = (Spinner) findViewById(R.id.spinner_typeCourse);

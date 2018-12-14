@@ -50,7 +50,7 @@ public class EquipeDAO {
         mDbHelper.close();
     }
 
-    public Equipe createCourse(String nomEquipe, Course course) {
+    public Equipe createEquipe(String nomEquipe, Course course) {
         ContentValues values = new ContentValues();
         values.put(DBHelper.COLUMN_Equipe_nomEquipe, nomEquipe);
         values.put(DBHelper.COLUMN_Equipe_idCourse, course.getmId());

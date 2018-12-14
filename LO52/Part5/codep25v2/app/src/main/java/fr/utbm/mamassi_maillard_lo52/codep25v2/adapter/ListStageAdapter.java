@@ -91,9 +91,6 @@ public class ListStageAdapter extends BaseAdapter {
                 showDeleteDialogConfirmation(mItems.get(position));
             }
         });
-
-
-
         return v;
     }
 

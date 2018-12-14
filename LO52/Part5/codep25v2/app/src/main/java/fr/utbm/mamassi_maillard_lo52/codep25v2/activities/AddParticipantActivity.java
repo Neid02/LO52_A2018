@@ -112,7 +112,6 @@ public class AddParticipantActivity extends AppCompatActivity implements View.On
             setResult(RESULT_CANCELED);
             finish();
         }
-
         return true;
     }
 }
