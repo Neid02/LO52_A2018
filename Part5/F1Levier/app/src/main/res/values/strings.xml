@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">F1Levier</string>
+    <string name="first_name">Prénom</string>
+    <string name="last_name">Nom</string>
+    <string name="weight">Poids</string>
+    <string name="all_runners">Participants :</string>
+    <string name="no_runner_in_the_database_create_new_one_by_clicking_the_add_button_at_the_top_right">Il n\'y a pas de coureurs dans la base de données. Créez un coureur en cliquant sur le bouton ajouter</string>
+    <string name="runner_deleted_successfully">Le coureur a été supprimé avec success</string>
+    <string name="title_activity_tmp">TmpActivity</string>
+    <string name="new_race_title">Nouvelle course</string>
+    <string name="participants_title">Participants :</string>
+    <string name="race_name_title">Nom de la course :</string>
+    <string name="race_name_example">Marathon de Boston</string>
+    <string name="title_activity_add_runner">AddRunnerActivity</string>
+    <string name="runner_first_name">Prénom du coureur</string>
+    <string name="runner_last_name">Nom du coureur</string>
+    <string name="runner_weight">Poids du coureur</string>
+    <string name="add_runner">Ajouter coureur</string>
+    <string name="empty_fields_message">Un ou plusieurs champs sont vides</string>
+    <string name="go_to_race">Aller à la course</string>
+    <string name="new_runner_title">Ajouter un coureur :</string>
+    <string name="select_at_least_4_runners_to_start_a_race">Sélectionnez au moins 4 coureurs pour démarrer une course</string>
+    <string name="are_you_sure_you_want_to_delete_the_runner">Etes vous sûr de vouloir supprimer le coureur</string>
+    <string name="delete">Supprimer</string>
+    <string name="select_all">Tout sélectionner</string>
+    <string name="unselect_all">Tout désélectionner</string>
+    <string name="please_set_the_race_name">Insérez le nom de la course</string>
 </resources>
+

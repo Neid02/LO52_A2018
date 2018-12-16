@@ -18,7 +18,10 @@
         </activity>
         <activity android:name=".activities.ResultActivity" />
         <activity android:name=".activities.RaceActivity" />
-        <activity android:name=".activities.TeamResultActivity"></activity>
+        <activity android:name=".activities.TeamResultActivity" />
+        <activity
+            android:name=".activities.AddRunnerActivity"
+            android:label="@string/title_activity_add_runner"></activity>
     </application>
 
 </manifest>

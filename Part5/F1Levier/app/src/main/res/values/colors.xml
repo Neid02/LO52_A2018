@@ -1,6 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <!--   color for the app bar and other primary UI elements -->
+    <color name="colorPrimary">#03a9f4</color>
+
+    <!--   a darker variant of the primary color, used for
+           the status bar (on Android 5.0+) and contextual app bars -->
+    <color name="colorPrimaryDark">#0073ad</color>
+
+    <!--   a secondary color for controls like checkboxes and text fields -->
+    <color name="colorAccent">#85ba5c</color>
+
+    <color name="colorProgressBg">#03a9f4</color>
+    <color name="colorProgressFg">#85ba5c</color>
 </resources>
+
+<!-- Default
+<color name="colorPrimary">#3F51B5</color>
+<color name="colorPrimaryDark">#303F9F</color>
+<color name="colorAccent">#FF4081</color> -->
+
+<!-- Red theme
+<color name="colorPrimary">#720d5d</color>
+<color name="colorPrimaryDark">#430033</color>
+<color name="colorAccent">#e30425</color> -->
+
+<!-- Old theme
+<color name="colorPrimary">#3F51B5</color>
+<color name="colorPrimaryDark">#303F9F</color>
+<color name="colorAccent">#40afff</color>
+<color name="colorProgressBg">#64195681</color>
+<color name="colorProgressFg">#195681</color>
+<color name="colorProgressFg2">#1f6790</color>-->

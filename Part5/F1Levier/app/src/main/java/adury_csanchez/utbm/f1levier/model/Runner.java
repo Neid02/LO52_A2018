@@ -4,13 +4,16 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import adury_csanchez.utbm.f1levier.DAO.LapTimeDAO;
 import adury_csanchez.utbm.f1levier.DAO.RunnerDAO;
+import adury_csanchez.utbm.f1levier.utils.RandomNames;
 
-public class Runner implements Comparable<Runner>{
+public class Runner implements Comparable<Runner>, Serializable {
 
     public static final String TAG = "Runner";
 
@@ -77,6 +80,17 @@ public class Runner implements Comparable<Runner>{
     public void printLogRunner()
     {
         Log.d(TAG, "id="+mId+", firstName="+mFirstName+", lastName="+mLastName+", weight="+mWeight);
+    }
+
+    public List<Runner> createRandomRunners(Context context, int numberToGenerate){
+        RunnerDAO runnerDAO = new RunnerDAO(context);
+        Random rd = new Random();
+        List<Runner> lr = new ArrayList<>();
+        for(int i = 0;i<numberToGenerate;i++) {
+            Runner runner = runnerDAO.createRunner(RandomNames.getRandomFirstName(),RandomNames.getRandomLastName(),rd.nextInt(100));
+            lr.add(runner);
+        }
+        return lr;
     }
 
     @Override

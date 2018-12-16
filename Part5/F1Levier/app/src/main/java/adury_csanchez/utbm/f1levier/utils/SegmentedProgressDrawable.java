@@ -1,4 +1,4 @@
-package adury_csanchez.utbm.f1levier.activities;
+package adury_csanchez.utbm.f1levier.utils;
 
 import android.graphics.Canvas;
 
@@ -10,7 +10,7 @@ import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 
 
-class SegmentedProgressDrawable extends Drawable {
+public class SegmentedProgressDrawable extends Drawable {
     //private static final int NUM_SEGMENTS = 10;
     private int NUM_SEGMENTS;
     private final int mForeground;

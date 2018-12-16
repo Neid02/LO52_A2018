@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,24 +8,127 @@
     tools:context=".activities.MainActivity">
 
     <LinearLayout
-        android:id="@+id/button_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
         android:padding="5dp">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+        <!-- Nouvelle course : -->
+        <!--<TextView
+            android:id="@+id/new_race_title"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Todo : runner selection" />
+            android:layout_width="fill_parent"
+            android:padding="5dp"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:text="@string/new_race_title"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>-->
 
-        <Button
-            android:id="@+id/buttonGoToRace"
-            android:layout_width="wrap_content"
+        <!-- Selectionner coureurs : -->
+        <TextView
+            android:id="@+id/txt_participants_title"
             android:layout_height="wrap_content"
-            android:text="Go to race" />
+            android:layout_width="fill_parent"
+            android:layout_weight="0"
+            android:gravity="left"
+            android:text="@string/participants_title"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+
+        <!-- Il n'y a pas de coureurs... : -->
+        <TextView
+            android:id="@+id/txt_empty_list_runners"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="0"
+            android:gravity="left"
+            android:text="@string/no_runner_in_the_database_create_new_one_by_clicking_the_add_button_at_the_top_right"
+            android:textAppearance="?android:attr/textAppearance"
+            android:textColor="@android:color/darker_gray"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/checkbox_runner_select_all"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="0"
+            android:textColor="@android:color/darker_gray"
+            android:text="@string/select_all"
+            android:textStyle="italic"
+            android:focusable="false"
+            android:layout_marginLeft="10dp"
+            />
+
+        <!-- List coureurs -->
+        <ListView
+            android:id="@+id/list_runners"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_margin="4dp"
+            android:divider="@android:drawable/divider_horizontal_bright"
+            android:dividerHeight="0.5dp"
+            android:listSelector="@android:drawable/list_selector_background"
+            android:layout_weight="1"/>
+
+        <!-- Saisir le nom de la course -->
+        <TextView
+            android:id="@+id/txt_select_race_name_title"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="0"
+            android:gravity="left"
+            android:text="@string/race_name_title"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <!-- Saisi nom de la course -->
+        <EditText
+            android:id="@+id/edittext_race_name"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="0"
+            android:hint="@string/race_name_example"
+            android:inputType="text"
+            android:textAppearance="?android:attr/textAppearance"
+            android:textColor="@android:color/black" />
+
+        <!-- Go to race -->
+        <Button
+            android:id="@+id/btn_go_to_race"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:drawableEnd="@drawable/ic_flag"
+            android:tint="@color/colorPrimary"
+            android:layout_weight="0"
+            android:text="@string/go_to_race"
+            android:gravity="center_vertical|start"
+            />
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_add_runner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|end"
+        android:padding="0dp"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_add_runner"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/colorPrimary"
+        />
+    <!-- <android.support.design.widget.FloatingActionButton
+     android:id="@+id/btn_add_runner"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center|end"
+     android:layout_margin="16dp"
+     app:srcCompat="@android:drawable/ic_input_add"
+     android:tint="@android:color/white"
+     app:backgroundTint="@color/colorPrimary"
+     />-->
+
+
+</android.support.design.widget.CoordinatorLayout>

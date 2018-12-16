@@ -1,4 +1,4 @@
-package adury_csanchez.utbm.f1levier.activities;
+package adury_csanchez.utbm.f1levier.utils;
 
 import java.util.Random;
 
