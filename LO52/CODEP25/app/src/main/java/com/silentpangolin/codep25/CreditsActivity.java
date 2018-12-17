@@ -134,7 +134,6 @@ public class CreditsActivity extends AppCompatActivity {
                 switch (id) {
                     case R.id.home:
                         Intent intent = new Intent(CreditsActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         break;
                     case R.id.player:

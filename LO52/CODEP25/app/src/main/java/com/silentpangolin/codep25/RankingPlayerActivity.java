@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +24,11 @@ import com.silentpangolin.codep25.Objects.Coureur;
 import com.silentpangolin.codep25.Objects.Temps;
 import com.silentpangolin.codep25.Objects.TypeTour;
 
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParsePosition;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class RankingPlayerActivity extends AppCompatActivity {
@@ -113,29 +118,37 @@ public class RankingPlayerActivity extends AppCompatActivity {
 
         ArrayList<HashMap<String, String>> listItem = new ArrayList<>();
         ListView listRank = (ListView) findViewById(R.id.listRank);
+        SimpleAdapter adapter;
 
         if (tps != null) {
             if (tps.size() > 0) {
                 for (int i = 0; i < tps.size(); ++i)
-                    listItem.add(getItem(tps.get(i).getDuree_temps(), i + 1));
+                    listItem.add(getItem(tps.get(i).getDuree_temps(), i + 1, tps.get(i).getDate_temps()));
 
-                SimpleAdapter adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking_coureur,
-                        new String[]{"numRank", "dureeRank"}, new int[]{R.id.numRank, R.id.dureeRank});
+                adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking_coureur,
+                        new String[]{"numRank", "dureeRank", "dateRank"}, new int[]{R.id.numRank, R.id.dureeRank, R.id.dateRank});
 
                 listRank.setAdapter(adapter);
             }
+        }else {
+            listItem.clear();
+            adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking_coureur,
+                    new String[]{"numRank", "dureeRank", "dateRank"}, new int[]{R.id.numRank, R.id.dureeRank, R.id.dateRank});
+
+            listRank.setAdapter(adapter);
         }
     }
 
-    private HashMap<String, String> getItem(long duree, int i) {
+    private HashMap<String, String> getItem(long duree, int i, long date) {
         HashMap<String, String> item = new HashMap<>();
         item.put("numRank", Integer.toString(i));
         item.put("dureeRank", getTime(duree));
+        item.put("dateRank", android.text.format.DateFormat.format("HH:mm:ss dd-MM-yyyy", date).toString());
         return item;
     }
 
     private String getTime(long duree){
-        String time = "";
+        String time;
         time = Long.toString(duree % 1000);
         duree /= 1000;
         time = Long.toString(duree % 60) + " . " + time;
@@ -160,7 +173,6 @@ public class RankingPlayerActivity extends AppCompatActivity {
                 switch (id) {
                     case R.id.home:
                         Intent intent = new Intent(RankingPlayerActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         break;
                     case R.id.player:
