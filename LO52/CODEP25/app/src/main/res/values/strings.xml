@@ -36,6 +36,7 @@
     <string name="deleteCrr">Voulez-vous supprimer ce coureur :</string>
 
     <string name="modifytitle">Modifier le coureur</string>
+    <string name="addingtitle">Ajouter un coureur</string>
     <string name="modifyprenom">Prénom :</string>
     <string name="modifynom">Nom :</string>
     <string name="modifyechelon">Échelon :</string>

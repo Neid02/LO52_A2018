@@ -35,7 +35,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_create_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_add_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -58,7 +58,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="imageAsset" value="D:\Users\Emilien\Downloads\baseline-unfold_more-black-18\2x\baseline_unfold_more_black_18dp.png" />
-                                      <entry key="outputName" value="modify" />
+                                      <entry key="outputName" value="add" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="222222" />
                                     </map>

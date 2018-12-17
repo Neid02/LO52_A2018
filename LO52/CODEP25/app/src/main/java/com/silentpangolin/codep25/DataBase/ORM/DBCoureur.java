@@ -170,4 +170,14 @@ public class DBCoureur {
     public int deleteCoureur(int ID){
         return bdd.delete(TABLE, id_crr + " = " + ID, null);
     }
+
+    public void insertCoureur(Coureur c){
+        ContentValues value = new ContentValues();
+        value.put(nom_crr, c.getNom_crr());
+        value.put(prenom_crr, c.getPrenom_crr());
+        value.put(echelon_crr, c.getEchelon_crr());
+        value.put(ordrepassage_crr, 0);
+        value.put(id_equ_crr, 0);
+        bdd.insert(TABLE, null, value);
+    }
 }

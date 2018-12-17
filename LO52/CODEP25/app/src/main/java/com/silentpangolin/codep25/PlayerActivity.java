@@ -16,13 +16,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBEquipe;
@@ -31,7 +29,6 @@ import com.silentpangolin.codep25.Objects.Coureur;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class PlayerActivity extends AppCompatActivity {
 
@@ -54,6 +51,66 @@ public class PlayerActivity extends AppCompatActivity {
         initInstances();
 
         createArrayList();
+
+        setButton();
+    }
+
+    private void setButton(){
+        ImageButton add = (ImageButton) findViewById(R.id.addCrr);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater layoutInflater = LayoutInflater.from(PlayerActivity.this);
+                final View myView = layoutInflater.inflate(R.layout.dialog_modify_crr, null);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(PlayerActivity.this);
+                builder.setView(myView);
+                builder.setTitle(getResources().getString(R.string.addingtitle));
+                builder.setCancelable(true);
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        NumberPicker echelon = (NumberPicker) myView.findViewById(R.id.modifyEditEchelon);
+                        EditText nom = (EditText) myView.findViewById(R.id.modifyEditNom);
+                        EditText prenom = (EditText) myView.findViewById(R.id.modifyEditPrenom);
+                        if(!(nom.getText().toString().equals("")) && !(prenom.getText().toString().equals(""))){
+                            modify = true;
+                            Coureur c = new Coureur();
+                            c.setNom_crr(nom.getText().toString());
+                            c.setPrenom_crr(prenom.getText().toString());
+                            c.setEchelon_crr(echelon.getValue());
+
+                            allCrrs.add(c);
+
+                            listItem.add(getItem(c, allCrrs.indexOf(c) + 1));
+                            adapter.notifyDataSetChanged();
+                            DBCoureur dbCoureur = new DBCoureur(getApplicationContext());
+                            dbCoureur.open();
+                            dbCoureur.insertCoureur(c);
+                            dbCoureur.close();
+                        }
+                    }
+                });
+                builder.setNegativeButton(R.string.annuler, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                builder.setIcon(getResources().getDrawable(R.drawable.modify));
+                final AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+                try{
+                    NumberPicker echelon = (NumberPicker) alertDialog.findViewById(R.id.modifyEditEchelon);
+                    echelon.setMaxValue(100);
+                    echelon.setMinValue(0);
+                    echelon.setWrapSelectorWheel(false);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                (alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)).setTextColor(getResources().getColor(R.color.grey_black));
+                (alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)).setTextColor(getResources().getColor(R.color.grey_black));
+            }
+        });
+
     }
 
     @Override
@@ -288,8 +345,6 @@ public class PlayerActivity extends AppCompatActivity {
                     setModifyDialog(position);
                 }
             });
-
-
             return view;
         }
 
