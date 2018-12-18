@@ -3,6 +3,7 @@ package adury_csanchez.utbm.f1levier.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,7 +17,7 @@ import adury_csanchez.utbm.f1levier.DAO.RunnerDAO;
 import adury_csanchez.utbm.f1levier.R;
 import adury_csanchez.utbm.f1levier.model.Runner;
 
-public class AddRunnerActivity extends Activity implements OnClickListener {
+public class AddRunnerActivity extends AppCompatActivity implements OnClickListener {
 
     public static final String TAG = "AddRunnerActivity";
 
@@ -31,6 +32,9 @@ public class AddRunnerActivity extends Activity implements OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_runner);
+
+        // Set action bar title
+        getSupportActionBar().setTitle(R.string.new_runner_title);
 
         initViews();
 

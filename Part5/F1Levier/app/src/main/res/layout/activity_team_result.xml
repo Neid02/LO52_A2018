@@ -6,19 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".activities.TeamResultActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
-
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/bigContainer"
-        android:layout_width="368dp"
-        android:layout_height="516dp"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="43dp"></LinearLayout>
+        android:gravity="center_horizontal"
+        android:padding="5dp">
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
