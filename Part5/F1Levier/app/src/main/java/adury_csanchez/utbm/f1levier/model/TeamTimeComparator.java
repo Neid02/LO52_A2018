@@ -12,6 +12,9 @@ public class TeamTimeComparator implements Comparator<Team>{
 
     @Override
     public int compare(Team a, Team b){
-        return (int)(a.getGlobalTime(c)-b.getGlobalTime(c));
+        int diffAdvencement = a.getAdvancement(c)-b.getAdvancement(c);
+        if(diffAdvencement>0)return -1;
+        else if(diffAdvencement<0) return 1;
+        else return (int)(a.getGlobalTime(c)-b.getGlobalTime(c));
     }
 }

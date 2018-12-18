@@ -120,6 +120,15 @@ public class LapTime {
     public double getGlobalTime(){
         return mTimeFractionated1 + mTimeFractionated2 + mTimePitStop + mTimeSprint1 + mTimeSprint2;
     }
+    public int getNbCompletedTurns(){
+        int nb = 0;
+        if(getTimeSprint1()!=0)nb++;
+        if(getTimeFractionated1()!=0)nb++;
+        if(getTimePitStop()!=0)nb++;
+        if(getTimeSprint2()!=0)nb++;
+        if(getTimeFractionated2()!=0)nb++;
+        return nb;
+    }
     public double getMaxTime(){
         return Math.max(mTimeFractionated1, Math.max(mTimeFractionated2, Math.max(mTimePitStop, Math.max(mTimeSprint1, mTimeSprint2))));
     }

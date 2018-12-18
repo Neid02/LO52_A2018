@@ -111,35 +111,35 @@ public class TeamResultActivity extends AppCompatActivity {
                 grid.addView(tv);
 
                 tv = new TextView(this);
-                tv.setText(Long.toString(lapTime.getTimeSprint1()));
+                tv.setText(Utils.formatTime(lapTime.getTimeSprint1()));
                 tv.setGravity(Gravity.CENTER);
                 tv.setBackgroundResource(R.layout.grid_items_border);
                 tv.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 1f), GridLayout.spec(GridLayout.UNDEFINED, 1f)));
                 grid.addView(tv);
 
                 tv = new TextView(this);
-                tv.setText(Long.toString(lapTime.getTimeFractionated1()));
+                tv.setText(Utils.formatTime(lapTime.getTimeFractionated1()));
                 tv.setGravity(Gravity.CENTER);
                 tv.setBackgroundResource(R.layout.grid_items_border);
                 tv.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 1f), GridLayout.spec(GridLayout.UNDEFINED, 1f)));
                 grid.addView(tv);
 
                 tv = new TextView(this);
-                tv.setText(Long.toString(lapTime.getTimePitStop()));
+                tv.setText(Utils.formatTime(lapTime.getTimePitStop()));
                 tv.setGravity(Gravity.CENTER);
                 tv.setBackgroundResource(R.layout.grid_items_border);
                 tv.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 1f), GridLayout.spec(GridLayout.UNDEFINED, 1f)));
                 grid.addView(tv);
 
                 tv = new TextView(this);
-                tv.setText(Long.toString(lapTime.getTimeSprint2()));
+                tv.setText(Utils.formatTime(lapTime.getTimeSprint2()));
                 tv.setGravity(Gravity.CENTER);
                 tv.setBackgroundResource(R.layout.grid_items_border);
                 tv.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 1f), GridLayout.spec(GridLayout.UNDEFINED, 1f)));
                 grid.addView(tv);
 
                 tv = new TextView(this);
-                tv.setText(Long.toString(lapTime.getTimeFractionated2()));
+                tv.setText(Utils.formatTime(lapTime.getTimeFractionated2()));
                 tv.setGravity(Gravity.CENTER);
                 tv.setBackgroundResource(R.layout.grid_items_border);
                 tv.setLayoutParams(new GridLayout.LayoutParams(GridLayout.spec(GridLayout.UNDEFINED, 1f), GridLayout.spec(GridLayout.UNDEFINED, 1f)));

@@ -70,8 +70,18 @@ public class Team {
         }
         return lts;
     }
-    public double getGlobalTime(Context c){
-        double t=0;
+    public int getAdvancement(Context c){
+        int advencement = 0;
+        List<LapTime> lapTimes = getLapTimes(c);
+        int passage = lapTimes.size();
+        if(passage>=1){
+            advencement = (passage-1)*3;
+            advencement += lapTimes.get(passage-1).getNbCompletedTurns();
+        }
+        return advencement;
+    }
+    public long getGlobalTime(Context c){
+        long t=0;
         for(LapTime lt : getLapTimes(c)){
             t+=lt.getGlobalTime();
         }
