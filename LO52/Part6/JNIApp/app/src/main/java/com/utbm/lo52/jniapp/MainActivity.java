@@ -24,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void read(View v){
-        int nb = (int)(Math.random() * ((10)));
+        int nb = (int)(Math.random() * (10 + 1));
         text.setText(read(nb));
     }
 
     public void write(View v){
-        int nb = (int)(Math.random() * ((10)));
+        int nb = (int)(Math.random() * (10 + 1));
         text.setText(write(nb));
     }
 
