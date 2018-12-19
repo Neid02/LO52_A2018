@@ -1,8 +1,10 @@
 package com.utbm.lo52.f1levier.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,34 +16,47 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.utbm.lo52.f1levier.R;
+import com.utbm.lo52.f1levier.fragments.dummy.DummyContent;
+import com.utbm.lo52.f1levier.fragments.HomeFragment;
+import com.utbm.lo52.f1levier.fragments.ParticipantsFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener, ParticipantsFragment.OnListFragmentInteractionListener {
+
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
+    private NavigationView navigationView;
+
+    private Fragment fragmentHome;
+    private Fragment fragmentParticipants;
+
+    private static final int FRAGMENT_HOME = 0;
+    private static final int FRAGMENT_PARTICIPANTS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        this.showFirstFragment();
     }
 
     @Override
@@ -82,22 +97,71 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (id){
+            case R.id.nav_home :
+                this.showFragment(FRAGMENT_HOME);
+                break;
+            case R.id.nav_participants :
+                this.showFragment(FRAGMENT_PARTICIPANTS);
+                break;
+            default:
+                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void showFragment(int fragmentIdentifier){
+        switch (fragmentIdentifier){
+            case FRAGMENT_HOME :
+                this.showHomeFragment();
+                break;
+            case FRAGMENT_PARTICIPANTS:
+                this.showParticipantsFragment();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void showFirstFragment(){
+        Fragment visibleFragment = getSupportFragmentManager().findFragmentById(R.id.activity_main_frame_layout);
+
+        if (visibleFragment == null){
+            // 1.1 - Show News Fragment
+            this.showFragment(FRAGMENT_HOME);
+            // 1.2 - Mark as selected the menu item corresponding to HomeFragment
+            this.navigationView.getMenu().getItem(0).setChecked(true);
+        }
+    }
+
+    private void showHomeFragment(){
+        if (this.fragmentHome == null) this.fragmentHome = HomeFragment.newInstance("test", "test");
+        this.startTransactionFragment(this.fragmentHome);
+
+    }
+
+    private void showParticipantsFragment(){
+        if (this.fragmentParticipants == null) this.fragmentParticipants = ParticipantsFragment.newInstance(0);
+        this.startTransactionFragment(this.fragmentParticipants);
+
+    }
+
+    private void startTransactionFragment(Fragment fragment){
+        if (!fragment.isVisible()){
+            getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_frame_layout, fragment).commit();
+        }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+
     }
 }
