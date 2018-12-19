@@ -117,7 +117,7 @@ public class LapTime {
     {
         this.mTimeFractionated2=timeFractionated2;
     }
-    public double getGlobalTime(){
+    public long getGlobalTime(){
         return mTimeFractionated1 + mTimeFractionated2 + mTimePitStop + mTimeSprint1 + mTimeSprint2;
     }
     public int getNbCompletedTurns(){

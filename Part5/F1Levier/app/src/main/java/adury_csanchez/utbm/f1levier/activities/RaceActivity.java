@@ -94,7 +94,7 @@ public class RaceActivity extends AppCompatActivity {
         race = new RaceDAO(this).getRaceById(raceID);
 
         // Set action bar title
-        getSupportActionBar().setTitle(race.getName());
+        getSupportActionBar().setTitle(getResources().getString(R.string.race) + " \"" + race.getName() + "\"");
 
         final List<Team> listTeams = race.getTeams(this);
         final LapTimeDAO lapTimeDAO=new LapTimeDAO(this);
@@ -119,6 +119,7 @@ public class RaceActivity extends AppCompatActivity {
             linearLayoutRow.setGravity(Gravity.CENTER);
             linearLayoutRow.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
             linearLayoutRow.setPadding(0,10,0,10);
+
             // Add it to the linearLayoutContainer
             linearLayoutContainer.addView(linearLayoutRow);
 
@@ -132,61 +133,33 @@ public class RaceActivity extends AppCompatActivity {
             linearLayoutRow.addView(triggerButton);
             listTriggerButtons.add(triggerButton);
 
-
             // Create a SUB linearLayout  (Vertical)
             LinearLayout linearLayoutSub=new LinearLayout(this);
             linearLayoutSub.setOrientation(LinearLayout.VERTICAL);
             linearLayoutSub.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+
             // Add it to the linearLayoutRow
             linearLayoutRow.addView(linearLayoutSub);
-
-
-            // Create Progress bar to display current lap progression
-            final ProgressBar progressBarCurrentLap=new ProgressBar(this,null,android.R.attr.progressBarStyleHorizontal);
-            //progressBarCurrentLap.setProgressDrawable(new SegmentedProgressDrawable(0xff195681, 0x32123346));
-            progressBarCurrentLap.setProgressDrawable(new SegmentedProgressDrawable(ContextCompat.getColor(this,R.color.colorProgressFg),ContextCompat.getColor(this,R.color.colorProgressBg)));
-            progressBarCurrentLap.setMax(5);
-            progressBarCurrentLap.setProgress(0);
-            progressBarCurrentLap.setPadding(0,0,0,0);
-            progressBarCurrentLap.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
 
             // Create a frame layout for the progressbar + labels on overlay
             FrameLayout frameLayout = new FrameLayout(this);
             frameLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
             linearLayoutSub.addView(frameLayout);
 
-            // Create a grid layout to hold the 5 labels (Sprint, Fractionned, Pit Stop, Sprint, Fractionned)
-            GridLayout gridLayout = new GridLayout(this);
-            gridLayout.setColumnCount(5);
-            gridLayout.setRowCount(1);
-            gridLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
-            gridLayout.setForegroundGravity(Gravity.CENTER);
-
-            List<String> list = Arrays.asList("Sprint", "Frac.", "Pit Stop", "Sprint", "Frac.");
-            for(String s : list)
-            {
-                TextView textViewLegend = new TextView(this);
-                textViewLegend.setText(s);
-                textViewLegend.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
-                textViewLegend.setTypeface(Typeface.DEFAULT_BOLD);
-                textViewLegend.setTextColor(Color.WHITE);
-                gridLayout.addView(textViewLegend);
-                GridLayout.LayoutParams paramsLegent= new GridLayout.LayoutParams(GridLayout.spec(
-                        GridLayout.UNDEFINED,GridLayout.FILL,1f),
-                        GridLayout.spec(GridLayout.UNDEFINED,GridLayout.FILL,1f));
-                paramsLegent.setGravity(Gravity.CENTER);
-                textViewLegend.setLayoutParams(paramsLegent);
-            }
+            // Create Progress bar to display current lap progression
+            final ProgressBar progressBarCurrentLap=createProgressBarCurrentLap();
+            // Create a grid layout holding the legend
+            GridLayout gridLayout=createGridLegend();
 
             frameLayout.addView(progressBarCurrentLap);
             frameLayout.addView(gridLayout);
-
 
             // Create a SUB SUB linearLayout (Horizontal)
             LinearLayout linearLayoutSubSub=new LinearLayout(this);
             linearLayoutSubSub.setGravity(Gravity.CENTER_VERTICAL);
             linearLayoutSubSub.setOrientation(LinearLayout.HORIZONTAL);
             linearLayoutSubSub.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+
             // Add it to the linearLayoutSub
             linearLayoutSub.addView(linearLayoutSubSub);
 
@@ -209,13 +182,7 @@ public class RaceActivity extends AppCompatActivity {
                 int nbLapsToRunForEachRunner =  runners.size()==3 ? 2 : 3;
 
                 // Create a progressbar to display individual progression of each runners
-                final ProgressBar progressBarIndividual=new ProgressBar(this,null,android.R.attr.progressBarStyleHorizontal);
-                progressBarIndividual.setProgressDrawable(new SegmentedProgressDrawable(ContextCompat.getColor(this,R.color.colorProgressFg),ContextCompat.getColor(this,R.color.colorProgressBg), nbLapsToRunForEachRunner));
-                progressBarIndividual.setMax(nbLapsToRunForEachRunner);
-                progressBarIndividual.setProgress(0);
-                progressBarIndividual.setPadding(0,10,0,10);
-                // Calculate and apply progressBar size according to the number of runner in the current team
-                progressBarIndividual.setLayoutParams(new LinearLayout.LayoutParams(nbLapsToRunForEachRunner * Utils.mapPXtoDP(this, 10),LinearLayout.LayoutParams.WRAP_CONTENT));
+                final ProgressBar progressBarIndividual=createProgressBarIndividual(nbLapsToRunForEachRunner);
 
                 // Add it to the linearLayoutSubSub
                 linearLayoutSubSub.addView(progressBarIndividual);
@@ -227,7 +194,9 @@ public class RaceActivity extends AppCompatActivity {
                 lapTime.setAuthor(runner);
                 listCurrentLaps.add(lapTime);
             }
+
             final AtomicLong previousTime= new AtomicLong(SystemClock.elapsedRealtime() - chronometer.getBase());
+
             triggerButton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -320,4 +289,53 @@ public class RaceActivity extends AppCompatActivity {
         intent.putExtra("RaceID",new Long(race.getId()));
         startActivity(intent);
     }
+
+    public ProgressBar createProgressBarIndividual(int nbOfSegments) {
+        ProgressBar progressBarIndividual=new ProgressBar(this,null,android.R.attr.progressBarStyleHorizontal);
+        progressBarIndividual.setProgressDrawable(new SegmentedProgressDrawable(ContextCompat.getColor(this,R.color.colorProgressFg),ContextCompat.getColor(this,R.color.colorProgressBg), nbOfSegments));
+        progressBarIndividual.setMax(nbOfSegments);
+        progressBarIndividual.setProgress(0);
+        progressBarIndividual.setPadding(0,10,0,10);
+        // Calculate and apply progressBar size according to the number of runner in the current team
+        progressBarIndividual.setLayoutParams(new LinearLayout.LayoutParams(nbOfSegments * Utils.mapPXtoDP(this, 10),LinearLayout.LayoutParams.WRAP_CONTENT));
+        return progressBarIndividual;
+    }
+
+    public ProgressBar createProgressBarCurrentLap() {
+        ProgressBar progressBarCurrentLap=new ProgressBar(this,null,android.R.attr.progressBarStyleHorizontal);
+        progressBarCurrentLap.setProgressDrawable(new SegmentedProgressDrawable(ContextCompat.getColor(this,R.color.colorProgressFg),ContextCompat.getColor(this,R.color.colorProgressBg)));
+        progressBarCurrentLap.setMax(5);
+        progressBarCurrentLap.setProgress(0);
+        progressBarCurrentLap.setPadding(0,0,0,0);
+        progressBarCurrentLap.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+        return progressBarCurrentLap;
+    }
+
+    public GridLayout createGridLegend(){
+        // Create a grid layout to hold the 5 labels (Sprint, Fractionned, Pit Stop, Sprint, Fractionned)
+        GridLayout gridLayout = new GridLayout(this);
+        gridLayout.setColumnCount(5);
+        gridLayout.setRowCount(1);
+        gridLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+        gridLayout.setForegroundGravity(Gravity.CENTER);
+
+        List<String> list = Arrays.asList("Sprint", "Frac.", "Pit Stop", "Sprint", "Frac.");
+        for(String s : list)
+        {
+            TextView textViewLegend = new TextView(this);
+            textViewLegend.setText(s);
+            textViewLegend.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+            textViewLegend.setTypeface(Typeface.DEFAULT_BOLD);
+            textViewLegend.setTextColor(Color.WHITE);
+            gridLayout.addView(textViewLegend);
+            GridLayout.LayoutParams paramsLegend= new GridLayout.LayoutParams(GridLayout.spec(
+                    GridLayout.UNDEFINED,GridLayout.FILL,1f),
+                    GridLayout.spec(GridLayout.UNDEFINED,GridLayout.FILL,1f));
+            paramsLegend.setGravity(Gravity.CENTER);
+            textViewLegend.setLayoutParams(paramsLegend);
+        }
+        return gridLayout;
+    }
+
+
 }

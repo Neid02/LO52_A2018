@@ -45,6 +45,10 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
         Long raceID = getIntent().getExtras().getLong("RaceID");
         race = new RaceDAO(this).getRaceById(raceID);
+
+        // Set action bar title
+        getSupportActionBar().setTitle(R.string.results);
+
         List<Team> lt = race.getTeams(this);
         LinearLayout linearLayoutContainer = findViewById(R.id.myLayout);
         Collections.sort(lt,new TeamTimeComparator(this));

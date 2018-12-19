@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.ResultActivity" />
-        <activity android:name=".activities.RaceActivity" />
+        <activity android:name=".activities.RaceActivity"
+                android:screenOrientation="portrait"/>
         <activity android:name=".activities.TeamResultActivity" />
         <activity
             android:name=".activities.AddRunnerActivity"

@@ -25,5 +25,15 @@
     <string name="select_all">Tout sélectionner</string>
     <string name="unselect_all">Tout désélectionner</string>
     <string name="please_set_the_race_name">Insérez le nom de la course</string>
+    <string name="results">Résultats :</string>
+    <string name="results_of_team">Résultats de l\'équipe</string>
+    <string name="race">Course</string>
+    <string name="Lap">Tour</string>
+    <string name="Sprint">Sprint</string>
+    <string name="Fract.">Fract.</string>
+    <string name="Pit_stop">Pit Stop</string>
+    <string name="Total">Total</string>
+    <string name="Avg_">Moy.</string>
+    <string name="Start">Start</string>
 </resources>
 
