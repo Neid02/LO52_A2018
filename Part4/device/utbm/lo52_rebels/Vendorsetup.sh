@@ -1,0 +1,3 @@
+add_lunch_combo lo52_rebels-eng
+add_lunch_combo lo52_rebels-user
+add_lunch_combo lo52_rebels-userdebug
