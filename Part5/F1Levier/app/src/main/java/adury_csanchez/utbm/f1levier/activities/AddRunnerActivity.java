@@ -60,15 +60,29 @@ public class AddRunnerActivity extends AppCompatActivity implements OnClickListe
 
                 if (!TextUtils.isEmpty(firstName) && !TextUtils.isEmpty(lastName)  && !TextUtils.isEmpty(weight))
                 {
-                    // add runner to database
-                    Runner createdRunner = mRunnerDao.createRunner(firstName.toString(),lastName.toString(),Integer.parseInt(weight.toString()));
-                    Log.d(TAG, "added runner : "+ createdRunner.getFistName() + " " + createdRunner.getLastName() +" " + createdRunner.getWeight());
+                    int w =0;
+                    try{
+                        w=Integer.parseInt(weight.toString());
+                        if(w>=0 && w<=100) {
+                            // add runner to database
+                            Runner createdRunner = mRunnerDao.createRunner(firstName.toString(), lastName.toString(), w);
+                            Log.d(TAG, "added runner : " + createdRunner.getFistName() + " " + createdRunner.getLastName() + " " + createdRunner.getWeight());
 
-                    // go back to main activity
-                    Intent intent = new Intent();
-                    intent.putExtra(MainActivity.EXTRA_ADDED_RUNNER, createdRunner);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                            // go back to main activity
+                            Intent intent = new Intent();
+                            intent.putExtra(MainActivity.EXTRA_ADDED_RUNNER, createdRunner);
+                            setResult(RESULT_OK, intent);
+                            finish();
+                        }
+                        else {
+                            Toast.makeText(this,R.string.please_set_a_valid_weight, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    catch (Exception e){
+                        Toast.makeText(this,R.string.please_set_a_valid_weight, Toast.LENGTH_LONG).show();
+                    }
+
+
                 }
                 else
                 {

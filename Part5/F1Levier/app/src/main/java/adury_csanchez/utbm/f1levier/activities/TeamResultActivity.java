@@ -72,9 +72,9 @@ public class TeamResultActivity extends AppCompatActivity {
             TextView textViewRunnerName = new TextView(this);
             textViewRunnerName.setText(runner.getFistName() + " " + runner.getLastName() + " (" + runner.getWeight() + ")");
             bigContainer.addView(textViewRunnerName);
-            textViewRunnerName.setTextSize(Utils.mapPXtoDP(this, 6));
+            //textViewRunnerName.setTextSize(Utils.mapPXtoDP(this, 6));
             textViewRunnerName.setGravity(Gravity.CENTER);
-            textViewRunnerName.setPadding(Utils.mapPXtoDP(this, 2), Utils.mapPXtoDP(this, 5), Utils.mapPXtoDP(this, 2), Utils.mapPXtoDP(this, 5));
+            //textViewRunnerName.setPadding(Utils.mapPXtoDP(this, 2), Utils.mapPXtoDP(this, 5), Utils.mapPXtoDP(this, 2), Utils.mapPXtoDP(this, 5));
 
 
             // Grid for results
@@ -159,38 +159,37 @@ public class TeamResultActivity extends AppCompatActivity {
                 }
                 grid.addView(tv);
             }
+            if(runner.getLapTimesForRace(this, race).size()>0){
+                // Average
+                grid.addView(getTextViewNormalCell(getResources().getString(R.string.Avg_)));
 
-            // Average
-            grid.addView(getTextViewNormalCell(getResources().getString(R.string.Avg_)));
+                // Average Sprint 1
+                grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimeSprint1))));
 
-            // Average Sprint 1
-            grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimeSprint1))));
+                // Average Fractionned 1
+                grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimeFractionned1))));
 
-            // Average Fractionned 1
-            grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimeFractionned1))));
+                // Average Pit stop
+                grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimePitStop))));
 
-            // Average Pit stop
-            grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimePitStop))));
+                // Average Sprint 2
+                grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimeSprint2))));
 
-            // Average Sprint 2
-            grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimeSprint2))));
+                // Average Fractionned 2
+                grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimeFractionned2))));
 
-            // Average Fractionned 2
-            grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimeFractionned2))));
-
-            // Average Global
-            grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimeGlobal))));
-
+                // Average Global
+                grid.addView(getTextViewNormalCell(Utils.formatTime(Utils.average(listTimeGlobal))));
+            }
             bigContainer.addView(grid);
         }
 
-
-        tvBestSprint1.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
-        tvBestFractionned1.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
-        tvBestPitStop.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
-        tvBestSprint2.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
-        tvBestFractionned2.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
-        tvBestGlobal.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
+        if(tvBestSprint1 != null)tvBestSprint1.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
+        if(tvBestFractionned1!= null)tvBestFractionned1.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
+        if(tvBestPitStop != null)tvBestPitStop.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
+        if(tvBestSprint2 != null)tvBestSprint2.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
+        if(tvBestFractionned2 != null)tvBestFractionned2.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
+        if(tvBestGlobal != null)tvBestGlobal.setTextColor(ContextCompat.getColor(this,R.color.colorAccent));
     }
 
     TextView getTextViewHeaderCell(String text)

@@ -12,14 +12,17 @@ public class Utils {
     public static String formatTime(long millis){
         String time = "";
         if(millis>=60000) time = String.format("%d'",millis/60000);
-        return time + String.format("%02d\"%03d",(millis-millis/60000*60000)/1000,millis-millis/1000*1000);
+        return time + String.format("%02d\"%02d",(millis-millis/60000*60000)/1000,millis/10-millis/1000*100);
     }
 
     public static Long average(List<Long> values){
         int i = values.size();
         long sum=0;
-        for(Long l : values)
-            sum+=l;
-        return sum/i;
+        if(i!=0){
+            for(Long l : values)
+                sum+=l;
+            return sum/i;
+        }
+        else return new Long(0);
     }
 }

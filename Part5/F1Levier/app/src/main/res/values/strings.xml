@@ -35,5 +35,6 @@
     <string name="Total">Total</string>
     <string name="Avg_">Moy.</string>
     <string name="Start">Start</string>
+    <string name="please_set_a_valid_weight">Veuillez saisir un poids compris entre 0 et 100</string>
 </resources>
 

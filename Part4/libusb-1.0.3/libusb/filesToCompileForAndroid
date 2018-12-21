@@ -1,0 +1,1 @@
+os/linux_usbfs.h os/linux_usbfs.c libusbi.h core.c descriptor.c io.c sync.c
