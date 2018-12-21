@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Part5JNI</string>
+    <string name="set_a_integer">Saisir un entier"</string>
+</resources>
