@@ -7,7 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,11 +23,7 @@ import com.silentpangolin.codep25.Objects.Coureur;
 import com.silentpangolin.codep25.Objects.Temps;
 import com.silentpangolin.codep25.Objects.TypeTour;
 
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 public class RankingPlayerActivity extends AppCompatActivity {
@@ -117,7 +112,7 @@ public class RankingPlayerActivity extends AppCompatActivity {
         dbTemps.close();
 
         ArrayList<HashMap<String, String>> listItem = new ArrayList<>();
-        ListView listRank = (ListView) findViewById(R.id.listRank);
+        ListView listRank = (ListView) findViewById(R.id.listRankPlayer);
         SimpleAdapter adapter;
 
         if (tps != null) {

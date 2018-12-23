@@ -78,6 +78,15 @@ public class DBEquipe {
         return e;
     }
 
+    public String getNameTeamWithIDTeam(int ID){
+        Cursor c = bdd.rawQuery("SELECT " + name_equ + " FROM " + TABLE + " WHERE " + id_equ + " = " + ID + ";", null);
+
+        if(c.getCount() == 0) return null;
+
+        c.moveToFirst();
+        return c.getString(0);
+    }
+
     public int deleteAll(){
         return bdd.delete(TABLE, null, null);
     }

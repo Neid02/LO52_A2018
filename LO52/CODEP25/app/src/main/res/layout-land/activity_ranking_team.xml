@@ -6,43 +6,39 @@
     android:layout_height="match_parent">
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:background="@color/white_grey">
 
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        <LinearLayout android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="@dimen/margin16"
+            android:padding="@dimen/margin6"
             android:color="@color/white"
             android:background="@drawable/border_all_grey"
-            android:layout_marginTop="@dimen/margin6" android:layout_marginStart="@dimen/margin30" android:layout_marginEnd="@dimen/margin30">
+            android:layout_marginTop="@dimen/margin16" android:layout_marginBottom="@dimen/margin16" android:layout_marginStart="@dimen/margin6" android:layout_marginEnd="@dimen/margin6"
+            android:layout_gravity="center"
+            android:gravity="center">
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/margin6"
-                android:layout_gravity="center"
-                android:gravity="center">
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/chooseTypeTour"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size16"
+                android:padding="@dimen/margin3"
+                android:gravity="center" android:layout_gravity="center"/>
 
-                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/chooseTypeTour"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/size16"
-                    android:padding="@dimen/margin3"
-                    android:gravity="center" android:layout_gravity="center"/>
-
-                <Spinner android:layout_width="0dp" android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:id="@+id/spinnerTourTeam"
-                    android:layout_margin="@dimen/margin6"
-                    android:layout_gravity="center" android:gravity="center"/>
-
-            </LinearLayout>
+            <Spinner android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/spinnerTourTeam"
+                android:layout_margin="@dimen/margin6"
+                android:layout_gravity="center" android:gravity="center"/>
 
         </LinearLayout>
+
         <LinearLayout
-            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="2"
             android:background="@color/white"
-            android:layout_margin="@dimen/margin30">
+            android:layout_marginTop="@dimen/margin16" android:layout_marginBottom="@dimen/margin16" android:layout_marginStart="@dimen/margin6" android:layout_marginEnd="@dimen/margin6"
+            >
 
             <ListView
                 android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -56,6 +52,7 @@
                 />
 
         </LinearLayout>
+
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

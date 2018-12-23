@@ -102,4 +102,15 @@ public class DBTypeTour {
         }
         return types;
     }
+
+    public int getIDWithInitial(String initial){
+        Cursor c = bdd.rawQuery("SELECT " + id_typetour + " FROM " + TABLE + " WHERE " + initials_typetour + " = \'" + initial + "\';", null);
+        if (c.getCount() == 0) return -1;
+
+        c.moveToFirst();
+        int ID = c.getInt(0);
+        c.close();
+
+        return ID;
+    }
 }

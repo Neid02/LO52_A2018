@@ -122,7 +122,6 @@
             android:footerDividersEnabled="true"
             android:dividerHeight="@dimen/height1"
             />
-
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

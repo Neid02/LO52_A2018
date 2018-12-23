@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Handler;
@@ -14,11 +13,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,6 +35,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.support.design.widget.NavigationView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBEquipe;
@@ -83,21 +78,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(savedInstanceState != null){
-            ordrePassage = savedInstanceState.getInt("ordrePassage");
-            final Spinner spinnerOrdre = (Spinner) findViewById(R.id.ordrePassage);
-            if((ordrePassage <= 3) && (ordrePassage > 0)){
-                spinnerOrdre.setSelection(ordrePassage - 1);
+        try {
+            if (savedInstanceState != null) {
+                ordrePassage = savedInstanceState.getInt("ordrePassage");
+                final Spinner spinnerOrdre = (Spinner) findViewById(R.id.ordrePassage);
+                if ((ordrePassage <= 3) && (ordrePassage > 0)) {
+                    spinnerOrdre.setSelection(ordrePassage - 1);
+                }
+                ArrayList<Integer> ids = savedInstanceState.getIntegerArrayList("teams");
+                mSelectedItems = new ArrayList<Equipe>();
+                DBEquipe dbEquipe = new DBEquipe(this);
+                dbEquipe.open();
+                for (int i : ids) {
+                    mSelectedItems.add(dbEquipe.getEquipeWithID(i));
+                }
+                setTableLayoutButton(mSelectedItems);
             }
-            ArrayList<Integer> ids = savedInstanceState.getIntegerArrayList("teams");
-            mSelectedItems = new ArrayList<Equipe>();
-            DBEquipe dbEquipe = new DBEquipe(this);
-            dbEquipe.open();
-            for(int i : ids){
-                mSelectedItems.add(dbEquipe.getEquipeWithID(i));
-            }
-            setTableLayoutButton(mSelectedItems);
-        }
+        }catch(Exception e){e.printStackTrace();}
 
         initInstances();
 
@@ -136,8 +133,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setTableLayoutButton(@NotNull ArrayList<Equipe> teamSelected){
-        ScrollView scr = (ScrollView) findViewById(R.id.scroll);
-        scr.setNestedScrollingEnabled(true);
+        ScrollView scroll = (ScrollView) findViewById(R.id.scroll);
+        scroll.setNestedScrollingEnabled(true);
 
         allButtons = new ArrayList<Button>();
         allTemps = new ArrayList<Temps>();
@@ -609,8 +606,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-
             return view;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return getCount();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return position;
         }
     }
 }

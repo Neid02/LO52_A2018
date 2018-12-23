@@ -143,6 +143,15 @@ public class DBCoureur {
         return temp;
     }
 
+    public String getNameCoureurWithIDCoureur(int ID){
+        Cursor c = bdd.rawQuery("SELECT " + nom_crr + ", " + prenom_crr + " FROM " + TABLE + " WHERE " + id_crr + " = " + ID + ";", null);
+
+        if(c.getCount() == 0) return null;
+
+        c.moveToFirst();
+        return c.getString(0) + " " + c.getString(1);
+    }
+
     public void updateCoureur(Coureur c) {
         ContentValues values = new ContentValues();
         values.put(id_crr, c.getId_crr());

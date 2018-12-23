@@ -65,7 +65,7 @@
         <ListView
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:scrollbars="vertical"
-            android:id="@+id/listRank"
+            android:id="@+id/listRankPlayer"
             android:layout_margin="@dimen/margin30"
             android:background="@drawable/border_all_grey"
             android:headerDividersEnabled="true"
