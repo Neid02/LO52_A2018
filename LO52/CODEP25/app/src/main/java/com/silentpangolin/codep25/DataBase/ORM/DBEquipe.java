@@ -63,6 +63,21 @@ public class DBEquipe {
         return equs;
     }
 
+    public Equipe getEquipeWithID(int id){
+        Equipe e = new Equipe();
+
+        Cursor c = bdd.rawQuery("SELECT * FROM " + TABLE
+                + " WHERE " + id_equ + " = " + id + ";", null);
+
+        if(c.getCount() == 0) return null;
+
+        c.moveToFirst();
+        e.setId_equ(c.getInt(num_id_equ));
+        e.setName_equ(c.getString(num_name_equ));
+
+        return e;
+    }
+
     public int deleteAll(){
         return bdd.delete(TABLE, null, null);
     }

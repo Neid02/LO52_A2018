@@ -83,6 +83,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(savedInstanceState != null){
+            ordrePassage = savedInstanceState.getInt("ordrePassage");
+            final Spinner spinnerOrdre = (Spinner) findViewById(R.id.ordrePassage);
+            if((ordrePassage <= 3) && (ordrePassage > 0)){
+                spinnerOrdre.setSelection(ordrePassage - 1);
+            }
+            ArrayList<Integer> ids = savedInstanceState.getIntegerArrayList("teams");
+            mSelectedItems = new ArrayList<Equipe>();
+            DBEquipe dbEquipe = new DBEquipe(this);
+            dbEquipe.open();
+            for(int i : ids){
+                mSelectedItems.add(dbEquipe.getEquipeWithID(i));
+            }
+            setTableLayoutButton(mSelectedItems);
+        }
+
         initInstances();
 
         getDataFromDataBase();
@@ -203,6 +219,10 @@ public class MainActivity extends AppCompatActivity {
                         dbTemps.close();
                         allTemps = new ArrayList<Temps>();
                         Toast.makeText(getApplicationContext(), getResources().getString(R.string.saveTemps), Toast.LENGTH_LONG).show();
+                        final Spinner spinnerOrdre = (Spinner) findViewById(R.id.ordrePassage);
+                        if(ordrePassage < 3){
+                            spinnerOrdre.setSelection(spinnerOrdre.getSelectedItemPosition() + 1);
+                        }
                         Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
                         chronometer.stop();
                         chronometer.setBase(SystemClock.elapsedRealtime());
@@ -444,6 +464,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 ordrePassage = ++i;
+                setTableLayoutButton(mSelectedItems);
             }
 
             @Override
@@ -501,6 +522,18 @@ public class MainActivity extends AppCompatActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if ((mSelectedItems != null) && (mSelectedItems.size() > 0)){
+            outState.putInt("ordrePassage", ordrePassage);
+            ArrayList<Integer> ids = new ArrayList<>();
+            for (Equipe e : mSelectedItems){
+                ids.add(e.getId_equ());
+            }
+            outState.putIntegerArrayList("teams", ids);
+        }
+    }
 
     /** SETTINGS */
     @Override
