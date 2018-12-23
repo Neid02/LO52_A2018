@@ -120,15 +120,15 @@ public class RankingPlayerActivity extends AppCompatActivity {
                 for (int i = 0; i < tps.size(); ++i)
                     listItem.add(getItem(tps.get(i).getDuree_temps(), i + 1, tps.get(i).getDate_temps()));
 
-                adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking_coureur,
-                        new String[]{"numRank", "dureeRank", "dateRank"}, new int[]{R.id.numRank, R.id.dureeRank, R.id.dateRank});
+                adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking,
+                        new String[]{"numRank", "item1Rank", "item2Rank"}, new int[]{R.id.numRank, R.id.item1Rank, R.id.item2Rank});
 
                 listRank.setAdapter(adapter);
             }
         }else {
             listItem.clear();
-            adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking_coureur,
-                    new String[]{"numRank", "dureeRank", "dateRank"}, new int[]{R.id.numRank, R.id.dureeRank, R.id.dateRank});
+            adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking,
+                    new String[]{"numRank", "dureeRank", "item2Rank"}, new int[]{R.id.numRank, R.id.item1Rank, R.id.item2Rank});
 
             listRank.setAdapter(adapter);
         }
@@ -137,8 +137,8 @@ public class RankingPlayerActivity extends AppCompatActivity {
     private HashMap<String, String> getItem(long duree, int i, long date) {
         HashMap<String, String> item = new HashMap<>();
         item.put("numRank", Integer.toString(i));
-        item.put("dureeRank", getTime(duree));
-        item.put("dateRank", android.text.format.DateFormat.format("HH:mm:ss dd-MM-yyyy", date).toString());
+        item.put("item1Rank", getTime(duree));
+        item.put("item2Rank", android.text.format.DateFormat.format("HH:mm:ss dd-MM-yyyy", date).toString());
         return item;
     }
 

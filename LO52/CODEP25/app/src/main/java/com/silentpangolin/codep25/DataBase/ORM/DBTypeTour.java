@@ -108,9 +108,6 @@ public class DBTypeTour {
         if (c.getCount() == 0) return -1;
 
         c.moveToFirst();
-        int ID = c.getInt(0);
-        c.close();
-
-        return ID;
+        return c.getInt(0);
     }
 }

@@ -26,7 +26,6 @@ import com.silentpangolin.codep25.Objects.TypeTour;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 public class RankingTeamActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
@@ -130,8 +129,43 @@ public class RankingTeamActivity extends AppCompatActivity {
             case "mfr" :
             case "mps" :
             case "mgn" :{
-                String type = types[spinnerTypeTour.getSelectedItemPosition()];
-                type.substring(1);
+                    String type = types[spinnerTypeTour.getSelectedItemPosition()];
+                    type = type.substring(1);
+
+                    DBTemps dbTemps = new DBTemps(this);
+                    DBTypeTour dbTypeTour = new DBTypeTour(this);
+                    dbTypeTour.open();
+                    dbTemps.open();
+                    ArrayList<Temps> tps = dbTemps.getAVGTempsWithIDType(dbTypeTour.getIDWithInitial(type));
+                    dbTemps.close();
+                    dbTypeTour.close();
+
+                    ArrayList<HashMap<String, String>> listItem = new ArrayList<>();
+                    ListView listRank = (ListView) findViewById(R.id.listRankTeam);
+                    SimpleAdapter adapter;
+                    if (tps != null) {
+                        if (tps.size() > 0) {
+                            DBEquipe dbEquipe = new DBEquipe(this);
+                            dbEquipe.open();
+                            for (int i = 0; i < tps.size(); ++i) {
+                                listItem.add(getItemAVG(tps.get(i).getDuree_temps(), dbEquipe.getNameTeamWithIDTeam(tps.get(i).getId_equ_temps()), i + 1));
+                            }
+                            dbEquipe.close();
+
+                            adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking,
+                                    new String[]{"numRank", "item1Rank", "item2Rank"},
+                                    new int[]{R.id.numRank, R.id.item1Rank, R.id.item2Rank});
+
+                            listRank.setAdapter(adapter);
+                        }
+                    } else {
+                        listItem.clear();
+                        adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking,
+                                new String[]{"numRank", "item1Rank", "item2Rank"},
+                                new int[]{R.id.numRank, R.id.item1Rank, R.id.item2Rank});
+
+                        listRank.setAdapter(adapter);
+                    }
                 break;
             }
             default : break;
@@ -146,6 +180,14 @@ public class RankingTeamActivity extends AppCompatActivity {
         item.put("dateRank", android.text.format.DateFormat.format("HH:mm:ss dd-MM-yyyy", date).toString());
         item.put("playerRank", nameCrr);
         item.put("teamRank", nameTeam);
+        return item;
+    }
+
+    private HashMap<String, String> getItemAVG(long duree, String name, int i){
+        HashMap<String, String> item = new HashMap<>();
+        item.put("numRank", Integer.toString(i));
+        item.put("item1Rank", getTime(duree));
+        item.put("item2Rank", name);
         return item;
     }
 

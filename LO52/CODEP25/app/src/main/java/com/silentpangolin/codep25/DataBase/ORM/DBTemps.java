@@ -150,6 +150,36 @@ public class DBTemps {
         return tps;
     }
 
+    public ArrayList<Temps> getAVGTempsWithIDType(int ID){
+        ArrayList<Temps> tps = new ArrayList<>();
+
+        Cursor c = bdd.rawQuery(
+                "SELECT AVG(" + duree_temps + ") AS moy, " + id_equ_temps +
+                        " FROM " + TABLE +
+                        " WHERE " + id_typetour_temps + " = " + ID +
+                        " GROUP BY " + id_equ_temps +
+                        " ORDER BY moy ASC;", null);
+
+        if(c.getCount() == 0) return null;
+
+        c.moveToFirst();
+        for(int i = 0; i < c.getCount(); ++i){
+            Temps t = new Temps();
+            t.setDuree_temps(c.getLong(0));
+            t.setId_equ_temps(c.getInt(1));
+
+            tps.add(t);
+
+            c.moveToNext();
+        }
+
+        return tps;
+    }
+
+
+
+
+
     public void deleteIDTeam(){
         bdd.execSQL("UPDATE " + TABLE + " SET " + id_equ_temps + " = -1;");
     }
