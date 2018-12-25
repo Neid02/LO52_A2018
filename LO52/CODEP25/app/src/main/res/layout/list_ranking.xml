@@ -39,6 +39,5 @@
             android:padding="@dimen/margin6"
             />
 
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

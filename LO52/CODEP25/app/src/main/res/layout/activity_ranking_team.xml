@@ -42,7 +42,134 @@
         <LinearLayout
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:background="@color/white"
-            android:layout_margin="@dimen/margin30">
+            android:layout_margin="@dimen/margin30"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent" android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/border_all_black_nobottom"
+                    android:id="@+id/mtitle">
+
+                    <TextView
+                        android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/num"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size16"
+                        android:background="@drawable/border_right"
+                        android:padding="@dimen/margin6"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:text="@string/time"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size16"
+                        android:background="@drawable/border_right"
+                        android:padding="@dimen/margin6"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center"
+                        android:text="@string/nomEquipe"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size16"
+                        android:padding="@dimen/margin6"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent" android:layout_height="0dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/border_all_black_nobottom"
+                    android:id="@+id/title">
+
+                    <TextView
+                        android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/num"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size16"
+                        android:background="@drawable/border_right"
+                        android:padding="@dimen/margin6"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:background="@drawable/border_bottom">
+
+                            <TextView
+                                android:layout_width="0dp" android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/time"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/size16"
+                                android:background="@drawable/border_right"
+                                android:padding="@dimen/margin6"
+                                />
+
+                            <TextView
+                                android:layout_width="0dp" android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/date"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/size16"
+                                android:padding="@dimen/margin6"
+                                />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp" android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/nom"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/size16"
+                                android:padding="@dimen/margin6"
+                                android:background="@drawable/border_right"
+                                />
+
+                            <TextView
+                                android:layout_width="0dp" android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/nomEquipe"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/size16"
+                                android:padding="@dimen/margin6"
+                                />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </RelativeLayout>
 
             <ListView
                 android:layout_width="match_parent" android:layout_height="wrap_content"

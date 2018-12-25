@@ -24,6 +24,8 @@
     <string name="ordreCoureur">Ord. pass.</string>
     <string name="nomEquipe">Nom Équipe</string>
     <string name="sumEchelon">Total</string>
+    <string name="time">Temps</string>
+    <string name="date">Date</string>
 
     <string name="ok">Valider</string>
     <string name="annuler">Annuler</string>

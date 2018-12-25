@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -81,11 +83,13 @@ public class RankingTeamActivity extends AppCompatActivity {
 
     private void setList(){
         Spinner spinnerTypeTour = (Spinner) findViewById(R.id.spinnerTourTeam);
-        switch(types[spinnerTypeTour.getSelectedItemPosition()]){
-            case "sp" :
-            case "fr" :
-            case "ps" :
-            case "gn" :{
+        LinearLayout title = (LinearLayout) findViewById(R.id.title);
+        LinearLayout mtitle = (LinearLayout) findViewById(R.id.mtitle);
+        switch (types[spinnerTypeTour.getSelectedItemPosition()]) {
+            case "sp":
+            case "fr":
+            case "ps":
+            case "gn": {
                 DBTemps dbTemps = new DBTemps(this);
                 DBTypeTour dbTypeTour = new DBTypeTour(this);
                 dbTypeTour.open();
@@ -97,8 +101,18 @@ public class RankingTeamActivity extends AppCompatActivity {
                 ArrayList<HashMap<String, String>> listItem = new ArrayList<>();
                 ListView listRank = (ListView) findViewById(R.id.listRankTeam);
                 SimpleAdapter adapter;
+
                 if (tps != null) {
                     if (tps.size() > 0) {
+
+                        ViewGroup.LayoutParams visible = title.getLayoutParams();
+                        visible.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                        title.setLayoutParams(visible);
+
+                        ViewGroup.LayoutParams invisible = mtitle.getLayoutParams();
+                        invisible.height = 0;
+                        mtitle.setLayoutParams(invisible);
+
                         DBEquipe dbEquipe = new DBEquipe(this);
                         DBCoureur dbCoureur = new DBCoureur(this);
                         dbEquipe.open();
@@ -115,7 +129,15 @@ public class RankingTeamActivity extends AppCompatActivity {
 
                         listRank.setAdapter(adapter);
                     }
-                }else {
+                } else {
+                    ViewGroup.LayoutParams visible = title.getLayoutParams();
+                    visible.height = 0;
+                    title.setLayoutParams(visible);
+
+                    ViewGroup.LayoutParams invisible = mtitle.getLayoutParams();
+                    invisible.height = 0;
+                    mtitle.setLayoutParams(invisible);
+
                     listItem.clear();
                     adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking_teams,
                             new String[]{"numRank", "tempsRank", "dateRank", "playerRank", "teamRank"},
@@ -125,50 +147,67 @@ public class RankingTeamActivity extends AppCompatActivity {
                 }
                 break;
             }
-            case "msp" :
-            case "mfr" :
-            case "mps" :
-            case "mgn" :{
-                    String type = types[spinnerTypeTour.getSelectedItemPosition()];
-                    type = type.substring(1);
+            case "msp":
+            case "mfr":
+            case "mps":
+            case "mgn": {
+                String type = types[spinnerTypeTour.getSelectedItemPosition()];
+                type = type.substring(1);
 
-                    DBTemps dbTemps = new DBTemps(this);
-                    DBTypeTour dbTypeTour = new DBTypeTour(this);
-                    dbTypeTour.open();
-                    dbTemps.open();
-                    ArrayList<Temps> tps = dbTemps.getAVGTempsWithIDType(dbTypeTour.getIDWithInitial(type));
-                    dbTemps.close();
-                    dbTypeTour.close();
+                DBTemps dbTemps = new DBTemps(this);
+                DBTypeTour dbTypeTour = new DBTypeTour(this);
+                dbTypeTour.open();
+                dbTemps.open();
+                ArrayList<Temps> tps = dbTemps.getAVGTempsWithIDType(dbTypeTour.getIDWithInitial(type));
+                dbTemps.close();
+                dbTypeTour.close();
 
-                    ArrayList<HashMap<String, String>> listItem = new ArrayList<>();
-                    ListView listRank = (ListView) findViewById(R.id.listRankTeam);
-                    SimpleAdapter adapter;
-                    if (tps != null) {
-                        if (tps.size() > 0) {
-                            DBEquipe dbEquipe = new DBEquipe(this);
-                            dbEquipe.open();
-                            for (int i = 0; i < tps.size(); ++i) {
-                                listItem.add(getItemAVG(tps.get(i).getDuree_temps(), dbEquipe.getNameTeamWithIDTeam(tps.get(i).getId_equ_temps()), i + 1));
-                            }
-                            dbEquipe.close();
+                ArrayList<HashMap<String, String>> listItem = new ArrayList<>();
+                ListView listRank = (ListView) findViewById(R.id.listRankTeam);
+                SimpleAdapter adapter;
+                if (tps != null) {
+                    if (tps.size() > 0) {
+                        ViewGroup.LayoutParams visible = mtitle.getLayoutParams();
+                        visible.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                        mtitle.setLayoutParams(visible);
 
-                            adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking,
-                                    new String[]{"numRank", "item1Rank", "item2Rank"},
-                                    new int[]{R.id.numRank, R.id.item1Rank, R.id.item2Rank});
+                        ViewGroup.LayoutParams invisible = title.getLayoutParams();
+                        invisible.height = 0;
+                        title.setLayoutParams(invisible);
 
-                            listRank.setAdapter(adapter);
+                        DBEquipe dbEquipe = new DBEquipe(this);
+                        dbEquipe.open();
+                        for (int i = 0; i < tps.size(); ++i) {
+                            listItem.add(getItemAVG(tps.get(i).getDuree_temps(), dbEquipe.getNameTeamWithIDTeam(tps.get(i).getId_equ_temps()), i + 1));
                         }
-                    } else {
-                        listItem.clear();
+                        dbEquipe.close();
+
                         adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking,
                                 new String[]{"numRank", "item1Rank", "item2Rank"},
                                 new int[]{R.id.numRank, R.id.item1Rank, R.id.item2Rank});
 
                         listRank.setAdapter(adapter);
                     }
+                } else {
+                    ViewGroup.LayoutParams visible = title.getLayoutParams();
+                    visible.height = 0;
+                    title.setLayoutParams(visible);
+
+                    ViewGroup.LayoutParams invisible = mtitle.getLayoutParams();
+                    invisible.height = 0;
+                    mtitle.setLayoutParams(invisible);
+
+                    listItem.clear();
+                    adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking,
+                            new String[]{"numRank", "item1Rank", "item2Rank"},
+                            new int[]{R.id.numRank, R.id.item1Rank, R.id.item2Rank});
+
+                    listRank.setAdapter(adapter);
+                }
                 break;
             }
-            default : break;
+            default:
+                break;
 
         }
     }

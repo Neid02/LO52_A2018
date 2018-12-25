@@ -40,6 +40,18 @@
             android:layout_marginTop="@dimen/margin16" android:layout_marginBottom="@dimen/margin16" android:layout_marginStart="@dimen/margin6" android:layout_marginEnd="@dimen/margin6"
             >
 
+            <LinearLayout
+                android:layout_width="0dp" android:layout_height="0dp"
+                android:visibility="invisible"
+                android:orientation="vertical"
+                android:id="@+id/mtitle"/>
+
+            <LinearLayout
+                android:layout_width="0dp" android:layout_height="0dp"
+                android:visibility="invisible"
+                android:orientation="vertical"
+                android:id="@+id/title"/>
+
             <ListView
                 android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:scrollbars="vertical"
