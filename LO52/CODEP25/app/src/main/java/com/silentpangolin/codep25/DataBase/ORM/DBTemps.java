@@ -150,7 +150,7 @@ public class DBTemps {
         return tps;
     }
 
-    public ArrayList<Temps> getAVGTempsWithIDType(int ID){
+    public ArrayList<Temps> getAVGTempsForTeamWithIDType(int ID){
         ArrayList<Temps> tps = new ArrayList<>();
 
         Cursor c = bdd.rawQuery(
@@ -176,6 +176,26 @@ public class DBTemps {
         return tps;
     }
 
+    public Temps getAVGTempsForPlayerWithIDType(int ID, int IDPlayer){
+        Cursor c = bdd.rawQuery(
+                "SELECT AVG(" + duree_temps + "), " + id_crr_temps +
+                        " FROM " + TABLE +
+                        " WHERE " + id_typetour_temps + " = " + ID +
+                        " GROUP BY " + id_crr_temps +
+                        " HAVING " + id_crr_temps + " = " + IDPlayer +
+                        ";", null);
+
+        if(c.getCount() == 0) return null;
+
+        c.moveToFirst();
+        Temps t = new Temps();
+        t.setDuree_temps(c.getLong(0));
+        t.setId_crr_temps(c.getInt(1));
+
+        c.moveToNext();
+
+        return t;
+    }
 
 
 

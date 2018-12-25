@@ -9,13 +9,14 @@
         android:orientation="vertical"
         android:background="@color/white_grey">
 
-
         <LinearLayout
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin16"
             android:layout_marginEnd="@dimen/margin16"
             android:layout_marginTop="@dimen/margin16"
-            android:background="@drawable/border_all_grey">
+            android:background="@drawable/border_all_grey"
+            android:orientation="horizontal"
+            >
 
             <TextView
                 android:layout_width="0dp" android:layout_height="match_parent"
@@ -28,38 +29,58 @@
                 />
 
             <LinearLayout
-                android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:orientation="vertical"
-                android:layout_gravity="center_horizontal"
-                android:padding="@dimen/margin6"
-                android:background="@drawable/border_right">
-
-                <TextView
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="@string/nom"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/size16"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="@string/prenomCoureur"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/size16"
-                    />
-            </LinearLayout>
-
-            <TextView
                 android:layout_width="0dp" android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="@string/echelonCoureur"
-                android:textColor="@color/black"
-                android:textSize="@dimen/size16"
-                android:padding="@dimen/margin6"
-                android:gravity="center"
-                android:layout_gravity="center"
-                />
+                android:layout_weight="5"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/border_bottom"
+                    android:layout_gravity="center_horizontal"
+                    android:padding="@dimen/margin6">
+
+                    <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="@string/nom"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size16"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="@string/prenomCoureur"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size16"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:text="@string/moyGenTime"
+                        android:background="@drawable/border_right"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size16"
+                        android:padding="@dimen/margin6"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp" android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="@string/echelonCoureur"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size16"
+                        android:padding="@dimen/margin6"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp" android:layout_height="match_parent"

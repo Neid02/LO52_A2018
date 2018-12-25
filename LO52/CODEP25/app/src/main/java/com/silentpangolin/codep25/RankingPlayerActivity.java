@@ -7,14 +7,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBTemps;
@@ -22,6 +25,8 @@ import com.silentpangolin.codep25.DataBase.ORM.DBTypeTour;
 import com.silentpangolin.codep25.Objects.Coureur;
 import com.silentpangolin.codep25.Objects.Temps;
 import com.silentpangolin.codep25.Objects.TypeTour;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,18 +119,27 @@ public class RankingPlayerActivity extends AppCompatActivity {
         ArrayList<HashMap<String, String>> listItem = new ArrayList<>();
         ListView listRank = (ListView) findViewById(R.id.listRankPlayer);
         SimpleAdapter adapter;
+        LinearLayout moyTemps = (LinearLayout) findViewById(R.id.tempsMoy);
+        TextView tempsMoyen = (TextView) findViewById(R.id.tempsMoyen);
+        tempsMoyen.setText("Test");
 
         if (tps != null) {
             if (tps.size() > 0) {
                 for (int i = 0; i < tps.size(); ++i)
                     listItem.add(getItem(tps.get(i).getDuree_temps(), i + 1, tps.get(i).getDate_temps()));
 
+                dbTemps.open();
+                tempsMoyen.setText(getTime(dbTemps.getAVGTempsForPlayerWithIDType(types[type.getSelectedItemPosition()], coureurs[coureur.getSelectedItemPosition()]).getDuree_temps()));
+                dbTemps.close();
+
+                moyTemps.setVisibility(View.VISIBLE);
                 adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking,
                         new String[]{"numRank", "item1Rank", "item2Rank"}, new int[]{R.id.numRank, R.id.item1Rank, R.id.item2Rank});
 
                 listRank.setAdapter(adapter);
             }
         }else {
+            moyTemps.setVisibility(View.INVISIBLE);
             listItem.clear();
             adapter = new SimpleAdapter(this.getBaseContext(), listItem, R.layout.list_ranking,
                     new String[]{"numRank", "dureeRank", "item2Rank"}, new int[]{R.id.numRank, R.id.item1Rank, R.id.item2Rank});

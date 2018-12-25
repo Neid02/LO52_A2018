@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal"
         >
 
         <TextView
@@ -17,10 +18,14 @@
             />
 
         <LinearLayout
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="4"
+            android:layout_width="0dp" android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@drawable/border_right"
+            android:background="@drawable/border_bottom"
             android:layout_gravity="center_horizontal"
             android:padding="@dimen/margin6">
 
@@ -37,18 +42,34 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/size16"
                 />
-        </LinearLayout>
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="0dp" android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/echelonCrr"
-            android:textColor="@color/black"
-            android:textSize="@dimen/size16"
-            android:padding="@dimen/margin6"
-            android:gravity="center"
-            android:layout_gravity="center"
-            />
+            <LinearLayout
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="0dp" android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:id="@+id/tempsCrr"
+                    android:background="@drawable/border_right"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size16"
+                    android:padding="@dimen/margin6"
+                    />
+
+                <TextView
+                    android:layout_width="0dp" android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/echelonCrr"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size16"
+                    android:padding="@dimen/margin6"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <ImageButton
             android:layout_width="0dp" android:layout_height="match_parent"

@@ -27,7 +27,9 @@ import android.widget.SimpleAdapter;
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBEquipe;
 import com.silentpangolin.codep25.DataBase.ORM.DBTemps;
+import com.silentpangolin.codep25.DataBase.ORM.DBTypeTour;
 import com.silentpangolin.codep25.Objects.Coureur;
+import com.silentpangolin.codep25.Objects.Temps;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -83,7 +85,7 @@ public class PlayerActivity extends AppCompatActivity {
 
                             allCrrs.add(c);
 
-                            listItem.add(getItem(c, allCrrs.indexOf(c) + 1));
+                            listItem.add(getItem(c, allCrrs.indexOf(c) + 1, 0));
                             adapter.notifyDataSetChanged();
                             DBCoureur dbCoureur = new DBCoureur(getApplicationContext());
                             dbCoureur.open();
@@ -134,26 +136,50 @@ public class PlayerActivity extends AppCompatActivity {
         listItem = new ArrayList<HashMap<String, String>>();
         IDcrr = new ArrayList<Integer>();
 
+        DBTypeTour dbTypeTour = new DBTypeTour(this);
+        dbTypeTour.open();
+        int type = dbTypeTour.getIDWithInitial("gn");
+        dbTypeTour.close();
+
+        DBTemps dbTemps = new DBTemps(this);
+        dbTemps.open();
         if (allCrrs.size() > 0) {
             for (int i = 0; i < allCrrs.size(); ++i) {
-                listItem.add(getItem(allCrrs.get(i), i + 1));
+                Temps tps = dbTemps.getAVGTempsForPlayerWithIDType(type, allCrrs.get(i).getId_crr());
+                if (tps != null){
+                    listItem.add(getItem(allCrrs.get(i), i + 1, tps.getDuree_temps()));
+                }else{
+                    listItem.add(getItem(allCrrs.get(i), i + 1, 0));
+                }
                 IDcrr.add(allCrrs.get(i).getId_crr());
             }
         }
+        dbTemps.close();
 
         adapter = new MyPersonalAdapter(this.getBaseContext(), listItem, R.layout.list_coureur,
-                new String[]{"num", "nom", "prenom", "echelon"}, new int[]{R.id.numCrr, R.id.nomCrr, R.id.prenomCrr, R.id.echelonCrr});
+                new String[]{"num", "nom", "prenom", "echelon", "moy"}, new int[]{R.id.numCrr, R.id.nomCrr, R.id.prenomCrr, R.id.echelonCrr, R.id.tempsCrr});
 
         listCrr.setAdapter(adapter);
     }
 
-    private HashMap<String, String> getItem(Coureur c, int i) {
+    private HashMap<String, String> getItem(Coureur c, int i, long duree) {
         HashMap<String, String> item = new HashMap<>();
         item.put("num", Integer.toString(i));
         item.put("nom", c.getNom_crr());
         item.put("prenom", c.getPrenom_crr());
         item.put("echelon", Integer.toString(c.getEchelon_crr()));
+        item.put("moy", getTime(duree));
         return item;
+    }
+
+    private String getTime(long duree){
+        String time;
+        time = Long.toString(duree % 1000);
+        duree /= 1000;
+        time = Long.toString(duree % 60) + " . " + time;
+        duree /= 60;
+        time = Long.toString(duree) + " : " + time;
+        return time;
     }
 
     private void initInstances() {

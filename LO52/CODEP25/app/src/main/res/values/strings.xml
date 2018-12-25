@@ -27,6 +27,9 @@
     <string name="time">Temps</string>
     <string name="date">Date</string>
 
+    <string name="moyTime">Temps moyen :</string>
+    <string name="moyGenTime">Tps moyen général</string>
+
     <string name="ok">Valider</string>
     <string name="annuler">Annuler</string>
 
