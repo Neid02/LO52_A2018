@@ -7,7 +7,7 @@
 
     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:background="@color/white"
+        android:background="@color/white_grey"
         android:gravity="center">
 
         <ListView
@@ -23,7 +23,7 @@
             android:layout_weight="1"
             android:id="@+id/addCrr"
             android:src="@drawable/add"
-            android:background="@color/white"
+            android:background="@android:color/transparent"
             android:layout_gravity="top"
             android:layout_marginTop="@dimen/margin16"/>
 
