@@ -1,4 +1,17 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        google()   // add repository
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'   // add plugin
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' //apply plugin
 
 android {
     compileSdkVersion 28
@@ -17,11 +30,17 @@ android {
         }
     }
 }
+greendao {
+    schemaVersion 2
+    // daoPackage "com.example.model" // set package of generated classes
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.facebook.stetho:stetho:1.4.2'
+    implementation 'org.greenrobot:greendao:3.2.2'   // add library
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
