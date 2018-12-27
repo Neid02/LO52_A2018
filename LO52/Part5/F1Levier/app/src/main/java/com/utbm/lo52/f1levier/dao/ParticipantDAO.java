@@ -22,6 +22,9 @@ public interface ParticipantDAO {
     @Query("SELECT * FROM PARTICIPANT WHERE PRENOM LIKE :prenom AND NOM LIKE :nom LIMIT 1")
     Participant findByName(String prenom, String nom);
 
+    @Query("SELECT * FROM PARTICIPANT WHERE POIDS = :poids")
+    Participant findByPoids(int poids);
+
     @Insert
     void insertAll(Participant... participants);
 

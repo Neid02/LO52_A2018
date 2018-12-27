@@ -16,12 +16,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.utbm.lo52.f1levier.R;
-import com.utbm.lo52.f1levier.fragments.dummy.DummyContent;
+import com.utbm.lo52.f1levier.entity.Participant;
 import com.utbm.lo52.f1levier.fragments.HomeFragment;
 import com.utbm.lo52.f1levier.fragments.ParticipantsFragment;
+import com.utbm.lo52.f1levier.fragments.ParticipantsFragment.OnListFragmentInteractionListener;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener, ParticipantsFragment.OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener, OnListFragmentInteractionListener {
 
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -144,9 +145,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showParticipantsFragment(){
-        if (this.fragmentParticipants == null) this.fragmentParticipants = ParticipantsFragment.newInstance(0);
+        if (this.fragmentParticipants == null) this.fragmentParticipants = ParticipantsFragment.newInstance(1);
         this.startTransactionFragment(this.fragmentParticipants);
-
     }
 
     private void startTransactionFragment(Fragment fragment){
@@ -161,7 +161,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListFragmentInteraction(DummyContent.DummyItem item) {
+    public void onListFragmentInteraction(Participant participant) {
 
     }
+
 }

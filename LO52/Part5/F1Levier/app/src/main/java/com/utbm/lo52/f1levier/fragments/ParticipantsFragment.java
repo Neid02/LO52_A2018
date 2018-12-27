@@ -1,6 +1,7 @@
 package com.utbm.lo52.f1levier.fragments;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,32 +12,27 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.utbm.lo52.f1levier.R;
-import com.utbm.lo52.f1levier.fragments.dummy.DummyContent;
-import com.utbm.lo52.f1levier.fragments.dummy.DummyContent.DummyItem;
+import com.utbm.lo52.f1levier.entity.Participant;
 
-/**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class ParticipantsFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    private OnListFragmentInteractionListener mListener;
+    private RecyclerView recyclerView;
+
+    private List<Participant> participants = new ArrayList<>();
+
     public ParticipantsFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static ParticipantsFragment newInstance(int columnCount) {
         ParticipantsFragment fragment = new ParticipantsFragment();
         Bundle args = new Bundle();
@@ -48,6 +44,11 @@ public class ParticipantsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        participants.clear();
+        for(int i=0; i<15; i++) {
+            addParticipants("RIFFLART", "Florian", 76);
+            addParticipants("PANASSIM", "Nadège", 60);
+        }
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -55,24 +56,32 @@ public class ParticipantsFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_participants_list, container, false);
+        recyclerView = view.findViewById(R.id.list);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyParticipantsRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        Context context = view.getContext();
+
+        if (mColumnCount <= 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+
+        recyclerView.setAdapter(new MyParticipantsRecyclerViewAdapter(participants, mListener));
+
         return view;
     }
 
+    private void addParticipants(String nom, String prenom, int poids) {
+        Participant participant = new Participant();
+        participant.setId(participants.size() + 1);
+        participant.setPrenom(prenom);
+        participant.setNom(nom);
+        participant.setPoids(poids);
+
+        participants.add(participant);
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -96,13 +105,12 @@ public class ParticipantsFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p/>
+     * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Participant participant);
     }
 }

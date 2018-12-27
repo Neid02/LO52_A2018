@@ -23,6 +23,10 @@ public class Participant {
     @ColumnInfo(name = "PRENOM")
     private String prenom;
 
+    @NonNull
+    @ColumnInfo(name = "POIDS")
+    private int poids;
+
     public int getId() {
         return id;
     }
@@ -47,4 +51,11 @@ public class Participant {
         this.prenom = prenom;
     }
 
+    public int getPoids() {
+        return poids;
+    }
+
+    public void setPoids(int poids) {
+        this.poids = poids;
+    }
 }

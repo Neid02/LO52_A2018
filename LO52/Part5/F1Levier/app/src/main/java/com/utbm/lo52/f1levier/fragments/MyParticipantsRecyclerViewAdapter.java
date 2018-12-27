@@ -8,37 +8,33 @@ import android.widget.TextView;
 
 import com.utbm.lo52.f1levier.R;
 import com.utbm.lo52.f1levier.fragments.ParticipantsFragment.OnListFragmentInteractionListener;
-import com.utbm.lo52.f1levier.fragments.dummy.DummyContent.DummyItem;
+import com.utbm.lo52.f1levier.entity.Participant;
 
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyParticipantsRecyclerViewAdapter extends RecyclerView.Adapter<MyParticipantsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<Participant> participants;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyParticipantsRecyclerViewAdapter(List<DummyItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
-        mListener = listener;
+    public MyParticipantsRecyclerViewAdapter(List<Participant> participants, OnListFragmentInteractionListener listener) {
+        this.participants = participants;
+        this.mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_participants, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_participants, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.participant = participants.get(position);
+        holder.mIdView.setText(Integer.toString(holder.participant.getId()));
+        holder.mNomView.setText(holder.participant.getNom());
+        holder.mPrenomView.setText(holder.participant.getPrenom());
+        holder.mPoidsView.setText(Integer.toString(holder.participant.getPoids()));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +42,7 @@ public class MyParticipantsRecyclerViewAdapter extends RecyclerView.Adapter<MyPa
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(holder.participant);
                 }
             }
         });
@@ -54,25 +50,29 @@ public class MyParticipantsRecyclerViewAdapter extends RecyclerView.Adapter<MyPa
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return participants.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyItem mItem;
+        public final TextView mNomView;
+        public final TextView mPrenomView;
+        public final TextView mPoidsView;
+        public Participant participant;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.item_number);
-            mContentView = view.findViewById(R.id.content);
+            mIdView = view.findViewById(R.id.id);
+            mNomView = view.findViewById(R.id.nom);
+            mPrenomView = view.findViewById(R.id.prenom);
+            mPoidsView = view.findViewById(R.id.poids);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mNomView.getText() + "'";
         }
     }
 }
