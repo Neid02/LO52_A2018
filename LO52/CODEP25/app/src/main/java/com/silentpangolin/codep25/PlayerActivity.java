@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.silentpangolin.codep25.DataBase.ORM.DBCoureur;
 import com.silentpangolin.codep25.DataBase.ORM.DBEquipe;
@@ -46,6 +47,8 @@ public class PlayerActivity extends AppCompatActivity {
     private ArrayList<Integer> IDcrr;
     private ArrayList<Coureur> allCrrs;
     private boolean modify = false;
+    private int easteregg = 16;
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -267,6 +270,18 @@ public class PlayerActivity extends AppCompatActivity {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             View view = super.getView(position, convertView, parent);
+
+            /** EASTER EGG */
+            if(position == easteregg - 1){
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ++count;
+                        if(count == easteregg)
+                            Toast.makeText(getApplicationContext(), "PROMO 16 !!!", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
 
             ImageButton deleteCrr = (ImageButton) view.findViewById(R.id.deleteCrr);
             deleteCrr.setOnClickListener(new View.OnClickListener() {
