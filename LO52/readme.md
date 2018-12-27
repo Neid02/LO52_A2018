@@ -1,20 +1,7 @@
-Dans le dossier image, chaque image possede un nom suivant le schéma suivant : PXX_XXX
+﻿README
 
-	PXX : numero de partie du TP
-	XXX : numero de l'image (incrémenté automatiquement par nous même)
+Toi qui me lit.... bah rien en vrai, fais toi plaize
 
+Juste pour info : CODEP25, c'est l'application de la partie 5
 
-```
-LO52
-├── part1
-│   └── HelloWorld
-├── part2
-├── part3
-├── ...
-│
-├── rapport
-│   ├── images - Dossier contenant les images
-│   └── rapport.md - Ce fichier possede tous les rapports de toutes les parties de tous les TPs
-└── readme.md - Fichier actuel
-
-```
+XOXO
