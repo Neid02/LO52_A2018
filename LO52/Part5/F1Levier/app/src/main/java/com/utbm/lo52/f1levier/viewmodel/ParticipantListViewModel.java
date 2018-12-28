@@ -13,16 +13,24 @@ public class ParticipantListViewModel extends AndroidViewModel {
 
     private AppRepository appRepository;
 
-    private LiveData<List<Participant>> allParticipants;
-
     public ParticipantListViewModel(Application application) {
         super(application);
         appRepository = new AppRepository(application);
-        allParticipants = appRepository.getAllParticipants();
     }
 
-    public LiveData<List<Participant>> getAllParticipants() {
-        return allParticipants;
+    public List<Participant> getAllParticipants() {
+        return appRepository.getParticipantDAO().getAll();
     }
 
+    public void insertAll(List<Participant> participants) {
+        appRepository.getParticipantDAO().insertAll(participants);
+    }
+
+    public void deleteAll() {
+        appRepository.getParticipantDAO().deleteAll(getAllParticipants());
+    }
+
+    public Participant getParticipantByName(String prenom, String nom) {
+        return appRepository.getParticipantDAO().findByName(prenom, nom);
+    }
 }

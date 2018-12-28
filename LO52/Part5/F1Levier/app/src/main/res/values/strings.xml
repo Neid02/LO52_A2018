@@ -18,4 +18,5 @@
     <string name="noms">Noms</string>
     <string name="prenoms">Prénoms</string>
     <string name="poids">Poids</string>
+    <string name="nom_du_groupes">Nom du groupe</string>
 </resources>

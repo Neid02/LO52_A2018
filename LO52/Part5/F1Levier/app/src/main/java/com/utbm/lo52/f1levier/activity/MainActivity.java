@@ -1,11 +1,7 @@
-package com.utbm.lo52.f1levier.activities;
+package com.utbm.lo52.f1levier.activity;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,13 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.utbm.lo52.f1levier.R;
+import com.utbm.lo52.f1levier.entity.Groupe;
 import com.utbm.lo52.f1levier.entity.Participant;
-import com.utbm.lo52.f1levier.fragments.HomeFragment;
-import com.utbm.lo52.f1levier.fragments.ParticipantsFragment;
-import com.utbm.lo52.f1levier.fragments.ParticipantsFragment.OnListFragmentInteractionListener;
+import com.utbm.lo52.f1levier.fragment.GroupesFragment;
+import com.utbm.lo52.f1levier.fragment.HomeFragment;
+import com.utbm.lo52.f1levier.fragment.ParticipantsFragment;
+import com.utbm.lo52.f1levier.model.GroupeIhm;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener, OnListFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener,
+        ParticipantsFragment.OnListFragmentInteractionListener, GroupesFragment.OnListFragmentInteractionListener {
 
     private Toolbar toolbar;
     private DrawerLayout drawer;
@@ -30,9 +29,11 @@ public class MainActivity extends AppCompatActivity
 
     private Fragment fragmentHome;
     private Fragment fragmentParticipants;
+    private Fragment fragmentGroupes;
 
     private static final int FRAGMENT_HOME = 0;
     private static final int FRAGMENT_PARTICIPANTS = 1;
+    private static final int FRAGMENT_GROUPES = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +41,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
 
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -105,6 +98,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_participants :
                 this.showFragment(FRAGMENT_PARTICIPANTS);
                 break;
+            case R.id.nav_groupes :
+                this.showFragment(FRAGMENT_GROUPES);
+                break;
             default:
                 break;
         }
@@ -119,8 +115,11 @@ public class MainActivity extends AppCompatActivity
             case FRAGMENT_HOME :
                 this.showHomeFragment();
                 break;
-            case FRAGMENT_PARTICIPANTS:
+            case FRAGMENT_PARTICIPANTS :
                 this.showParticipantsFragment();
+                break;
+            case FRAGMENT_GROUPES :
+                this.showGroupesFragment();
                 break;
             default:
                 break;
@@ -139,14 +138,19 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showHomeFragment(){
-        if (this.fragmentHome == null) this.fragmentHome = HomeFragment.newInstance("test", "test");
+        if (this.fragmentHome == null) this.fragmentHome = HomeFragment.newInstance();
         this.startTransactionFragment(this.fragmentHome);
 
     }
 
     private void showParticipantsFragment(){
-        if (this.fragmentParticipants == null) this.fragmentParticipants = ParticipantsFragment.newInstance(1);
+        if (this.fragmentParticipants == null) this.fragmentParticipants = ParticipantsFragment.newInstance();
         this.startTransactionFragment(this.fragmentParticipants);
+    }
+
+    private void showGroupesFragment(){
+        if (this.fragmentGroupes == null) this.fragmentGroupes = GroupesFragment.newInstance();
+        this.startTransactionFragment(this.fragmentGroupes);
     }
 
     private void startTransactionFragment(Fragment fragment){
@@ -156,12 +160,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onFragmentInteraction() {
 
     }
 
     @Override
     public void onListFragmentInteraction(Participant participant) {
+
+    }
+
+
+    @Override
+    public void onListFragmentInteraction(GroupeIhm groupeIhm) {
 
     }
 

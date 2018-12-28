@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.List;
+
 import io.reactivex.annotations.NonNull;
 
 @Entity(tableName = "GROUPE")
@@ -11,7 +13,7 @@ public class Groupe {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "ID_GROUPE")
+    @ColumnInfo(name = "ID")
     private int id;
 
     @NonNull

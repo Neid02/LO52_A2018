@@ -7,9 +7,10 @@ import android.content.Context;
 
 import com.utbm.lo52.f1levier.entity.Etape;
 import com.utbm.lo52.f1levier.entity.Groupe;
+import com.utbm.lo52.f1levier.entity.GroupeParticipant;
 import com.utbm.lo52.f1levier.entity.Participant;
 
-@Database(entities = {Etape.class, Groupe.class, Participant.class}, version = 1, exportSchema = false)
+@Database(entities = {Etape.class, Groupe.class, Participant.class, GroupeParticipant.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract EtapeDAO etapeDAO();
@@ -18,13 +19,15 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract ParticipantDAO participantDAO();
 
+    public abstract GroupeParticipantDAO groupeParticipantDAO();
+
     private static volatile AppDatabase INSTANCE;
 
     static AppDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "f1_levier").build();
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(), AppDatabase.class, "f1_levier").allowMainThreadQueries().build();
                 }
             }
         }

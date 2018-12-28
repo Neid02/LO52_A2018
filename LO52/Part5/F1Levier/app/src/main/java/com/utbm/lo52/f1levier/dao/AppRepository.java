@@ -17,16 +17,27 @@ public class AppRepository {
 
     private ParticipantDAO participantDAO;
 
+    private GroupeParticipantDAO groupeParticipantDAO;
 
     public AppRepository(Application application) {
         db = AppDatabase.getDatabase(application);
         etapeDAO = db.etapeDAO();
         groupeDAO = db.groupeDAO();
         participantDAO = db.participantDAO();
+        groupeParticipantDAO = db.groupeParticipantDAO();
     }
 
-    public LiveData<List<Participant>> getAllParticipants() {
-        return participantDAO.getAll();
+    public EtapeDAO getEtapeDAO() {
+        return etapeDAO;
     }
 
+    public GroupeDAO getGroupeDAO() {
+        return groupeDAO;
+    }
+
+    public ParticipantDAO getParticipantDAO() {
+        return participantDAO;
+    }
+
+    public GroupeParticipantDAO getGroupeParticipantDAO() { return groupeParticipantDAO; }
 }

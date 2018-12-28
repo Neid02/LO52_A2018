@@ -1,4 +1,4 @@
-package com.utbm.lo52.f1levier.fragments;
+package com.utbm.lo52.f1levier.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.utbm.lo52.f1levier.R;
-import com.utbm.lo52.f1levier.fragments.ParticipantsFragment.OnListFragmentInteractionListener;
+import com.utbm.lo52.f1levier.fragment.ParticipantsFragment.OnListFragmentInteractionListener;
 import com.utbm.lo52.f1levier.entity.Participant;
 
 import java.util.List;
 
 public class MyParticipantsRecyclerViewAdapter extends RecyclerView.Adapter<MyParticipantsRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Participant> participants;
+    private List<Participant> participants;
     private final OnListFragmentInteractionListener mListener;
 
     public MyParticipantsRecyclerViewAdapter(List<Participant> participants, OnListFragmentInteractionListener listener) {

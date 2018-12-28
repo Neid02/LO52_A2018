@@ -2,17 +2,27 @@ package com.utbm.lo52.f1levier.entity;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import io.reactivex.annotations.NonNull;
 
-@Entity(tableName = "ETAPE")
+@Entity(tableName = "ETAPE",
+        indices = {@Index(value = "ID_PARTICIPANT")},
+        foreignKeys = @ForeignKey(entity = Participant.class,
+        parentColumns = "ID",
+        childColumns = "ID_PARTICIPANT",
+        onDelete = ForeignKey.CASCADE))
 public class Etape {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ID_ETAPE")
     private int id;
+
+    @ColumnInfo(name = "ID_PARTICIPANT")
+    private int id_participant;
 
     @ColumnInfo(name = "SPRINT1")
     private float sprint1;
@@ -35,6 +45,14 @@ public class Etape {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId_participant() {
+        return id_participant;
+    }
+
+    public void setId_participant(int id_participant) {
+        this.id_participant = id_participant;
     }
 
     public float getSprint1() {
@@ -76,4 +94,5 @@ public class Etape {
     public void setFraction2(float fraction2) {
         this.fraction2 = fraction2;
     }
+
 }
