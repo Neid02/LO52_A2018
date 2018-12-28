@@ -47,7 +47,9 @@ public class GroupesFragment extends Fragment {
         groupListViewModel = ViewModelProviders.of(this).get(GroupListViewModel.class);
         participantListViewModel = ViewModelProviders.of(this).get(ParticipantListViewModel.class);
         groupListViewModel.deleteAll();
-        groupListViewModel.insert(newGroupeIhm());
+        for (int i=0; i<10; i++) {
+            groupListViewModel.insert(newGroupeIhm());
+        }
 
         groupesIhm = groupListViewModel.getAllGroupsIhm();
     }
