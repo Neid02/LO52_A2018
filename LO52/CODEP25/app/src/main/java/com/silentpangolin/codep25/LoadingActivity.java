@@ -118,7 +118,6 @@ public class LoadingActivity extends AppCompatActivity {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.wtf("SQL", e.getMessage());
             }
             return null;
         }
@@ -126,7 +125,6 @@ public class LoadingActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String params){
             ((Activity)context).finish();
-
         }
     }
 

@@ -7,7 +7,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +24,6 @@ import com.silentpangolin.codep25.DataBase.ORM.DBTypeTour;
 import com.silentpangolin.codep25.Objects.Coureur;
 import com.silentpangolin.codep25.Objects.Temps;
 import com.silentpangolin.codep25.Objects.TypeTour;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;

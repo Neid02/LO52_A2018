@@ -128,6 +128,7 @@ public class DBTemps {
                 "SELECT *" +
                         " FROM " + TABLE +
                         " WHERE " + id_typetour_temps + " = " + ID +
+                        " AND " + id_equ_temps + " != -1" +
                         " ORDER BY " + duree_temps + " ASC;", null);
 
         if(c.getCount() == 0) return null;
@@ -157,6 +158,7 @@ public class DBTemps {
                 "SELECT AVG(" + duree_temps + ") AS moy, " + id_equ_temps +
                         " FROM " + TABLE +
                         " WHERE " + id_typetour_temps + " = " + ID +
+                        " AND " + id_equ_temps + " != -1" +
                         " GROUP BY " + id_equ_temps +
                         " ORDER BY moy ASC;", null);
 
@@ -196,9 +198,6 @@ public class DBTemps {
 
         return t;
     }
-
-
-
 
     public void deleteIDTeam(){
         bdd.execSQL("UPDATE " + TABLE + " SET " + id_equ_temps + " = -1;");

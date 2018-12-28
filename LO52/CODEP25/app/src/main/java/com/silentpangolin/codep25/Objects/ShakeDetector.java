@@ -67,7 +67,6 @@ public class ShakeDetector implements SensorEventListener {
 
                 mListener.onShake(mShakeCount);
             }
-
         }
     }
 }
