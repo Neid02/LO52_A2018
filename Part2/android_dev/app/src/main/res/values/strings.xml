@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">TipStop</string>
+    <string name="table_manifestation_1">nom</string>
+    <string name="table_manifestation_2">date</string>
+    <string name="table_manifestation_3">lieu</string>
+    <string name="title_activity_add_manifestation">ajouter une manifestaion</string>
+    <string name="appbar_scrolling_view_behavior">Test bahavior</string>
+    <string name="dialog_fire_missiles">Fire missiles?</string>
+    <string name="fire">Missiles</string>
+    <string name="cancel">Annuler</string>
+    <string name="ok">valider</string>
+    <string name="matricule">Matricule</string>
+    <string name="echelon">Echelon</string>
+    <string name="equipe">Equipe</string>
+    <string name="team">Team</string>
+    <string name="valider_team">valider l\'équipe</string>
+
+    <string-array name="teams">
+        <item>1- team</item>
+        <item>2- team</item>
+        <item>3- team</item>
+        <item>4- team</item>
+        <item>5- team</item>
+        <item>6- team</item>
+        <item>7- team</item>
+        <item>8- team</item>
+        <item>9- team</item>
+        <item>10- team</item>
+    </string-array>
+    <string name="title_activity_teams">TeamsActivity</string>
+</resources>
