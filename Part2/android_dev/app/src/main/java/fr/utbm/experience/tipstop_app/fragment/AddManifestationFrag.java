@@ -10,14 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
 import fr.utbm.experience.tipstop_app.R;
-import fr.utbm.experience.tipstop_app.dao.ManifestationDao;
-import fr.utbm.experience.tipstop_app.model.Manifestation;
 
 public class AddManifestationFrag extends DialogFragment {
 
@@ -44,7 +37,7 @@ public class AddManifestationFrag extends DialogFragment {
                     }
                 });
 
-        name = view.findViewById(R.id.name);
+        name = view.findViewById(R.id.num);
         dateM = view.findViewById(R.id.dateM);
         place = view.findViewById(R.id.place);
 
@@ -55,15 +48,10 @@ public class AddManifestationFrag extends DialogFragment {
 
     public void onClick(View view) {
 
-        Date myDate = null;
-        try {
-            myDate = (Date) new SimpleDateFormat("dd/MM/yyyy").parse("12/11/2018");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        ManifestationDao manifestationDao = new ManifestationDao(this.getActivity());
+      /*  String myDate = null;
+        ManifestationDao manifestationDao = new ManifestationDao(MainActivity.this);
         Manifestation manifestation = new Manifestation("TipStop",myDate,"Belfort");
-        manifestationDao.insertManifestation(manifestation);
+        manifestationDao.insertManifestation(manifestation);*/
 
 
     }

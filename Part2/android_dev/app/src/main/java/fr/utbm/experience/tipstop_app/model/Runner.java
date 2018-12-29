@@ -4,11 +4,21 @@ public class Runner {
     private  String r_matricule;
     private String r_name;
     private int r_echelon;
+    private int r_team;
 
-    public Runner(String r_matricule,String r_name,int r_echelon) {
-        this.r_matricule = r_matricule;
+    public Runner(String matricule,int team, int r_echelon,String r_name) {
+        this.r_team = team;
         this.r_name = r_name;
         this.r_echelon = r_echelon;
+        this.r_matricule = matricule;
+    }
+
+    public int getTeam() {
+        return r_team;
+    }
+
+    public void setTeam(int team) {
+        this.r_team = team;
     }
 
     public String getR_matricule() {
@@ -38,6 +48,6 @@ public class Runner {
     // Sera utilisée par ArrayAdapter dans la ListView
     @Override
     public String toString() {
-        return '['+ r_matricule + ',' + r_name + ',' + r_echelon +']' ;
+        return '['+r_matricule+','+ r_team + ',' + r_name + ',' + r_echelon +']' ;
     }
 }

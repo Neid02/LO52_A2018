@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="50dp"
+    android:layout_marginTop="50dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginStart="20dp"
+    android:layout_gravity="center"
+    android:background="@color/blanc_grisatre"
+    card_view:cardCornerRadius="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="574dp">
+
+        <TextView
+            android:id="@+id/equipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="33dp"
+            android:layout_marginTop="64dp"
+            android:text="N° Team"
+            android:textColor="@color/colorOrange"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/matriculeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/linearlayout1"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="90dp"
+            android:text="@string/matricule"
+            android:textColor="#ffa913"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/numteam"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/teamLabel"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="162dp"
+            android:layout_marginTop="28dp" />
+
+
+        <TextView
+            android:id="@+id/teamLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:gravity="center_horizontal"
+            android:text="@string/team"
+            android:textColor="#ffa913"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linearlayout1"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:layout_below="@+id/teamLabel"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
+            android:background="#d0d4d9"
+            android:orientation="horizontal" />
+
+        <Button
+            android:id="@+id/addTeam"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="240dp"
+            android:text="@string/valider_team" />
+
+        <TextView
+            android:id="@+id/echelonLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="9dp"
+            android:layout_marginTop="144dp"
+            android:text="@string/echelon"
+            android:textColor="#ffa913"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/echelon"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="157dp"
+            android:layout_marginTop="144dp"
+            android:gravity="center_horizontal"
+            android:text="EchelonValue"
+            android:textColor="@color/noir"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addRunnerB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/echelon"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="136dp"
+            android:layout_marginTop="18dp"
+            android:background="@color/gris"
+            android:clickable="true"
+            card_view:srcCompat="@android:drawable/ic_input_add" />
+
+        <ListView
+            android:id="@+id/list_time"
+            android:layout_width="314dp"
+            android:layout_height="193dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="11dp"
+            android:layout_marginBottom="104dp"
+            android:background="#D8D8D8"
+            android:text="@string/table_manifestation_1"
+            tools:ignore="RtlCompat" />
+
+        <Spinner
+            android:id="@+id/mat"
+            android:layout_width="166dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="99dp"
+            android:layout_marginEnd="31dp" />
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

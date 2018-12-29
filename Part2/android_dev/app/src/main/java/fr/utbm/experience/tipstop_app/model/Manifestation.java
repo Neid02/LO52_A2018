@@ -11,21 +11,21 @@ public class Manifestation {
 
     private int id;
     private String name;
-    private Date dateEvent;
+    private String dateEvent;
     private String place;
 
     public int getId() {
         return id;
     }
 
-    public Manifestation(int id,String name, Date dateEvent, String place) {
+    public Manifestation(int id,String name, String dateEvent, String place) {
         this.name = name;
         this.id = id;
         this.dateEvent = dateEvent;
         this.place = place;
     }
 
-    public Manifestation(String name, Date dateEvent, String place) {
+    public Manifestation(String name, String dateEvent, String place) {
         this.name = name;
         this.dateEvent = dateEvent;
         this.place = place;
@@ -46,11 +46,11 @@ public class Manifestation {
         this.name = name;
     }
 
-    public Date getDateEvent() {
+    public String getDateEvent() {
         return dateEvent;
     }
 
-    public void setDateEvent(Date dateEvent) {
+    public void setDateEvent(String dateEvent) {
         this.dateEvent = dateEvent;
     }
 

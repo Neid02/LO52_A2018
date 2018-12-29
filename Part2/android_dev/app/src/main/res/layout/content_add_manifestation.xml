@@ -18,7 +18,7 @@
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="197dp" />
 
-    <EditText
+    <TextView
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +26,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="153dp"
         android:ems="10"
-        android:inputType="date"
         android:text="Date"
         tools:layout_editor_absoluteX="85dp"
         tools:layout_editor_absoluteY="27dp" />
@@ -53,4 +52,6 @@
         tools:layout_editor_absoluteX="89dp"
         tools:layout_editor_absoluteY="278dp"
         android:onClick="onTClick" />
+
+
 </RelativeLayout>

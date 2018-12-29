@@ -7,22 +7,21 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import fr.utbm.experience.tipstop_app.database.MYSQLiteHelper;
-import fr.utbm.experience.tipstop_app.model.Manifestation;
-import fr.utbm.experience.tipstop_app.model.Runner;
 import fr.utbm.experience.tipstop_app.model.Team;
 
 public class TeamDao {
     // Champs de la base de données
     private SQLiteDatabase database;
     private MYSQLiteHelper dbHelper;
-    private String[] allColumns = {"t_Id", "t_teamManifestation","t_nbreParticipant", "t_echelonEquipe"};
+    //private String[] allColumnsR = {"r_matricule","r_team", "r_name", "r_echelon"};
+    private String[] allColumns = {"t_Id", "t_manifestationTeam","t_nbreParticipant", "t_echelonEquipe"};
 
     public TeamDao(Context context) {
 
@@ -40,13 +39,14 @@ public class TeamDao {
     public void insertTeam(Team team){
 
 
-        String strSql = "insert into T_Team(t_teamManifestation,t_nbreParticipant,t_echelonEquipe) values('" +
+        String strSql = "insert into T_Team(t_manifestationTeam,t_nbreParticipant,t_echelonEquipe) values('" +
                 team.getManifestation() +"'," + team.getNbreParticipant() +",'" + team.getEchelon() +"')";
 
         database.execSQL(strSql);
         Log.i( "DATABASE", "New Team created");
 
     }
+
 
     public List<Team> getAllTeam(){
 
@@ -64,12 +64,39 @@ public class TeamDao {
             allTeam.add(team);
             cursor.moveToNext();
         }
-        Log.i( "DATABASE", "New manifestation created");
+        Log.i( "DATABASE - getAllTeam", "teams are getting all");
         return allTeam;
+    }
+
+    public List<Team> getTeamAvailable(List<Integer> idTeams){
+        final Set<Integer> setToReturn = new HashSet();
+        final Set<Integer> set1 = new HashSet();
+        List<Team> result = new  ArrayList<Team>();
+
+        setToReturn.addAll(idTeams);
+        Log.i( "DATABASE - setTo", setToReturn.toString());
+
+
+        for(Integer intern :setToReturn) {
+            Cursor cursor = database.query("T_Team",
+                    allColumns, "t_Id ="+intern, null, null, null, null);
+
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Team team = cursorToTeam(cursor);
+                result.add(team);
+                cursor.moveToNext();
+            }
+        }
+
+        // remove duplicate itemns
+
+        //return setToReturn;
+
+        return  result;
     }
     private Team cursorToTeam(Cursor cursor) {
 
-        Date simpledate = null;
 
         Team team = new Team(cursor.getInt(0), cursor.getInt(1),cursor.getInt(2),cursor.getInt(3));
         return team;

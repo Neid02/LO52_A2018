@@ -12,9 +12,9 @@ public class TimeRunner {
     private int t2_Fract;
     private float Moy;
     private int Passage;
-    private int r_RunnerMat;
+    private String r_RunnerMat;
 
-    public TimeRunner(int id,int r_RunnerMat, int t1_Sprint, int t1_Fract, int t1_PitStop, int t2_Sprint, int t2_Fract, float moy, int passage) {
+    public TimeRunner(int id,String r_RunnerMat, int t1_Sprint, int t1_Fract, int t1_PitStop, int t2_Sprint, int t2_Fract, float moy, int passage) {
         Id = id;
         this.r_RunnerMat = r_RunnerMat;
         this.t1_Sprint = t1_Sprint;
@@ -26,7 +26,7 @@ public class TimeRunner {
         Passage = passage;
     }
 
-    public TimeRunner(int r_RunnerMat, int t1_Sprint, int t1_Fract, int t1_PitStop, int t2_Sprint, int t2_Fract, float moy, int passage) {
+    public TimeRunner(String r_RunnerMat, int t1_Sprint, int t1_Fract, int t1_PitStop, int t2_Sprint, int t2_Fract, float moy, int passage) {
         this.r_RunnerMat = r_RunnerMat;
         this.t1_Sprint = t1_Sprint;
         this.t1_Fract = t1_Fract;
@@ -101,11 +101,11 @@ public class TimeRunner {
         Passage = passage;
     }
 
-    public int getR_RunnerMat() {
+    public String getR_RunnerMat() {
         return r_RunnerMat;
     }
 
-    public void setR_RunnerMat(int r_RunnerMat) {
+    public void setR_RunnerMat(String r_RunnerMat) {
         this.r_RunnerMat = r_RunnerMat;
     }
 
@@ -113,6 +113,7 @@ public class TimeRunner {
     public String toString() {
         return "TimeRunner{" +
                 "Id=" + Id +
+                ", matricule"+r_RunnerMat+
                 ", t1_Sprint=" + t1_Sprint +
                 ", t1_Fract=" + t1_Fract +
                 ", t1_PitStop=" + t1_PitStop +

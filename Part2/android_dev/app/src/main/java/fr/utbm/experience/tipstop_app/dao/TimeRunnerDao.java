@@ -46,28 +46,31 @@ public class TimeRunnerDao {
 
     }
 
-    public TimeRunner getTimeRunner(int id){
+    public TimeRunner getTimeRunner(String r_matricule){
 
-        String strSql = "select * from T_Team where id ="+ id;
+        //String strSql = "select * from T_Team where id ="+ id;
 
         Cursor cursor = database.query("T_TimeRunner",
-                allColumns, null, null, null, null, null);
+                allColumns, "r_RunnerMat like '"+r_matricule+"'", null, null, null, null);
 
-
+        TimeRunner timeRunner;
         cursor.moveToFirst();
+        if(cursor.getCount()==0) {
+             timeRunner = new TimeRunner(r_matricule,0,0,0,0,0,0,0);
+        }else {
+             timeRunner = new TimeRunner(cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getInt(2),
+                    cursor.getInt(3),
+                    cursor.getInt(4),
+                    cursor.getInt(5),
+                    cursor.getInt(6),
+                    cursor.getInt(7),
+                    cursor.getInt(8)
+            );
+        }
 
-        TimeRunner timeRunner = new TimeRunner(cursor.getInt(0),
-                cursor.getInt(1),
-                cursor.getInt(2),
-                cursor.getInt(3),
-                cursor.getInt(4),
-                cursor.getInt(5),
-                cursor.getInt(6),
-                cursor.getInt(7),
-                cursor.getInt(8)
-                );
-
-        Log.i( "DATABASE", "New Time runner saved");
+       // Log.i( "DATABASE", "New Time runner saved");
         return timeRunner;
     }
 
@@ -107,4 +110,6 @@ public class TimeRunnerDao {
         database.delete("T_TimeRunner", "id"
                 + " = " + id, null);
     }
+
+
 }

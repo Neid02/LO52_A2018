@@ -34,11 +34,11 @@ public class addManifestation extends AppCompatActivity {
     }
 
 
-    public void onClick(View view) {
+    public void onTClick(View view) {
 
-        Date myDate = new Date(12102018);
-        Manifestation manifestation = new Manifestation("TipStop",myDate,"Belfort");
-        manifestationDao.insertManifestation(manifestation);
+        Date myDate = new Date(2018 - 1900, 10, 10);
+       // Manifestation manifestation = new Manifestation("TipStop",myDate,"Belfort");
+       // manifestationDao.insertManifestation(manifestation);
 
     }
 
