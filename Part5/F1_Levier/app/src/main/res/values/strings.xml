@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">F1_Levier</string>
+    <string name="menu">Menu</string>
+    <string name="participants">Participants</string>
+    <string name="equipes">Equipes</string>
+    <string name="resultats">Résultats</string>
 </resources>
