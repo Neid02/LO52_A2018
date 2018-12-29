@@ -95,4 +95,16 @@ public class Etape {
         this.fraction2 = fraction2;
     }
 
+    @Override
+    public String toString() {
+        return "Etape{" +
+                "id=" + id +
+                ", id_participant=" + id_participant +
+                ", sprint1=" + sprint1 +
+                ", fraction1=" + fraction1 +
+                ", pitStop=" + pitStop +
+                ", sprint2=" + sprint2 +
+                ", fraction2=" + fraction2 +
+                '}';
+    }
 }

@@ -10,6 +10,7 @@ import com.utbm.lo52.f1levier.entity.GroupeParticipant;
 import com.utbm.lo52.f1levier.entity.Participant;
 import com.utbm.lo52.f1levier.model.GroupeIhm;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class GroupListViewModel extends AndroidViewModel {
                 groupeIhm.setId(g.getId());
                 groupeIhm.setNomGroupe(g.getNomGroupe());
                 groupeIhm.setParticipants(getGroupParticipants(g.getId()));
-
+                System.out.println("test " + groupeIhm.getParticipants().size());
                 groupesIhm.add(groupeIhm);
             }
         }
@@ -46,6 +47,30 @@ public class GroupListViewModel extends AndroidViewModel {
 
     public List<Participant> getGroupParticipants(int participantId) {
         return appRepository.getGroupeDAO().getParticipants(participantId);
+    }
+
+    public List<String> getAllGroupNames() {
+        List<String> nomsGroupes = new ArrayList<>();
+
+        for (Groupe g : getAllGroups()) {
+            nomsGroupes.add(g.getNomGroupe());
+        }
+
+        return nomsGroupes;
+    }
+
+    public GroupeIhm getGroupIhmByName(String nom) {
+        GroupeIhm groupeIhm = new GroupeIhm();
+        Groupe groupe = appRepository.getGroupeDAO().findByName(nom);
+
+        if (groupe != null) {
+            groupeIhm.setId(groupe.getId());
+            groupeIhm.setNomGroupe(groupe.getNomGroupe());
+            groupeIhm.setParticipants(getGroupParticipants(groupe.getId()));
+            //System.out.println(groupeIhm.getParticipants().size());
+        }
+
+        return groupeIhm;
     }
 
     public void insert(GroupeIhm groupeIhm) {

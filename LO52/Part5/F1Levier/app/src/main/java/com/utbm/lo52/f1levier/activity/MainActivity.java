@@ -3,6 +3,7 @@ package com.utbm.lo52.f1levier.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.utbm.lo52.f1levier.R;
-import com.utbm.lo52.f1levier.entity.Groupe;
 import com.utbm.lo52.f1levier.entity.Participant;
 import com.utbm.lo52.f1levier.fragment.GroupesFragment;
 import com.utbm.lo52.f1levier.fragment.HomeFragment;

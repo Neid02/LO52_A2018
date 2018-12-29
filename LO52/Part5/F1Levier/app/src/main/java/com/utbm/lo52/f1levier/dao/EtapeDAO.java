@@ -25,4 +25,5 @@ public interface EtapeDAO {
     @Query("SELECT * FROM ETAPE WHERE ID_PARTICIPANT = :participantId")
     List<Etape> getEtapes(int participantId);
 
+
 }

@@ -35,4 +35,12 @@ public class Groupe {
     public void setNomGroupe(String nomGroupe) {
         this.nomGroupe = nomGroupe;
     }
+
+    @Override
+    public String toString() {
+        return "Groupe{" +
+                "id=" + id +
+                ", nomGroupe='" + nomGroupe + '\'' +
+                '}';
+    }
 }

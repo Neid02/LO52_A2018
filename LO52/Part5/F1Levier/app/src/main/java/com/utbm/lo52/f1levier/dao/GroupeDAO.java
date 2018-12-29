@@ -29,7 +29,6 @@ public interface GroupeDAO {
     @Delete
     void delete(Groupe groupe);
 
-
     @Query("SELECT PARTICIPANT.* FROM PARTICIPANT " +
             "INNER JOIN GROUPE_PARTICIPANT " +
             "ON PARTICIPANT.ID = GROUPE_PARTICIPANT.ID_PARTICIPANT " +

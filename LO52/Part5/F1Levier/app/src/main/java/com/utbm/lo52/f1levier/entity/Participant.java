@@ -58,4 +58,14 @@ public class Participant {
     public void setPoids(int poids) {
         this.poids = poids;
     }
+
+    @Override
+    public String toString() {
+        return "Participant{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", poids=" + poids +
+                '}';
+    }
 }

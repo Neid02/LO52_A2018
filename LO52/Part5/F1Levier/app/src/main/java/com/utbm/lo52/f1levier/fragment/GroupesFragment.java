@@ -10,11 +10,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.utbm.lo52.f1levier.R;
 import com.utbm.lo52.f1levier.adapter.MyGroupeRecyclerViewAdapter;
-import com.utbm.lo52.f1levier.entity.Groupe;
 import com.utbm.lo52.f1levier.entity.Participant;
 import com.utbm.lo52.f1levier.model.GroupeIhm;
 import com.utbm.lo52.f1levier.viewmodel.GroupListViewModel;
@@ -23,7 +23,7 @@ import com.utbm.lo52.f1levier.viewmodel.ParticipantListViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupesFragment extends Fragment {
+public class GroupesFragment extends Fragment implements OnClickListener {
 
     private OnListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
@@ -46,9 +46,10 @@ public class GroupesFragment extends Fragment {
 
         groupListViewModel = ViewModelProviders.of(this).get(GroupListViewModel.class);
         participantListViewModel = ViewModelProviders.of(this).get(ParticipantListViewModel.class);
+
         groupListViewModel.deleteAll();
-        for (int i=0; i<10; i++) {
-            groupListViewModel.insert(newGroupeIhm());
+        for (int i=0; i<15; i++) {
+            groupListViewModel.insert(newGroupeIhm(i));
         }
 
         groupesIhm = groupListViewModel.getAllGroupsIhm();
@@ -63,24 +64,19 @@ public class GroupesFragment extends Fragment {
         recyclerView.setAdapter(new MyGroupeRecyclerViewAdapter(groupesIhm, mListener));
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(this);
 
         return view;
     }
 
-    private GroupeIhm newGroupeIhm() {
+    private GroupeIhm newGroupeIhm(int i) {
         GroupeIhm groupeIhm = new GroupeIhm();
 
         List<Participant> participants = new ArrayList<>();
         participants.add(participantListViewModel.getParticipantByName("Florian", "RIFFLART"));
         participants.add(participantListViewModel.getParticipantByName("Nadège", "PANASSIM"));
 
-        groupeIhm.setNomGroupe("Groupe N+F");
+        groupeIhm.setNomGroupe("Groupe N+F " + i);
         groupeIhm.setParticipants(participants);
 
         return groupeIhm;
@@ -101,6 +97,13 @@ public class GroupesFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.fab) {
+            Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        }
     }
 
     /**

@@ -41,4 +41,11 @@ public class GroupeParticipant {
         this.id_groupe = id_groupe;
     }
 
+    @Override
+    public String toString() {
+        return "GroupeParticipant{" +
+                "id_participant=" + id_participant +
+                ", id_groupe=" + id_groupe +
+                '}';
+    }
 }

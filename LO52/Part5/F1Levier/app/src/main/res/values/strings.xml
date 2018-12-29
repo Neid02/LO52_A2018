@@ -19,4 +19,7 @@
     <string name="prenoms">Prénoms</string>
     <string name="poids">Poids</string>
     <string name="nom_du_groupes">Nom du groupe</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="reset">Reset</string>
 </resources>

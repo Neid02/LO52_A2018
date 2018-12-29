@@ -3,11 +3,11 @@ package com.utbm.lo52.f1levier.adapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.utbm.lo52.f1levier.R;
-import com.utbm.lo52.f1levier.entity.Groupe;
 import com.utbm.lo52.f1levier.fragment.GroupesFragment.OnListFragmentInteractionListener;
 import com.utbm.lo52.f1levier.model.GroupeIhm;
 
@@ -35,7 +35,7 @@ public class MyGroupeRecyclerViewAdapter extends RecyclerView.Adapter<MyGroupeRe
         holder.mIdView.setText(Integer.toString(holder.groupeIhm.getId()));
         holder.mNomGroupeView.setText(holder.groupeIhm.getNomGroupe());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.mView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -69,5 +69,7 @@ public class MyGroupeRecyclerViewAdapter extends RecyclerView.Adapter<MyGroupeRe
         public String toString() {
             return super.toString() + " '" + mNomGroupeView.getText() + "'";
         }
+
     }
+
 }
